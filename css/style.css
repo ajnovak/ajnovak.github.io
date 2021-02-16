@@ -4,7 +4,7 @@
 .navbar {
     background-color: #a8b2af;
     border-radius: 0;
-    font-family: 'Garamond';
+    font-family: 'Garamond, Georgia';
 }
 
 /* Navbar title */
@@ -33,7 +33,7 @@
 }
 
 .navbar-nav {
-    font-family: 'Garamond';
+    font-family: 'Garamond, Georgia';
 
 }
 /*** JUMBOTRON ***/
@@ -69,7 +69,7 @@
     border-color: #cccccc;
     border-width                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            : 1px;
     width: 100%;
-    margin: 10%;
+    margin-top: 4%;
 }
 
 .photo{}
@@ -90,12 +90,19 @@
 
 .introduction h2 {
 	text-align: left;
-	margin-top: 10%;
-	margin-left: 20%;
+    margin-top: 3%;
+    margin-bottom: 2%;
 }
 
+.introduction h5 {
+    text-align: left;
+}
+
+.introduction h1 {
+    text-align: left;
+    margin-top: 5%;
+}
 .introduction p {
-	margin-top: 5%;
 }
 
 .blockquote-footer {
@@ -243,7 +250,7 @@ h5 {
 }
 
 h6 {
-    font-family: 'Tahoma';
+    font-family: Garamond, Georgia;
     color: #818181;
     font-size: : 16px;
     font-weight: 500;
@@ -274,7 +281,7 @@ footer {
 
 body {
 
-    font-family: 'Garamond';
+    font-family: Garamond, Georgia;
     background-color: #f7f1fa;
     color: #242424;
 }
