@@ -4,7 +4,7 @@
 .navbar {
     background-color: #a8b2af;
     border-radius: 0;
-    font-family: 'Garamond, Georgia';
+    font-family: Garamond, Georgia;
 }
 
 /* Navbar title */
@@ -12,7 +12,7 @@
     color: white;
     font-size: 17px;
     font-weight: bold;
-    font-family: 'Georgia';
+    font-family: Georgia;
     padding: 8px;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .navbar-nav {
-    font-family: 'Garamond, Georgia';
+    font-family: Garamond, Georgia;
 
 }
 /*** JUMBOTRON ***/
@@ -47,7 +47,7 @@
     font-style: italic;
     padding: 17%;
     border-radius: 0px;
-    font-family: 'Georgia';
+    font-family: Georgia;
 }
 
 .jumbotron h2 {
@@ -122,6 +122,9 @@
     background-color: #ffff;
 }
 
+.indexbackground {
+    background-color: #a8b2af;
+}
 .galapagosbody {
     background-color: #f8f5ec;
 }
@@ -231,7 +234,7 @@
 }
 
 li {
-    font-family: 'Tahoma';
+    font-family: Tahoma;
 
 }
 
