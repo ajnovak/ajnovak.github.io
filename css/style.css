@@ -1,0 +1,280 @@
+/***** NAVBAR *****/
+
+
+.navbar {
+    background-color: #a8b2af;
+    border-radius: 0;
+    font-family: 'Garamond';
+}
+
+/* Navbar title */
+.navbar-brand {
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: 'Georgia';
+    padding: 8px;
+}
+
+.nav-item {
+    color: white;
+}
+/* Navbar collapsed styles */
+.navbar-toggler {
+    color: #fff;
+    fill: #fff;
+    font-size: 16px;
+}
+
+.navbar-toggler:hover,
+.navbar-toggler:focus {
+    color: #f5e2ab;
+    fill: #f5e2ab;
+}
+
+.navbar-nav {
+    font-family: 'Garamond';
+
+}
+/*** JUMBOTRON ***/
+
+.jumbotron {
+    background-image: url("../assets/grasscrop3.jpg");
+    background-size: cover;
+    text-align: center;
+    color: white;
+    font-kerning: normal;
+    font-style: italic;
+    padding: 17%;
+    border-radius: 0px;
+    font-family: 'Georgia';
+}
+
+.jumbotron h2 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+/*** CARD ***/
+
+.card {
+    background-color: #fff;
+    border-color: #cccccc;
+    border-width                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            : 1px;
+    width: 100%;
+    margin-top: 10%;
+}
+.card2 {
+    background-color: #fff;
+    border-color: #cccccc;
+    border-width                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            : 1px;
+    width: 100%;
+    margin: 10%;
+}
+
+.photo{}
+
+.card:hover {
+    border-color: #f5e2ab;
+}
+
+/*** Basic Text Styles ***/
+
+#about-world {
+    max-height: 200px;
+}
+
+.resume h3 {
+    font-weight: bold;
+}
+
+.introduction h2 {
+	text-align: left;
+	margin-top: 10%;
+	margin-left: 20%;
+}
+
+.introduction p {
+	margin-top: 5%;
+}
+
+.blockquote-footer {
+	color: #cdcdcd;
+}
+.img-fluid {
+
+    margin-top:5%;
+}
+.img-fluid {
+
+ margin-top:5%;
+
+}
+
+.icelandbackground {
+    background-color: #ffff;
+}
+
+.galapagosbody {
+    background-color: #f8f5ec;
+}
+
+.galapagostext {
+    margin-top: 11%;
+    font-size: 16px;
+    color: #grey;
+    margin-right: 20%;
+    margin-left: 13%;
+}
+.icelandtext {
+    margin-top: 3%;
+    font-size: 16px;
+    color: #grey;
+    margin-right: 15%;
+    margin-left: 5%;
+}
+.icelandtext2 {
+    margin-top: 1%;
+    font-size: 16px;
+    color: #grey;
+    margin-right: 15%;
+    margin-left: 5%;
+}
+
+.awards {
+    color: #6c6c6c;
+    margin-top: 25%;
+    margin-right: 15%;
+    margin-bottom: 2%;
+    margin-left: 5%;
+    font-size: 16px;
+}
+
+.links {
+    margin-right: 15%;
+    margin-left: 10%;
+    list-style-type: square;
+    color: black;
+    font-size: 14px;
+}
+
+.wlia {
+    font-size: 12px;
+    margin-right: 15%;
+    margin-left: 12%;
+    list-style-type: circle;
+    color: #818181;
+    font-style: italic;
+}
+
+.resume {
+    margin-top: 3%;
+}
+
+.gallery-title
+{
+    font-size: 36px;
+    color: #42B32F;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 70px;
+}
+.gallery-title:after {
+    content: "";
+    position: absolute;
+    width: 7.5%;
+    left: 46.5%;
+    height: 45px;
+    border-bottom: 1px solid #5e5e5e;
+}
+.filter-button
+{
+    font-size: 18px;
+    border: 1px solid #42B32F;
+    border-radius: 5px;
+    text-align: center;
+    color: #42B32F;
+    margin-bottom: 30px;
+
+}
+.filter-button:hover
+{
+    font-size: 18px;
+    border: 1px solid #42B32F;
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #42B32F;
+
+}
+.btn-default:active .filter-button:active
+{
+    background-color: #42B32F;
+    color: white;
+}
+
+.port-image
+{
+    width: 100%;
+}
+
+.gallery_product
+{
+    margin-bottom: 30px;
+}
+
+li {
+    font-family: 'Tahoma';
+
+}
+
+ul {
+color: gray;
+}
+
+}
+h5 {
+
+    color: white;
+    text-align: center;
+    margin-top: 50%;
+    background-color: black;
+    background-size: 90%;
+}
+
+h6 {
+    font-family: 'Tahoma';
+    color: #818181;
+    font-size: : 16px;
+    font-weight: 500;
+    font-style: italic;
+    margin-left: 13%;
+}
+hr {
+    border-color: white;
+    border-width: 2px;
+}
+
+p {
+    font-size: 20px;
+}
+
+a {
+    color: gray;
+}
+
+a:hover {
+    color: #f5e2ab;
+}
+
+footer {
+    padding: 15px;
+    text-align: center;
+}
+
+body {
+
+    font-family: 'Garamond';
+    background-color: #f7f1fa;
+    color: #242424;
+}

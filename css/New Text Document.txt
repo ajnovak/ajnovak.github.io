@@ -1,0 +1,28 @@
+h1 
+{color: #ff0000;
+	font-size: 30px;
+}
+
+div {
+	background-color: #000;
+}
+
+p {
+	color: #999;
+}
+
+#div-main {
+	background-color: #666;
+}
+
+#div-main p {
+	color: #fff;
+}
+
+.div-special {
+	background-color: #333;
+}
+
+.div-special p {
+	color: #ccc;
+}
