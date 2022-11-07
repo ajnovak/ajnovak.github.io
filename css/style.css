@@ -242,7 +242,6 @@ ul {
 color: gray;
 }
 
-}
 h5 {
 
     color: white;
@@ -274,7 +273,8 @@ a {
 }
 
 a:hover {
-    color: #f5e2ab;
+    color: #f8ec4d;
+    stroke-width: 2pt;
 }
 
 footer {
