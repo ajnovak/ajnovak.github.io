@@ -264,6 +264,12 @@ hr {
     border-width: 2px;
 }
 
+hr2 {
+    border-color: white;
+    border-width: 2px;
+    margin-top: 200px;
+}
+
 p {
     font-size: 20px;
 }
