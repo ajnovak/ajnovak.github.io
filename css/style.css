@@ -75,6 +75,7 @@
     bottom: 72px;
 }
 
+
 .card {
     background-color: #fff;
     border-color: #cccccc;
@@ -91,8 +92,7 @@
 }
 
 .card:hover {
-    outline: solid #f5e2ab;
-    outline-width: 2px;
+
 }
 
 /*** Basic Text Styles ***/
@@ -298,7 +298,6 @@ body {
 
 #cover {
     margin-top: 1% !important;
-
 }
 
 #midcard {
