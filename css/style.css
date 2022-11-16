@@ -36,6 +36,20 @@
     font-family: Garamond, Georgia;
 
 }
+
+
+
+#contactbackground {
+    background-image: url("../assets/bkds/moon.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #a8b2af;
+}
+
+#contact1 {
+    margin-top: 10%;
+}
+
 /*** JUMBOTRON ***/
 
 .jumbotron {
