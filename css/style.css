@@ -72,8 +72,6 @@
     margin-top: 4%;
 }
 
-.photo{}
-
 .card:hover {
     border-color: #f5e2ab;
 }
@@ -94,15 +92,9 @@
     margin-bottom: 2%;
 }
 
-.introduction h5 {
-    text-align: left;
-}
-
 .introduction h1 {
     text-align: left;
     margin-top: 5%;
-}
-.introduction p {
 }
 
 .blockquote-footer {
@@ -132,21 +124,22 @@
 .galapagostext {
     margin-top: 11%;
     font-size: 16px;
-    color: #grey;
+    color: grey;
     margin-right: 20%;
     margin-left: 13%;
 }
+
 .icelandtext {
     margin-top: 3%;
     font-size: 16px;
-    color: #grey;
+    color: grey;
     margin-right: 15%;
     margin-left: 5%;
 }
 .icelandtext2 {
     margin-top: 1%;
     font-size: 16px;
-    color: #grey;
+    color: grey;
     margin-right: 15%;
     margin-left: 5%;
 }
@@ -242,23 +235,17 @@ ul {
 color: gray;
 }
 
-h5 {
 
-    color: white;
-    text-align: center;
-    margin-top: 50%;
-    background-color: black;
-    background-size: 90%;
-}
 
 h6 {
     font-family: Garamond, Georgia;
     color: #818181;
-    font-size: : 16px;
+    font-size: 16px;
     font-weight: 500;
     font-style: italic;
     margin-left: 13%;
 }
+
 hr {
     border-color: white;
     border-width: 2px;
