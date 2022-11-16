@@ -71,6 +71,10 @@
 
 /*** CARD ***/
 
+#colshift {
+    bottom: 72px;
+}
+
 .card {
     background-color: #fff;
     border-color: #cccccc;
@@ -87,7 +91,8 @@
 }
 
 .card:hover {
-    border-color: #f5e2ab;
+    outline: solid #f5e2ab;
+    outline-width: 2px;
 }
 
 /*** Basic Text Styles ***/
