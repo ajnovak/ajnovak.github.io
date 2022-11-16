@@ -289,3 +289,14 @@ body {
     background-color: #f7f1fa;
     color: #242424;
 }
+
+#cover {
+    margin-top: 1% !important;
+
+}
+
+#midcard {
+    align-items: center !important;
+    align-self: center !important;
+    align-content: center !important;;
+}
