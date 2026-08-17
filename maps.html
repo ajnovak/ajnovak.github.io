@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="lib/Hover-master/css/hover.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    
+
 </head>
 
 <body>
@@ -19,13 +19,7 @@
 	<nav class="navbar navbar-expand-lg sticky-top d-flex justify-content-between ">
 
     <div class="navbar-nav  col-4 align-items-start ">
-        <a class="nav-item nav-link" href="index.html">Home</a>
-        </div>
-    </div>
-
-    <div class="col-4 d-flex justify-content-center">
-        <a class="navbar-brand" href="maps.html">Maps</a>
-        <a class="navbar-brand" href="photos.html">Photographs</a>
+        <a class="navbar-brand" href="index.html">Austin Novak</a>
     </div>
 
     <button type="button" class="navbar-toggler ml-auto  align-items-end" data-toggle="collapse" data-target="#navbarNavDropdown" aria-expanded="false" aria-controls="navbarNavDropdown">
@@ -33,159 +27,246 @@
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" /></svg>
                     <span class="menu"></span>
-                </button> 
+                </button>
 
-    <div class="collapse navbar-collapse  col-4 " id="navbarNavDropdown">
+    <div class="collapse navbar-collapse  col-8 justify-content-end" id="navbarNavDropdown">
         <div class="navbar-nav ml-auto ">
+            <a class="nav-item nav-link" href="maps.html">Portfolio</a>
             <a class="nav-item nav-link" href="contact.html">Contact</a>
             <a class="nav-item nav-link" href="resume.html">Resume</a>
             <a class="nav-item nav-link" href="https://www.etsy.com/shop/MapsAndSnaps?ref=seller-platform-mcnav">Shop</a>
         </div>
     </div>
 
-</nav>  
-	
-           
+</nav>
+
+
         </div>
     </div>
 
 
-    <div class="container-fluid">
+    <div id="maps-page" class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
-                <div id = "cover" class="card hvr-shrink">
+            <div class="col-md-4">
+                <div class="card showcase-card">
+                    <img class="card-img-top" src="assets/doorco.png">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card showcase-card hvr-shrink">
                     <a href="iceland.html">
-                        <img style="z-index: -2;" class="card-img-top" src="assets/icelandthumbaward-01.png" ></a>
+                        <img style="z-index: -2;" class="card-img-top" src="assets/iceland.png" ></a>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div id = "cover" class="card hvr-shrink">
-                    <a href="galapagos.html">
-                        <img class="card-img-top" src="assets/galapagosthumbaward-01.png"></a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card showcase-card">
+                    <img class="card-img-top" src="assets/chesterwayfinding.jpg">
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card showcase-card">
+                    <img class="card-img-top" src="assets/blackfeet-tourism-corridor.jpg">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-12">
-                <div class="card" style = "margin-top: 3%;">
-                    
-                        <img class="card-img-top" src="assets/fourlakesaward-01.png"></a>
+                <div class="card showcase-card">
+
+                        <img class="card-img-top" src="assets/co-river-trail.jpg"></a>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-4">
-                <div class="card">
-                    
-                        <img class="card-img-top" src="assets/champassak.png"></a>
-
-                </div>
+        <!-- Masonry-style gallery: cards flow into balanced columns instead of
+             fixed-height grid rows, so mixed portrait/landscape/panorama maps
+             pack together without leaving empty space. -->
+        <div class="map-gallery">
+            <div class="card">
+                <img class="card-img-top" src="assets/fourlakesaward-01.png">
             </div>
 
-
-            <div class="col-md-4">
-                <div class="card hvr-shrink">
-                    <a href="https://jake-steinberg.github.io/2022_DarkSkies_js/">
-                        <img class="card-img-top" src="assets/darkskiesaward-01.png"></a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-            
-                        <img class="card-img-top" src="assets/CPTstrongholds.png"></a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    
-                        <img class="card-img-top" src="assets/africa.png"></a>
-                </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/champassak.png">
             </div>
 
-            <div id = "colshift" class="col-md-4">
-                <div id = "colshift" style="margin-bottom: -70%;" class="card">
-                    
-                        <img class="card-img-top" src="assets/strawberry.png"></a>
-                </div>
+            <div class="card hvr-shrink">
+                <a href="https://jake-steinberg.github.io/2022_DarkSkies_js/">
+                    <img class="card-img-top" src="assets/darkskiesaward-01.png"></a>
             </div>
 
-            <div class="col-md-4">
-                <div class="card">
-
-                        
-                        <img class="card-img-top" src="assets/doorco.png"></a>
-                </div>
-            </div>
-            
-
-            <div class="col-md-4">
-                
-                <div class="card">
-                   
-                        <img class="card-img-top" src="assets/1941-1942.png"></a>
-                </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/CPTstrongholds.png">
             </div>
 
-            <div class="col-md-4">
-                <div class="card hvr-shrink">
-                    <a href="https://storymaps.arcgis.com/stories/1efe1599505048fbb83ca35407133905">
-                        <img class="card-img-top" src="assets/storymapthumb.png"></a>
-                </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/africa.png">
             </div>
 
-
-
-            
-            <div class="col-md-4">
-                <div class="card">
-                
-                    <img class="card-img-top" src="assets/glacial-01.png"></a>
-                </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/chestertown.jpg">
             </div>
 
-            <div class="col-md-4">
-                <div class="card hvr-shrink">
-                    <a href="https://api.mapbox.com/styles/v1/ajnovak/ckgq8j2bh1n4419rzw2tpo3vc.html?fresh=true&title=view&access_token=pk.eyJ1IjoiYWpub3ZhayIsImEiOiJja2dnMWJoYXkwd3hlMnlsN241MHU3aTdyIn0.YlwTqHjnT8sUrhr8vtkWjg#8.91/32.8356/-116.6164">
-                        <img class="card-img-top" src="assets/cyber.png"></a>
-                </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/strawberry.png">
             </div>
 
-            <div class="col-md-4">
-                <div class="card hvr-shrink">
-                    <a href="lab1index.html">
-                        <img class="card-img-top" src="assets/launches.png"></a>
-                </div>
+            <div class="card hvr-shrink">
+                <a href="https://storymaps.arcgis.com/stories/1efe1599505048fbb83ca35407133905">
+                    <img class="card-img-top" src="assets/storymapthumb.png"></a>
             </div>
 
-            <div class="col-md-4">
-                <div class="card hvr-shrink">
-                    <a href="indexD3.html">
-                        <img class="card-img-top" src="assets/d3img.png"></a>
-                </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/huerfano-reference-poi.jpg">
             </div>
 
-
-
-            <div class="col-md-4">
-                <div class="card">
-                   
-                        <img class="card-img-top" src="assets/1942-1944.png"></a>
-                </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/1941-1942.png">
             </div>
 
-            <div class="col-md-4">
-                <div class="card">
-                    
-                        <img class="card-img-top" src="assets/wildfires.png"></a>
-                </div>
+            <div class="card hvr-shrink">
+                <a href="galapagos.html">
+                    <img class="card-img-top" src="assets/galapagos.png"></a>
             </div>
 
-            <div class="col-md-4">
-                <div class="card">
-                        <img class="card-img-top" src="assets/nuclear.png"></a>
-                </div>
+            <div class="card">
+                <img class="card-img-top" src="assets/huerfano-reference-topo.jpg">
             </div>
 
+            <div class="card">
+                <img class="card-img-top" src="assets/glacial-01.png">
+            </div>
 
+            <!-- <div class="card hvr-shrink">
+                <a href="https://api.mapbox.com/styles/v1/ajnovak/ckgq8j2bh1n4419rzw2tpo3vc.html?fresh=true&title=view&access_token=pk.eyJ1IjoiYWpub3ZhayIsImEiOiJja2dnMWJoYXkwd3hlMnlsN241MHU3aTdyIn0.YlwTqHjnT8sUrhr8vtkWjg#8.91/32.8356/-116.6164">
+                    <img class="card-img-top" src="assets/cyber.png"></a>
+            </div> -->
 
-            
+            <div class="card">
+                <img class="card-img-top" src="assets/huerfano-trails-recreation.jpg">
+            </div>
+
+            <div class="card hvr-shrink">
+                <a href="lab1index.html">
+                    <img class="card-img-top" src="assets/launches.png"></a>
+            </div>
+
+            <div class="card hvr-shrink">
+                <a href="indexD3.html">
+                    <img class="card-img-top" src="assets/d3img.png"></a>
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/huerfano-future-land-use.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/1942-1944.png">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/wildfires.png">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/red-river-copper-chair.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/nuclear.png">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/huerfano-economic-centers.png">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/walsenburg-age-distribution.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/huerfano-demographics.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/minnesota-orv-suitability.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/velomont-trail.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/Huerfano%20County%20Hazards.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/Huerfano%20Transportation.png">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/ServiceAreaMap_250928.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/VeloDOCmap1.png">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/buenavista-zoning.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/steamboatsprings-utilities.jpg">
+            </div>
+
+            <div class="card hvr-shrink">
+                <a href="https://segroup.maps.arcgis.com/apps/instant/interactivelegend/index.html?appid=06eca90c17d44fe2a1c80ae200cacb4e">
+                    <img class="card-img-top" src="assets/HuerfanoSuitability-WEB.jpeg"></a>
+            </div>
+
+            <div class="card hvr-shrink">
+                <a href="https://experience.arcgis.com/experience/d161b9f132ba4caca1f997f5df09650f">
+                    <img class="card-img-top" src="assets/LouisClarkFLUM-WEB.png"></a>
+            </div>
+
+            <div class="card hvr-shrink">
+                <a href="https://segroup.com/">
+                    <img class="card-img-top" src="assets/SEGroupWebGlobe-WEB.png"></a>
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/huerfano-incorporated-landuse.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/mm.jpg">
+            </div>
+
+            <div class="card hvr-shrink">
+                <a href="https://oridinventory.github.io/map/">
+                    <img class="card-img-top" src="assets/NHOE-WEB.png"></a>
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/SH-loop.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/SH-routeassessment.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/SH_reference.jpg">
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="assets/browning.jpg">
+            </div>
         </div>
     </div>
 

@@ -5,12 +5,16 @@
     background-color: #a8b2af;
     border-radius: 0;
     font-family: Garamond, Georgia;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 12%;
+    padding-right: 12%;
 }
 
 /* Navbar title */
 .navbar-brand {
     color: white;
-    font-size: 17px;
+    font-size: 26px;
     font-weight: bold;
     font-family: Georgia;
     padding: 8px;
@@ -18,6 +22,8 @@
 
 .nav-item {
     color: white;
+    font-size: 24px;
+    margin-left: 12px;
 }
 /* Navbar collapsed styles */
 .navbar-toggler {
@@ -53,8 +59,9 @@
 /*** JUMBOTRON ***/
 
 .jumbotron {
-    background-image: url("../assets/grasscrop3.jpg");
+    background-image: linear-gradient(to bottom, rgba(127, 141, 138, 0) 60%, #815d45 100%), url("../assets/grasscrop3.jpg");
     background-size: cover;
+    background-position: center center;
     text-align: center;
     color: white;
     font-kerning: normal;
@@ -69,6 +76,27 @@
     font-weight: bold;
 }
 
+.portfolio-btn {
+    margin-top: 2%;
+    padding: 10px 28px;
+    font-family: Georgia;
+    font-style: italic;
+    font-size: 16px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 2px;
+    transition: all 0.2s ease-in-out;
+}
+
+.portfolio-btn:hover,
+.portfolio-btn:focus {
+    color: #a8b2af;
+    background-color: #f5e2ab;
+    border-color: #f5e2ab;
+    text-decoration: none;
+}
+
 /*** CARD ***/
 
 #colshift {
@@ -78,21 +106,79 @@
 
 .card {
     background-color: #fff;
+    border-style: solid;
     border-color: #cccccc;
-    border-width                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            : 1px;
+    border-width: 1px;
     width: 100%;
     margin-top: 10%;
 }
 .card2 {
     background-color: #fff;
+    border-style: solid;
     border-color: #cccccc;
-    border-width                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            : 1px;
+    border-width: 1px;
     width: 100%;
     margin-top: 4%;
 }
 
 .card:hover {
 
+}
+
+/* Showcase rows (maps.html top section): margin-top as a percentage resolves
+   against each column's own width, so a col-md-4 and col-md-8 card in the
+   same row get different pixel margins from the same "10%" — which is what
+   was throwing off their top alignment. Zero it here and space the rows
+   themselves instead, so every card in a row shares one flush top edge. */
+.showcase-card {
+    margin-top: 0;
+}
+
+/* Scoped to maps.html only (not photos.html, which also uses .container-fluid
+   but relies on its own #cover spacing) — restores breathing room under the
+   sticky navbar now that the showcase cards no longer carry any top margin. */
+#maps-page {
+    margin-top: 2%;
+}
+
+.row + .row {
+    margin-top: 3%;
+}
+
+/* Tone down the Hover.css "shrink" effect used on map cards — the library
+   default (scale to 0.9) is a jarring 10% jump; this makes it barely-there. */
+.hvr-shrink:hover,
+.hvr-shrink:focus,
+.hvr-shrink:active {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+}
+
+/*** MAP GALLERY (masonry-style, handles mixed aspect ratios) ***/
+
+.map-gallery {
+    column-count: 3;
+    column-gap: 1.5rem;
+    margin-top: 3%;
+}
+
+.map-gallery .card {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 1.5rem;
+    break-inside: avoid;
+}
+
+@media (max-width: 992px) {
+    .map-gallery {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 576px) {
+    .map-gallery {
+        column-count: 1;
+    }
 }
 
 /*** Basic Text Styles ***/
@@ -103,6 +189,12 @@
 
 .resume h3 {
     font-weight: bold;
+}
+
+.resume h5 {
+    font-style: italic;
+    color: #6c6c6c;
+    margin-bottom: 0.5em;
 }
 
 .introduction h2 {
@@ -134,7 +226,7 @@
 }
 
 .indexbackground {
-    background-color: #a8b2af;
+    background-color: #815d45;
 }
 .galapagosbody {
     background-color: #f8f5ec;
