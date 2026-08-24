@@ -215,6 +215,34 @@
     opacity: 1;
 }
 
+/* Animated gif map cards: show a static cover image at rest (so the page
+   doesn't turn into a wall of auto-playing gifs while scrolling) and reveal
+   the animated gif, stacked on top, only on hover. Markup: wrap the two
+   <img> tags in a ".gif-hover" span, cover first, gif second. */
+.gif-hover {
+    position: relative;
+    display: block;
+}
+
+.gif-hover .gif-hover-cover {
+    display: block;
+    width: 100%;
+}
+
+.gif-hover .gif-hover-anim {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.gif-hover:hover .gif-hover-anim {
+    opacity: 1;
+}
+
 /*** Basic Text Styles ***/
 
 #about-world {
