@@ -562,7 +562,8 @@
         });
 
         setLink(el("pf-link"), project.link, linkLabel(project));
-        setLink(el("pf-map-link"), project.map, liveMapLabel(project) + " ↗");
+        // The live map opens from the tag on its picture, not a text link.
+        setLink(el("pf-map-link"), "", "");
 
         // "view: full" shows the full images here instead of the thumbnails
         // (for a thumbnail cropped to a detail). They get their own entries
@@ -614,13 +615,15 @@
         // together.
         justify(el("pf-map-grid"), current.pageImages,
             Math.max(220, Math.min(window.innerHeight * 0.42, 440)),
-            Math.max(260, window.innerHeight * 0.6), 4);
+            Math.max(260, window.innerHeight * 0.6), 4,
+            /^full$/i.test(current.lead || ""));
     }
 
     // Lays the map cards in `grid` into justified rows. images[card's
     // data-index] gives each card's shape; rows aim for `target` height and
-    // never exceed `tallest`.
-    function justify(grid, images, target, tallest, most) {
+    // never exceed `tallest`. With leadFull ("lead: full" in projects.txt)
+    // the first map takes a row of its own at the full width, however tall.
+    function justify(grid, images, target, tallest, most, leadFull) {
         var cards = Array.prototype.slice.call(grid.querySelectorAll(".pf-map-card"));
         var width = grid.clientWidth - 1; // slack for rounding
         if (!cards.length || width <= 0) {
@@ -648,11 +651,14 @@
 
         // best[end] is the lowest total cost of laying out the first `end`
         // maps; a row costs the square of how far its height is from target.
-        var best = [0];
-        var breakAt = [0];
-        for (var end = 1; end <= items.length; end++) {
+        var first = leadFull ? 1 : 0;
+        var best = [];
+        var breakAt = [];
+        best[first] = 0;
+        breakAt[first] = first;
+        for (var end = first + 1; end <= items.length; end++) {
             best[end] = Infinity;
-            for (var start = Math.max(0, end - mostPerRow); start < end; start++) {
+            for (var start = Math.max(first, end - mostPerRow); start < end; start++) {
                 var miss = fitHeight(start, end) - target;
                 var cost = best[start] + miss * miss;
                 if (cost < best[end]) {
@@ -663,14 +669,17 @@
         }
 
         var rows = [];
-        for (var stop = items.length; stop > 0; stop = breakAt[stop]) {
+        for (var stop = items.length; stop > first; stop = breakAt[stop]) {
             rows.unshift({ items: items.slice(breakAt[stop], stop), height: fitHeight(breakAt[stop], stop) });
+        }
+        if (first) {
+            rows.unshift({ items: items.slice(0, 1), height: fitHeight(0, 1), full: true });
         }
 
         grid.textContent = "";
         rows.forEach(function (r) {
             var line = make("div", "pf-map-row");
-            var height = Math.min(r.height, tallest);
+            var height = r.full ? r.height : Math.min(r.height, tallest);
             r.items.forEach(function (item) {
                 var img = item.card.querySelector("img, video");
                 img.style.width = (item.ratio * height) + "px";

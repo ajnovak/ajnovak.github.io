@@ -22,15 +22,17 @@
 # card_span: 2 or 3 = the project's card spans that many grid columns (for wide covers)
 # card_column: 1, 2, or 3 = keep the card in that column of the grid (counted from the left) when the grid has that many
 # zoom: no = the maps can't be opened full size (unreleased work); keep its full/ images out of the site
+# lead: full = on the project page, the first map takes the full width on its own row
 
 ---
 
 project: Town of Chester, VT Wayfinding Plan
 folder: chester-wayfinding
+lead: full
 year: 2020
-caption: Kiosk panels with a walking map and village history for Chester, Vermont's wayfinding plan.
+caption: Kiosk panels with a walking map and village history for Chester, Vermont, designed after the town's wayfinding plan to match its established branding.
 role: Designed the village walking map and the layout of the kiosk panels.
-link: https://www.chestertelegraph.org/wp-content/uploads/2020/11/Chester-Wayfinding-Plan-Nov-2020.pdf
+link:
 product: signage
 category: wayfinding
 purpose: wayfinding
@@ -45,6 +47,7 @@ image: kiosk.jpg | Kiosk Mockup |  | all=no
 
 project: Iceland
 folder: iceland
+lead: full
 year: 2020
 caption: A poster capturing the landscape and culture of Iceland through Blender shaded relief and cartographic design, made for an introductory cartography class.
 role: Designed the poster from start to finish, including the terrain, typography, and layout.
@@ -185,8 +188,8 @@ image: eastern-front-1942-1944.jpg | Soviet Advance, 1942–1944 | 18 November 1
 project: Town of South Hero Wayfinding and Road Etiquette Plan
 folder: south-hero-wayfinding
 year: 2024
-caption: Route assessment, community input, and wayfinding sign planning for bike routes on South Hero Island, Vermont.
-role: Ran the community mapping exercises, produced the route assessment and sign plan maps, and designed the branding and sign family concepts.
+caption: Route assessment, community input, and wayfinding sign planning for bike routes on South Hero Island, Vermont, including the report's InDesign layout and photos from a site visit.
+role: Ran the community mapping exercises, produced the route assessment and sign plan maps, designed the branding and sign family concepts, laid out the report in InDesign, and took its photos on a site visit.
 link: https://southherovt.org/wp-content/uploads/2024/07/SHORE-Report-Draft_CouncilVersion.pdf
 product: report, signage
 category: planning, wayfinding
@@ -196,6 +199,7 @@ client: Town of South Hero
 tools: ArcGIS Pro, Adobe Illustrator, Adobe InDesign
 image: sign-plan.jpg | Wayfinding Sign Plan | Proposed locations of new and updated signs along the Apple Island Loop. | purpose=wayfinding; product=signage
 image: route-assessment-and-branding.png | Route Assessment and Branding | Road segments rated by level of concern, alongside logo and sign concepts for South Hero Island. | purpose=planning, design; product=report, signage; archive=yes
+image: process-maps.jpg | Process Maps | Sticker and sketch maps from public engagement on favorite destinations, rides, and problem areas.
 image: route-assessment-and-reference.png | Route Assessment and Reference Map | Road segments rated from low to very high concern, alongside an island reference map. | purpose=planning; product=report
 image: existing-wayfinding.jpg | Existing Routes and Wayfinding Signs | Current bike routes, Champlain Bikeway signs, and kiosks. | purpose=wayfinding; product=report
 image: existing-and-proposed-routes.png | Existing and Proposed Routes | Existing routes alongside the proposed Apple Island Loop. | purpose=planning; product=report; archive=yes
