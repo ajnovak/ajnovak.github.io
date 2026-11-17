@@ -624,7 +624,7 @@ caption: A public engagement site where residents placed comments directly on th
 role: Built the engagement site and map-based comment tool, and created the future land use layer in ArcGIS Pro from many data inputs.
 link:
 product: interactive
-category: planning, interactive, outreach
+category: planning, outreach
 purpose: outreach, planning
 employer: SE Group
 client:
