@@ -9,10 +9,10 @@
     var PROJECTS_ROOT = "assets/projects/";
 
     // Fields whose values are comma-separated. Any other key is plain text.
-    var LIST_FIELDS = ["product", "purpose", "client", "tools"];
+    var LIST_FIELDS = ["category", "product", "purpose", "client", "tools"];
 
     // Fields a single image can override with its own values.
-    var OVERRIDE_FIELDS = ["product", "purpose"];
+    var OVERRIDE_FIELDS = ["category", "product", "purpose"];
 
     function fetchText(url) {
         return fetch(url).then(function (response) {
@@ -159,6 +159,17 @@
         });
 
         project.cover = project.images[0];
+
+        // "card_video: clip.mp4 | poster.jpg" (both in thumbs/) plays on the
+        // project's card in the list instead of the cover. The poster gives
+        // the card its shape and shows until the clip plays.
+        if (project.card_video) {
+            var clip = project.card_video.split("|").map(function (part) {
+                return part.trim();
+            });
+            var base = PROJECTS_ROOT + project.folder + "/thumbs/";
+            project.cardVideo = { src: base + clip[0], thumb: clip[1] ? base + clip[1] : project.cover.thumb };
+        }
         return project;
     }
 

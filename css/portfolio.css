@@ -213,8 +213,10 @@ body {
     background: #eeeeee;
 }
 
-.pf-card-image img {
+.pf-card-image img,
+.pf-card-image video {
     display: block;
+    object-fit: cover;
     width: 100%;
     height: auto;
 }

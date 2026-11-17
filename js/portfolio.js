@@ -7,22 +7,21 @@
     // least two different values across all projects. Chips follow "order";
     // a value not listed there goes after, alphabetically. "hints" become
     // the chip's hover text.
+    // One group, "category" in projects.txt: the old product and purpose
+    // tags merged into a single row (with only one group, no tabs show).
     var FILTER_GROUPS = [
         {
-            field: "product",
-            label: "Product",
-            order: ["publication", "report", "poster", "signage", "interactive"],
+            field: "category",
+            label: "Category",
+            order: ["planning", "interactive", "publication", "outreach", "wayfinding", "design"],
             hints: {
-                publication: "Books and articles",
-                report: "Plans and studies",
-                interactive: "Web maps, apps, dashboards, StoryMaps"
+                planning: "Plans and reports: comprehensive, master, and vision plans",
+                interactive: "Web maps, apps, dashboards, StoryMaps, and scrollytelling",
+                publication: "Books, articles, and survey publications",
+                outreach: "Public engagement and promotional maps",
+                wayfinding: "Signs, kiosks, and trail maps",
+                design: "Posters and art maps where the design leads"
             }
-        },
-        {
-            field: "purpose",
-            label: "Purpose",
-            order: ["planning", "analysis", "wayfinding", "outreach", "storytelling", "design"],
-            hints: {}
         }
     ];
 
@@ -123,17 +122,54 @@
         }
     }
 
+    // A muted loop in place of an image ({ src, thumb }: the clip and its
+    // poster, which sizes it). It downloads only once it nears the screen,
+    // and with reduced motion it stays on its poster.
+    function makeClip(clip, label) {
+        var video = make("video");
+        sizeImage(video, clip);
+        video.poster = clip.thumb;
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.preload = "none";
+        video.setAttribute("aria-label", label);
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            new IntersectionObserver(function (entries, observer) {
+                if (entries[0].isIntersecting) {
+                    observer.disconnect();
+                    video.src = clip.src;
+                    video.play().catch(function () {});
+                }
+            }, { rootMargin: "400px" }).observe(video);
+        }
+        return video;
+    }
+
     function buildCard(project) {
         var card = make("a", "pf-card");
         card.href = "#" + project.folder;
         card.dataset.folder = project.folder;
+        // A wide cover can span more than one column ("card_span:").
+        if (parseInt(project.card_span, 10) > 1) {
+            card.dataset.span = parseInt(project.card_span, 10);
+        }
+        // Or it can keep to one column ("card_column:", counted from the left)
+        // wherever the grid has that many.
+        if (parseInt(project.card_column, 10) > 0) {
+            card.dataset.column = parseInt(project.card_column, 10);
+        }
 
         var frame = make("span", "pf-card-image");
-        var image = make("img");
-        sizeImage(image, project.cover);
-        image.src = project.cover.thumb;
-        image.alt = project.cover.title;
-        frame.appendChild(image);
+        if (project.cardVideo) {
+            frame.appendChild(makeClip(project.cardVideo, project.cover.title));
+        } else {
+            var image = make("img");
+            sizeImage(image, project.cover);
+            image.src = project.cover.thumb;
+            image.alt = project.cover.title;
+            frame.appendChild(image);
+        }
 
         var body = make("span", "pf-card-body");
         body.appendChild(make("span", "pf-card-title", project.project));
@@ -149,19 +185,165 @@
         return card;
     }
 
-    // Each card spans enough of the grid's short rows to fit its height, and
-    // the grid's dense flow then drops each card into the shortest column.
-    // Cards stay in projects.txt order in the page, for keyboard users.
+    // Masonry: each card spans enough of the grid's short (2px) rows to fit
+    // its height and goes into the shortest column. A wide card ("card_span")
+    // needs its columns level to sit without a gap above, so up to WIDE_PICKS
+    // of the next WIDE_WINDOW cards may go ahead of it, chosen so their
+    // heights fill the short columns as evenly as possible. Cards stay in
+    // projects.txt order in the page, for keyboard users.
+    var WIDE_WINDOW = 10;
+    var WIDE_PICKS = 5;
+
     function layoutGrid(grid) {
         grid = grid || el("pf-grid");
         var styles = window.getComputedStyle(grid);
         var rowHeight = parseFloat(styles.gridAutoRows);
         var gap = parseFloat(styles.columnGap);
+        var columns = styles.gridTemplateColumns.split(" ").length;
+        var cards = Array.prototype.slice.call(grid.children);
 
-        Array.prototype.forEach.call(grid.children, function (card) {
-            var rows = Math.ceil((card.offsetHeight + gap) / rowHeight);
-            card.style.gridRowEnd = "span " + rows;
+        // Widths first (a wide card's width decides its height), then read
+        // every height in one pass.
+        cards.forEach(function (card) {
+            var span = Math.min(parseInt(card.dataset.span, 10) || 1, columns);
+            card.style.gridColumn = span > 1 ? "span " + span : "";
+            card.style.gridRow = "";
         });
+        var items = cards.map(function (card) {
+            return {
+                card: card,
+                span: Math.min(parseInt(card.dataset.span, 10) || 1, columns),
+                rows: Math.ceil((card.offsetHeight + gap) / rowHeight),
+                column: parseInt(card.dataset.column, 10) || 0
+            };
+        });
+
+        function level() {
+            var h = [];
+            for (var c = 0; c < columns; c++) {
+                h.push(0);
+            }
+            return h;
+        }
+
+        function shortest(h) {
+            return h.indexOf(Math.min.apply(null, h));
+        }
+
+        // A narrow card's column: its pinned one ("card_column"), or the
+        // shortest.
+        function columnFor(item, h) {
+            return item.column && item.column <= columns ? item.column - 1 : shortest(h);
+        }
+
+        // Where a wide card would go now: the run of columns whose tallest
+        // foot is lowest, and the whitespace it would leave above itself.
+        function widePlace(h, span) {
+            var best = null;
+            for (var s = 0; s + span <= columns; s++) {
+                var run = h.slice(s, s + span);
+                var top = Math.max.apply(null, run);
+                var waste = run.reduce(function (sum, x) {
+                    return sum + top - x;
+                }, 0);
+                if (!best || waste < best.waste || (waste === best.waste && top < best.top)) {
+                    best = { start: s, top: top, waste: waste };
+                }
+            }
+            return best;
+        }
+
+        // Lays cards out in the given order, from level columns; with apply,
+        // writes each card's place. Returns the columns' heights.
+        function run(seq, apply) {
+            var h = level();
+            seq.forEach(function (item) {
+                var start, top;
+                if (item.span === 1) {
+                    start = columnFor(item, h);
+                    top = h[start];
+                } else {
+                    var spot = widePlace(h, item.span);
+                    start = spot.start;
+                    top = spot.top;
+                }
+                if (apply) {
+                    item.card.style.gridColumn = (start + 1) + " / span " + item.span;
+                    item.card.style.gridRow = (top + 1) + " / span " + item.rows;
+                }
+                for (var j = start; j < start + item.span; j++) {
+                    h[j] = top + item.rows;
+                }
+            });
+            return h;
+        }
+
+        // First, the order to place cards in. At each wide card, search
+        // orders of up to WIDE_PICKS of the narrow cards that follow (each
+        // into its column) for the one leaving least space above it; fewer
+        // picks win ties, keeping the list's order.
+        var seq = [];
+        var queue = items.slice();
+        while (queue.length) {
+            var item = queue.shift();
+            if (item.span === 1) {
+                seq.push(item);
+                continue;
+            }
+            var ahead = [];
+            for (var k = 0; k < queue.length && ahead.length < WIDE_WINDOW && queue[k].span === 1; k++) {
+                ahead.push(k);
+            }
+            var heights = run(seq, false);
+            var best = { waste: widePlace(heights, item.span).waste, picks: [] };
+            (function search(h, picks) {
+                if (best.waste === 0 || picks.length === WIDE_PICKS) {
+                    return;
+                }
+                ahead.forEach(function (qi) {
+                    if (picks.indexOf(qi) !== -1) {
+                        return;
+                    }
+                    var next = h.slice();
+                    next[columnFor(queue[qi], next)] += queue[qi].rows;
+                    var tried = picks.concat(qi);
+                    var waste = widePlace(next, item.span).waste;
+                    if (waste < best.waste) {
+                        best = { waste: waste, picks: tried };
+                    }
+                    search(next, tried);
+                });
+            })(heights, []);
+            best.picks.forEach(function (qi) {
+                seq.push(queue[qi]);
+            });
+            queue = queue.filter(function (q, qi) {
+                return best.picks.indexOf(qi) === -1;
+            });
+            seq.push(item);
+        }
+
+        // A wide card still left over a big gap (as in a short, filtered
+        // list, with nothing after it to fill the columns) moves up the list
+        // just far enough to sit on level columns; at the top it always does.
+        var limit = Math.round(60 / rowHeight);
+        seq.slice().forEach(function (item) {
+            if (item.span === 1) {
+                return;
+            }
+            var at = seq.indexOf(item);
+            if (widePlace(run(seq.slice(0, at), false), item.span).waste <= limit * item.span) {
+                return;
+            }
+            var to = at - 1;
+            while (to > 0 && widePlace(run(seq.slice(0, to), false), item.span).waste > limit * item.span) {
+                to--;
+            }
+            seq.splice(at, 1);
+            seq.splice(to, 0, item);
+        });
+
+        run(seq, true);
     }
 
     function renderGrid() {
@@ -298,6 +480,8 @@
             container.appendChild(row);
         });
 
+        // A single category needs no tab to choose it.
+        tabs.hidden = tabs.children.length < 2;
         updateTabs();
     }
 
@@ -387,6 +571,17 @@
             project.pageImages = /^full$/i.test(project.view || "") ? project.images.map(function (image) {
                 return { thumb: image.full, title: image.title, caption: image.caption };
             }) : project.images;
+            // A project's clip leads its maps too, in place of the cover.
+            if (project.cardVideo) {
+                var first = project.pageImages[0];
+                project.pageImages = [{
+                    thumb: project.cardVideo.thumb,
+                    src: project.cardVideo.src,
+                    video: true,
+                    title: first.title,
+                    caption: first.caption
+                }].concat(project.pageImages.slice(1));
+            }
         }
 
         // Measure every map first so the masonry can place them in one pass.
@@ -477,7 +672,7 @@
             var line = make("div", "pf-map-row");
             var height = Math.min(r.height, tallest);
             r.items.forEach(function (item) {
-                var img = item.card.querySelector("img");
+                var img = item.card.querySelector("img, video");
                 img.style.width = (item.ratio * height) + "px";
                 img.style.height = height + "px";
                 line.appendChild(item.card);
@@ -507,6 +702,9 @@
 
     // A project's live map (its "map:" line): a story map or an interactive map.
     function liveMapLabel(project) {
+        if (project.map_label) {
+            return project.map_label;
+        }
         return /storymaps\.arcgis\.com/i.test(project.map || "") ? "Open the story map" : "Open the interactive map";
     }
 
@@ -524,25 +722,34 @@
     }
 
     // A map card opens that map full size, or, for a project with a live map,
-    // the live map itself in a new tab, flagged on the image.
+    // its first card (the live map's picture) opens the live map itself in a
+    // new tab, flagged on the image. A clip with no live map to open just
+    // plays in place, as do the maps of a project with "zoom: no" (work not
+    // yet public: no full-size view, and its full-size files are kept out of
+    // the site).
     function buildMapCard(image, index) {
-        var live = current && current.map;
-        var card = make(live ? "a" : "button", "pf-card pf-map-card");
+        var live = current && current.map && index === 0;
+        var still = !live && (image.video || /^no$/i.test(current.zoom || ""));
+        var card = make(live ? "a" : still ? "div" : "button", "pf-card pf-map-card" + (still ? " pf-map-clip" : ""));
         if (live) {
             card.href = current.map;
             card.target = "_blank";
             card.rel = "noopener";
-        } else {
+        } else if (!still) {
             card.type = "button";
         }
         card.dataset.index = index;
 
         var frame = make("span", "pf-card-image");
-        var img = make("img");
-        sizeImage(img, image);
-        img.src = image.thumb;
-        img.alt = image.title;
-        frame.appendChild(img);
+        if (image.video) {
+            frame.appendChild(makeClip(image, image.title));
+        } else {
+            var img = make("img");
+            sizeImage(img, image);
+            img.src = image.thumb;
+            img.alt = image.title;
+            frame.appendChild(img);
+        }
         if (live) {
             frame.appendChild(make("span", "pf-card-live", liveMapLabel(current) + " ↗"));
         }
@@ -554,8 +761,12 @@
         }
 
         card.appendChild(frame);
-        card.appendChild(body);
-        if (!live) {
+        // A project's only map needs no title under it: the project's title
+        // above already names it (the lightbox still shows it).
+        if (current.pageImages.length > 1) {
+            card.appendChild(body);
+        }
+        if (!live && !still) {
             card.addEventListener("click", function () {
                 openLightbox(current.images.map(function (each) {
                     return { image: each, project: current };
@@ -858,7 +1069,7 @@
             });
         });
         return Promise.all(projects.map(function (project) {
-            return measureImage(project.cover);
+            return measureImage(project.cardVideo || project.cover);
         }));
     }).then(function () {
         buildFilters();

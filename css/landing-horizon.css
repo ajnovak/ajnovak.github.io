@@ -111,6 +111,21 @@ body.horizon {
     mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
 }
 
+/* A soft wash of the page's paper (#efefec) over the clouds' texture, to
+   quiet it. It begins up in the photo's fade (where the photo is still
+   solid it hides the wash, so the landscape stays untouched) and eases in
+   slowly past the cut, so the grey landscape warms into the paper with no
+   visible shift. */
+.horizon-backdrop::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--frame-h) * (var(--cut) / 100 - 0.18));
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(239, 239, 236, 0), rgba(239, 239, 236, 0.55) calc(var(--frame-h) * 0.4));
+}
+
 /* With a project open the panorama is hidden, so the clouds move up with
    the page to stay behind it. */
 #pf-hero[hidden] ~ .horizon-sky {
@@ -2373,6 +2388,12 @@ html:not(.trail-masks) .horizon-ring {
     margin: 0;
 }
 
+/* One category (no tabs): its eight filters fit the bridge a little
+   closer together. */
+.horizon-continue .pf-filter-bar:has(#pf-filter-tabs[hidden]) .pf-chips {
+    column-gap: calc(17 * var(--u));
+}
+
 /* Chosen: the drawn line just over the word (with the bridge's line under
    it, the word sits on the bridge's deck), and the arrow under the
    bridge, pointing up at it. */
@@ -3002,4 +3023,9 @@ a.pf-map-card:focus-visible .pf-card-live {
     background: currentColor;
     -webkit-mask: url("../assets/resume/bullet-diamond.svg") no-repeat 50% 50% / contain;
     mask: url("../assets/resume/bullet-diamond.svg") no-repeat 50% 50% / contain;
+}
+
+/* A clip with no live map to open plays in place: nothing to click. */
+.horizon-continue .pf-map-clip {
+    cursor: default;
 }
