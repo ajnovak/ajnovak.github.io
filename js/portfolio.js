@@ -760,7 +760,12 @@
             frame.appendChild(img);
         }
         if (live) {
-            frame.appendChild(make("span", "pf-card-live", liveMapLabel(current) + " ↗"));
+            // The label with the drawn arrow, flipped to point onward.
+            var tag = make("span", "pf-card-live", liveMapLabel(current));
+            var arrow = make("span", "pf-nav-arrow pf-nav-arrow-next");
+            arrow.setAttribute("aria-hidden", "true");
+            tag.appendChild(arrow);
+            frame.appendChild(tag);
         }
 
         var body = make("span", "pf-card-body");
