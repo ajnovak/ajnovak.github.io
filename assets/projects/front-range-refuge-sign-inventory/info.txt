@@ -1,0 +1,16 @@
+project: Friends of the Front Range Wildlife Refuges Sign Inventory
+year:
+caption: A sign inventory management system for the Rocky Mountain Arsenal National Wildlife Refuge, pairing ArcGIS Online map and table viewers with a GitHub-hosted photo library that auto-fills each sign's popup, plus an editing app and an InDesign user guide.
+link:
+format: interactive
+product: web app
+symbolization: points
+subject: infrastructure, recreation
+purpose: wayfinding, planning
+employer: SE Group
+client: Friends of the Front Range Wildlife Refuges
+client_type: non-profit
+image: quick-viewer-sign-type.jpg | Quick Viewer: Sign Type | Signs categorized by type across the refuge, with field photos and notes in each popup.
+image: quick-viewer-condition.jpg | Quick Viewer: Sign Condition | Signs symbolized by condition, from good to poor. |  ;all=no
+image: table-viewer.jpg | Table Viewer | A table-focused view of the inventory linked to the map and photo popups.|  ;all=no
+image: management-guide.jpg | Sign Inventory Management Guide | An InDesign user guide for viewing, editing, and updating the inventory. | symbolization=graphic; purpose=design; product=report

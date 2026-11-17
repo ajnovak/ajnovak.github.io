@@ -1,0 +1,18 @@
+project: Quaternary Geology of Fond du Lac County, Wisconsin
+year: 2021
+caption: Figures for a Wisconsin Geological and Natural History Survey bulletin on the glacial history and landforms of Fond du Lac County.
+link: https://data.wgnhs.wisc.edu/pubshare/B116.pdf
+format: print
+product: report
+symbolization: shaded relief, areas, lines
+subject: geography
+purpose: research
+employer: UW Cartography Lab
+client: Wisconsin Geological and Natural History Survey
+client_type: academic
+image: fig01-09-relief-drumlins.png | Shaded Relief and Drumlin Orientation | Figures 1 and 9: Shaded-relief map of Fond du Lac County and digital elevation maps showing orientation of drumlins. | symbolization=shaded relief
+image: fig02-ice-sheet.jpg | Laurentide Ice Sheet | Figure 2: Location of Fond du Lac County in relation to the Laurentide Ice Sheet. | symbolization=areas, lines
+image: fig03-05-12-deposits.png | Bedrock and Surficial Deposits | Figures 3, 5, and 12: Bedrock geology, depth to bedrock, glacial lake sediments, and sand and gravel. | symbolization=areas
+image: fig04-glacial-landforms.jpg | Glacial Landforms | Figure 4: Moraines, escarpments, and drumlin trends over shaded relief. | symbolization=shaded relief, lines
+image: fig13-flat-topped-uplands.jpg | Flat-Topped Uplands | Figure 13: Flat topped uplands. | symbolization=shaded relief
+image: fig14-eskers.jpg | Eskers | Figure 14: Eskers. | symbolization=shaded relief

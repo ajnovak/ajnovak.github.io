@@ -1,0 +1,13 @@
+project: The Four Lakes Night Sky
+year: 2021
+caption: Madison, Wisconsin and its geography reimagined as a celestial space scene.
+link:
+format: print
+product: poster
+symbolization: pictorial
+subject: geography
+purpose: design
+employer: student
+client: Independent Study, University of Wisconsin–Madison
+client_type: student
+image: four-lakes-in-space.jpg | The Four Lakes in Space | Created for an independent study focusing on the aesthetic and design principles of cartography.

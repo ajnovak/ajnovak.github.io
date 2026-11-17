@@ -1,0 +1,14 @@
+project: Marble Mountain Multi-Season Opportunities Plan
+year:
+caption: Promotional planning maps for Marble Mountain in Newfoundland, showing the resort's existing trails and lifts alongside proposed year-round attractions from the summit to the base area.
+link:
+format: print
+product: report
+symbolization: lines, areas, points
+subject: recreation, tourism
+purpose: planning, outreach
+employer: SE Group
+client: Marble Mountain Resort
+client_type: commercial
+image: mountain-overview.jpg | Mountain Overview | Existing trails, lifts, and zipline, with proposed activities at the summit, on the mountain, and at Steady Brook Falls.
+image: base-area-detail.jpg | Base Area Detail | Proposed event and activity centers, bike skills park, pond area, and RV parking around the base lodge.

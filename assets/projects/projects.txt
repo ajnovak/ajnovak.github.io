@@ -1,0 +1,723 @@
+# PORTFOLIO PROJECTS
+# One block per project, separated by a line containing only ---
+# Projects appear on the site in the order of their blocks.
+# Filters: product (publication, report, poster, signage, interactive)
+#          purpose (planning, analysis, wayfinding, outreach, storytelling, design)
+# image: file | title | caption | overrides (purpose=, product=, archive=yes, all=no)
+# hidden: yes = not shown on the site (folder not added yet)
+# view: full = the project page shows the full images, not the (cropped) thumbnails
+# link: where the project lives; its label follows link_type:
+#   (a .pdf link)  Read the full document (PDF)
+#   plan           Read the plan
+#   book           See the book
+#   article        Read the article
+#   award          See the award
+#   (anything else) Visit the project page
+# map: a live interactive map or story map; clicking the maps opens it
+# award: text | optional link; one line per award, listed under the title
+# badge: a short award line for the project's card in the list
+
+---
+
+project: Town of Chester, VT Wayfinding Plan
+folder: chester-wayfinding
+year: 2020
+caption: Kiosk panels with a walking map and village history for Chester, Vermont's wayfinding plan.
+role: Designed the village walking map and the layout of the kiosk panels.
+link: https://www.chestertelegraph.org/wp-content/uploads/2020/11/Chester-Wayfinding-Plan-Nov-2020.pdf
+product: signage
+purpose: wayfinding
+employer: SE Group
+client: Town of Chester
+tools: ArcGIS Pro, Adobe Illustrator
+image: walking-map.jpg | Village Walking Map
+image: kiosk.jpg | Kiosk Mockup |  | all=no
+
+---
+
+project: Iceland
+folder: iceland
+year: 2020
+caption: A poster capturing the landscape and culture of Iceland through Blender shaded relief and cartographic design, made for an introductory cartography class.
+role: Designed the poster from start to finish, including the terrain, typography, and layout.
+award: NACIS Student Map & Poster Competition: Cartographic Design Winner, 2020 | https://nacis.org/awards/2020-smpc-design-winner/
+award: WLIA Map Competition: Best Student Map, 2020
+award: WLIA Map Competition: Runner-up, Best Base & Reference Map, 2020
+badge: NACIS Cartographic Design Winner, 2020
+link:
+product: poster
+purpose: design
+employer: student
+client: Geography 370, University of Wisconsin–Madison
+tools: ArcGIS Pro, Adobe Illustrator, Adobe Photoshop
+view: full
+image: iceland.png | Iceland | A poster capturing the beauty and culture of Iceland through terrain and cartographic design.
+
+---
+
+project: Huerfano County Comprehensive Plan: Existing Conditions
+folder: huerfano-county-existing-conditions
+year: 2024
+caption: Existing conditions maps for Huerfano County, Colorado's 2024 Comprehensive Plan, covering the county's landmarks, public lands, transportation, recreation, economy, and natural hazards.
+role: Produced the existing conditions map series for the plan's background volume, including the hexbin business density analysis and the hazards composite.
+link: https://huerfano.us/notice-of-public-comment-draft-county-comprehensive-plan/
+product: report
+purpose: planning
+employer: SE Group
+client: Huerfano County, Colorado
+tools: ArcGIS Pro, Adobe Illustrator
+image: transportation.jpg | Transportation | Roads by functional class, railroads, airfields, and the Bustang route.
+image: reference-map.jpg | County Reference Map | Towns, peaks, wilderness areas, and highways across Huerfano County.
+image: historic-landmarks.jpg | Historic Landmarks | Landmarks, former plazas, and the Taos and Old Spanish Trails.
+image: land-management.jpg | Land Management | Federal, state, county, and conserved lands.
+image: trails-and-recreation.jpg | Trails and Recreation | Trails, campgrounds, and recreation areas, with insets for La Veta and Walsenburg.
+image: cuchara-valley.jpg | Cuchara Valley | Reference map of Cuchara, its trails, and community services.
+image: economic-centers.jpg | Economic Centers | Business density per one-mile hexagon. | purpose=analysis
+image: hazards.jpg | Hazards | Floodplains, wildfire risk, steep slopes, and burn risk. | purpose=analysis
+
+---
+
+project: Quaternary Geology of Fond du Lac County, Wisconsin
+folder: quarternary-geology-of-fond-du-lac-county
+year: 2021
+caption: Figures for a Wisconsin Geological and Natural History Survey bulletin on the glacial history and landforms of Fond du Lac County.
+role: Produced the bulletin's figures, including shaded relief, lidar landform views, and bedrock and surficial deposit maps.
+link: https://data.wgnhs.wisc.edu/pubshare/B116.pdf
+product: report
+purpose: analysis
+employer: UW Cartography Lab
+client: Wisconsin Geological and Natural History Survey
+tools: ArcGIS Pro, Adobe Illustrator, Adobe Photoshop
+image: fig01-09-relief-drumlins.png | Shaded Relief and Drumlin Orientation | Figures 1 and 9: Shaded-relief map of Fond du Lac County and digital elevation maps showing orientation of drumlins.
+image: fig02-ice-sheet.jpg | Laurentide Ice Sheet | Figure 2: Location of Fond du Lac County in relation to the Laurentide Ice Sheet.
+image: fig03-05-12-deposits.png | Bedrock and Surficial Deposits | Figures 3, 5, and 12: Bedrock geology, depth to bedrock, glacial lake sediments, and sand and gravel.
+image: fig04-glacial-landforms.jpg | Glacial Landforms | Figure 4: Moraines, escarpments, and drumlin trends over shaded relief.
+image: fig13-flat-topped-uplands.jpg | Flat-Topped Uplands | Figure 13: Flat topped uplands.
+image: fig14-eskers.jpg | Eskers | Figure 14: Eskers.
+
+---
+
+project: Glenwood Canyon Recreation Area Signage & Wayfinding
+folder: glenwood-canyon-wayfinding
+year: 2023
+caption: A bilingual recreation map and interpretive signage for rest areas and trailheads along I-70 through Glenwood Canyon, Colorado.
+role: Designed the bilingual recreation map and the map panels for the interpretive signs installed along the canyon.
+link: https://www.midcowatershed.org/projects/blog-post-title-two-t5my5-k4xmd-67jzh-kwy6w-lkhmr-lj646
+product: signage
+purpose: wayfinding, outreach
+employer: SE Group
+client: U.S. Forest Service, Mid Colorado Watershed Council
+tools: ArcGIS Pro, Adobe Illustrator
+image: fire-safety-panel.jpg | Fire Safety Sign Panel | Interpretive panel on the Grizzly Creek Fire, with the recreation map along the bottom. | purpose=wayfinding
+image: recreation-map.jpg | Glenwood Canyon Recreation Map | Rest areas, trailheads, and amenities along the canyon's 15-mile recreation path. | purpose=wayfinding; all=no
+
+---
+
+project: Dark Sky Sanctuaries
+folder: dark-sky-sanctuaries
+year: 2022
+caption: A longform interactive infographic exploring the causes and consequences of light pollution.
+role: Co-designed and developed the interactive infographic as part of a student team.
+award: NACIS Student Dynamic Map Competition: Group Winner, 2022 | https://nacis.org/awards/2022-sdmc-group-winner/
+badge: NACIS Dynamic Map Winner, 2022
+link:
+map: https://jake-steinberg.github.io/2022_DarkSkies_js/
+product: interactive
+purpose: storytelling
+employer: student
+client: Geography 575: Interactive Cartography and Geovisualization, University of Wisconsin–Madison
+tools: D3.js, JavaScript, HTML/CSS
+image: darkskies-web.gif | Interactive Map Frames | Frames from the interactive map of light pollution across North America.
+
+---
+
+project: Huerfano County Comprehensive Plan: Land Use
+folder: huerfano-county-land-use
+year: 2024
+caption: Current and future land use maps for Huerfano County, Colorado's 2024 Comprehensive Plan, from parcel-level land use in each town to a county-wide vision to guide growth.
+role: Mapped parcel-level land use for the county and towns, ran the three-mile area acreage analysis, and designed the future land use map.
+link: https://huerfano.us/notice-of-public-comment-draft-county-comprehensive-plan/
+product: report
+purpose: planning
+employer: SE Group
+client: Huerfano County, Colorado
+tools: ArcGIS Pro, Adobe Illustrator
+image: future-land-use.jpg | Future Land Use | Land use areas, corridors, recreation connectivity, and energy zones, with a Wellness Hub detail map. | purpose=planning
+image: land-use-county.jpg | Land Use: Full County | Assessor land use classes for every parcel in the county.
+image: land-use-incorporated.jpg | Land Use: Incorporated Areas | Parcel-level land use in La Veta and Walsenburg.
+image: land-use-unincorporated.jpg | Land Use: Unincorporated Areas | Parcel-level land use in Cuchara Valley, Gardner, and the area around Lathrop State Park.
+image: three-mile-walsenburg.jpg | Three-Mile Area: Walsenburg | Land use and sub-areas within three miles of Walsenburg.
+image: three-mile-la-veta.jpg | Three-Mile Area: La Veta | Land use and planning quadrants within three miles of La Veta.
+image: land-use-charts.jpg | Land Use Breakdown | Acreage, percent land use, and lot counts for urbanizing residential and commercial areas. | purpose=analysis
+
+---
+
+project: Fortress Dark and Stern: The Soviet Home Front during World War II
+folder: fortress-dark-and-stern
+year: 2021
+caption: Maps of the shifting Eastern Front for Wendy Z. Goldman and Donald Filtzer's history of the Soviet home front, published by Oxford University Press.
+role: Designed three grayscale maps of the Eastern Front for print, showing changing territory with patterned fills.
+link: https://global.oup.com/academic/product/fortress-dark-and-stern-9780190618414
+link_type: book
+product: publication
+purpose: storytelling
+employer: UW Cartography Lab
+client: Wendy Z. Goldman and Donald Filtzer
+tools: ArcGIS Pro, Adobe Illustrator
+image: eastern-front-1941.jpg | German Advance, 1941 | 22 June 1941 to 5 December 1941.
+image: eastern-front-1941-1942.jpg | Soviet Counteroffensive, 1941–1942 | December 5, 1941 to May 5, 1942.
+image: eastern-front-1942-1944.jpg | Soviet Advance, 1942–1944 | 18 November 1942 to December 1944.
+
+---
+
+project: Town of South Hero Wayfinding and Road Etiquette Plan
+folder: south-hero-wayfinding
+year: 2024
+caption: Route assessment, community input, and wayfinding sign planning for bike routes on South Hero Island, Vermont.
+role: Ran the community mapping exercises, produced the route assessment and sign plan maps, and designed the branding and sign family concepts.
+link: https://southherovt.org/wp-content/uploads/2024/07/SHORE-Report-Draft_CouncilVersion.pdf
+product: report, signage
+purpose: wayfinding, planning, design
+employer: SE Group
+client: Town of South Hero
+tools: ArcGIS Pro, Adobe Illustrator, Adobe InDesign
+image: sign-plan.jpg | Wayfinding Sign Plan | Proposed locations of new and updated signs along the Apple Island Loop. | purpose=wayfinding; product=signage
+image: route-assessment-and-branding.png | Route Assessment and Branding | Road segments rated by level of concern, alongside logo and sign concepts for South Hero Island. | purpose=planning, design; product=report, signage; archive=yes
+image: route-assessment-and-reference.png | Route Assessment and Reference Map | Road segments rated from low to very high concern, alongside an island reference map. | purpose=planning; product=report
+image: existing-wayfinding.jpg | Existing Routes and Wayfinding Signs | Current bike routes, Champlain Bikeway signs, and kiosks. | purpose=wayfinding; product=report
+image: existing-and-proposed-routes.png | Existing and Proposed Routes | Existing routes alongside the proposed Apple Island Loop. | purpose=planning; product=report; archive=yes
+image: sign-family.jpg | Wayfinding Sign Family | Route markers, entrance banner, and kiosk designs. | purpose=wayfinding, design; product=signage; archive=yes
+image: branding-concepts.jpg | Branding Concepts | Logo and sign concepts for South Hero Island. | purpose=design; product=signage
+image: process-maps.png | Process Maps | Sticker and sketch maps from public engagement on favorite destinations, rides, and problem areas. | purpose=outreach; product=report; all=no
+
+---
+
+project: Marble Mountain Multi-Season Opportunities Plan
+folder: marble-mountain-multi-season
+year:
+caption: Promotional planning maps for Marble Mountain in Newfoundland, showing the resort's existing trails and lifts alongside proposed year-round attractions from the summit to the base area.
+role: Designed both plan maps over aerial imagery, balancing existing operations with promotional callouts for proposed summer attractions.
+link:
+product: report
+purpose: planning, outreach
+employer: SE Group
+client: Marble Mountain Resort
+tools: ArcGIS Pro, Adobe Illustrator
+image: base-area-detail.jpg | Base Area Detail | Proposed event and activity centers, bike skills park, pond area, and RV parking around the base lodge.
+image: mountain-overview.jpg | Mountain Overview | Existing trails, lifts, and zipline, with proposed activities at the summit, on the mountain, and at Steady Brook Falls.
+
+---
+
+project: Hmong Women's Rights and the Communist Party of Thailand
+folder: hmong-womens-rights-cpt
+year: 2022
+caption: A map of Communist Party of Thailand strongholds and disputed areas in northern Thailand for Ian G. Baird's article on Hmong women's rights.
+role: Designed the article's grayscale reference map for print.
+link: https://www.researchgate.net/publication/359929226_Hmong_women's_rights_and_the_Communist_Party_of_Thailand
+link_type: article
+product: publication
+purpose: storytelling
+employer: UW Cartography Lab
+client: Ian G. Baird
+tools: ArcGIS Pro, Adobe Illustrator
+image: cpt-strongholds.png | CPT Strongholds in Northern Thailand | Red Communist Party of Thailand strongholds and Pink disputed areas.
+
+---
+
+project: Minnesota All-Terrain Vehicle Strategic Master Plan
+folder: minnesota-atv-master-plan
+year: 2025
+caption: Twelve ADA-accessible maps for the Minnesota DNR's statewide ATV master plan, from registration and riding area patterns to a multi-factor suitability analysis for new ATV opportunities.
+role: Produced 12 ADA-accessible statewide maps, from registration analysis to the raster suitability scores, in a consistent design for the DNR report.
+link: https://material-civet.files.svdcdn.com/production/images/documents/MN-ATV-Strategic-Master-Plan-2025.pdf?dm=1767718970
+product: report
+purpose: analysis, planning
+employer: SE Group
+client: Minnesota Department of Natural Resources
+tools: ArcGIS Pro, Adobe Illustrator
+image: minnesota-atv-collage.jpg | Statewide Map Series | Riding area, registration, and suitability analysis maps from the plan.
+
+---
+
+project: Velomont Trail Map
+folder: velomont-trail-map
+year:
+caption: An illustrated overview map of the Velomont Trail, made to promote the statewide hut-to-hut bike trail and its connections to Vermont's trail systems and downtowns.
+role: Illustrated the promotional overview map, which the Vermont Huts Association uses on its website.
+link: https://vermonthuts.org/the-velomont/
+product: poster
+purpose: outreach
+employer: SE Group
+client: Vermont Huts Association
+tools: Adobe Illustrator, Adobe Photoshop
+image: velomont-trail-map.jpg | Velomont Trail Map | Huts, hostels, towns, and 25 local trail systems along the Velomont corridor.
+
+---
+
+project: Velomont Trail Vision Plan
+folder: velomont-trail-vision-plan
+year: 2024
+caption: Thirteen section-by-section corridor maps for the Velomont Trail, a planned hut-to-hut mountain bike trail running the length of Vermont.
+role: Produced 13 corridor maps, the statewide index, and supporting maps, using a template so the series stayed consistent.
+link: https://vermonthuts.org/wp-content/uploads/2025/04/240628_FINAL_Velomont-Vision-Plan.pdf
+product: report
+purpose: planning, outreach
+employer: SE Group
+client: Vermont Huts Association
+tools: ArcGIS Pro, Adobe Illustrator, Adobe InDesign
+image: corridor-map-and-index.jpg | Corridor Map and Index | A section map of the Velomont corridor alongside the statewide index of all 13 maps. | purpose=planning
+image: map-07-velomont-2024.jpg | Map 7: Velomont 2024 | Existing and conceptual trail between the Telephone Gap area, Rochester, and Pittsfield. | purpose=planning
+image: map-11-lvrt-west.jpg | Map 11: LVRT West | The Velomont along the Lamoille Valley Rail Trail from Johnson to Hardwick. | purpose=planning
+image: velomont-phases.jpg | Velomont Phases | The trail corridor divided into three planning phases. | purpose=planning
+image: trail-partners.jpg | Trail Partners | Local and statewide partners along the Velomont corridor. | purpose=outreach
+image: how-to-read-maps.jpg | How to Read the Maps | Legend and symbology guide for the corridor maps. | purpose=planning
+
+---
+
+project: Copper Chair Replacement
+folder: copper-chair-replacement
+year: 2023
+caption: The approved route for replacing the Copper Chair lift at Red River Ski Area, made for the U.S. Forest Service's NEPA review.
+role: Produced the approved action map for the Forest Service's NEPA documentation, showing the new lift alignment, disturbance areas, and existing terrain.
+link: https://www.fs.usda.gov/r03/carson/projects/65296
+product: report
+purpose: planning
+employer: SE Group
+client: Red River Ski Area, U.S. Forest Service
+tools: ArcGIS Pro, Adobe Illustrator
+image: copper-chair.jpg | Approved Action
+
+---
+
+project: Blackfeet Nation Tourism Corridor Plan
+folder: blackfeet-tourism-corridor
+year: 2024
+caption: A tourism corridor map and site concepts for visitor services, events, and recreation along the Blackfeet Nation's highway corridor east of Glacier National Park.
+role: Designed the corridor map and site concept maps, compiling visitor services, recreation sites, and proposed signage into a single regional plan graphic.
+link:
+product: report
+purpose: planning
+employer: SE Group
+client: The Blackfeet Tribe
+tools: ArcGIS Pro, Adobe Illustrator
+image: tourism-corridor-map.jpg | Tourism Corridor Map | Visitor services, recreation, and proposed arrival signs along US 89 and US 2 from the Canadian border to East Glacier. | purpose=planning
+image: browning-event-hub.jpg | Browning Event and Visitor Hub | Proposed pedestrian connections, entrances, and parking around the rodeo grounds and Museum of the Plains Indian. | purpose=planning
+image: divide-mountain.jpg | Divide Mountain Proposed Area | Lift options, base area services, and views for a potential recreation area on Divide Mountain. | purpose=planning
+
+---
+
+project: FairShare CSA Coalition Farm Map
+folder: fairshare-csa-farm-map
+year: 2022
+caption: The 41 farms in the FairShare CSA Coalition for 2022, with a Dane County inset.
+role: Designed the coalition's annual farm map, with a numbered farm index and insets for Dane County and the regional farms.
+link: https://www.csacoalition.org
+product: poster
+purpose: outreach
+employer: UW Cartography Lab
+client: FairShare CSA Coalition
+tools: ArcGIS Pro, Adobe Illustrator
+image: farm-map-2022.jpg | 2022 CSA Farms
+
+---
+
+project: Water-Quality Indicators of Human Impacts to the Wetlands of Door County
+folder: door-county-wetlands-water-quality
+year: 2020
+caption: 14 figures for a Wisconsin Geological and Natural History Survey report on how land use affects water quality in Door County's wetlands.
+role: Produced the report's figures, from the county wetlands overview to the sampling site maps.
+link: https://data.wgnhs.wisc.edu/pubshare/TR006.pdf
+product: report
+purpose: analysis
+employer: UW Cartography Lab
+client: Wisconsin Geological and Natural History Survey
+tools: ArcGIS Pro, Adobe Illustrator
+image: fig01-wetlands.jpg | Door County Wetlands | Figure 1: Wetlands, rivers, and streams in Door County.
+image: fig02b-three-springs.jpg | Three Springs Wetland | Figure 2b: Three Springs wetland and sampling points.
+image: fig11b-mink-river-estuary.jpg | Mink River Estuary | Figure 11b: Mink River Estuary, showing zones of contribution, land use, and residences.
+
+---
+
+project: Huerfano County Suitability Analysis and Viewer (Innovative Housing Opportunities Plan)
+folder: huerfano-housing-suitability
+year: 2024
+caption: An interactive viewer for the housing suitability model behind Huerfano County, Walsenburg, and La Veta's 2024 Innovative Housing Opportunities Plan. The model ranks every parcel in the county by its proximity to amenities like schools, roads, and businesses, and its distance from constraints like burn risk, steep slopes, and hazardous sites.
+role: Built the suitability model from local, state, and federal data, scored all 17,900 parcels, and published the results in an interactive viewer.
+map: https://segroup.maps.arcgis.com/apps/instant/interactivelegend/index.html?appid=06eca90c17d44fe2a1c80ae200cacb4e
+product: interactive
+purpose: analysis, planning
+employer: SE Group
+client: Huerfano County, Colorado
+tools: ArcGIS Pro, ModelBuilder, ArcGIS Online, ArcGIS Instant Apps
+image: suitability-viewer.gif | Suitability Analysis Viewer | Final parcel suitability scores and the model's input layers.
+
+---
+
+project: The Four Lakes Night Sky
+folder: four-lakes-night-sky
+year: 2021
+caption: Madison, Wisconsin and its geography reimagined as a celestial space scene.
+role: Conceived and illustrated an artistic map of Madison for an independent study in cartographic design.
+link:
+product: poster
+purpose: design
+employer: student
+client: Independent Study, University of Wisconsin–Madison
+tools: Adobe Illustrator, Adobe Photoshop
+image: four-lakes-in-space.jpg | The Four Lakes in Space | Created for an independent study focusing on the aesthetic and design principles of cartography.
+
+---
+
+project: The Impacts of Hydropower Dams in the Mekong River Basin
+folder: mekong-hydropower-dams
+year: 2021
+caption: Maps of hydropower and irrigation dams along the Mekong River and its tributaries for Ian G. Baird and colleagues' review of their social and environmental impacts.
+role: Designed the article's basin overview and detail maps of individual dams.
+link: https://www.researchgate.net/publication/348687378_The_Impacts_of_Hydropower_Dams_in_the_Mekong_River_Basin_A_Review
+link_type: article
+product: publication
+purpose: storytelling
+employer: UW Cartography Lab
+client: Ian G. Baird
+tools: ArcGIS Pro, Adobe Illustrator
+image: sesan-and-don-sahong.png | Sesan River and Don Sahong Dams | Lower Sesan 2 and Yali Falls dams near the Cambodia–Vietnam border, and the reservoir extent and seasonally inundated areas around the Don Sahong dam.
+image: mekong-dams.png | Mekong Mainstream Dams | Operational dams along the Mekong River from China to Cambodia.
+image: mun-river-dams.png | Mun River Dams | Pak Mun, Surinthon, and Hua Na dams on Thailand's Mun River.
+
+---
+
+project: Town of Buena Vista Comprehensive Plan Update
+folder: buena-vista-comp-plan
+year: 2025
+caption: Selected maps from Buena Vista, Colorado's 2025 Comprehensive Plan update.
+role: Produced the zoning, land use, and lot size maps for the plan and its public StoryMap.
+link: https://storymaps.arcgis.com/stories/9f67b91a4fc5477aa0f4f10b99d5718f
+link_type: plan
+product: report
+purpose: planning
+employer: SE Group
+client: Town of Buena Vista
+tools: ArcGIS Pro, Adobe Illustrator, ArcGIS StoryMaps
+image: zoning.jpg | Current Zoning |  | purpose=planning
+image: land-use.jpg | Land Use |  | purpose=planning
+image: lot-size.jpg | Parcel Lot Size |  | purpose=planning
+
+---
+
+project: Chester Housing Feasibility Study
+folder: chester-housing-feasibility
+year:
+caption: A data-dense study area map for evaluating housing sites in Chester, Vermont, combining parcels, zoning, building footprints, utilities, conserved lands, wetlands, and trails on a single sheet for internal decision making.
+role: Compiled and designed a single large-format map integrating more than 20 data layers so the project team could evaluate housing sites at a glance.
+link:
+product: report
+purpose: analysis, planning
+employer: SE Group
+client: Town of Chester
+tools: ArcGIS Pro, Adobe Illustrator
+image: study-area-map.jpg | Study Area Map | Parcels, building uses, utilities, conserved lands, and environmental features around the village, with a zoning inset.
+
+---
+
+project: Friends of the Front Range Wildlife Refuges Sign Inventory
+folder: front-range-refuge-sign-inventory
+year:
+caption: A sign inventory management system for the Rocky Mountain Arsenal National Wildlife Refuge, pairing ArcGIS Online map and table viewers with a GitHub-hosted photo library that auto-fills each sign's popup, plus an editing app and an InDesign user guide.
+role: Designed the full system: the sign database and symbology, three linked viewers and an editor, GitHub photo hosting with auto-filled popup URLs, and the user guide for refuge volunteers.
+link:
+product: interactive
+purpose: wayfinding, planning
+employer: SE Group
+client: Friends of the Front Range Wildlife Refuges
+tools: ArcGIS Online, GitHub, Adobe InDesign
+image: quick-viewer-sign-type.jpg | Quick Viewer: Sign Type | Signs categorized by type across the refuge, with field photos and notes in each popup.
+image: quick-viewer-condition.jpg | Quick Viewer: Sign Condition | Signs symbolized by condition, from good to poor. | all=no
+image: table-viewer.jpg | Table Viewer | A table-focused view of the inventory linked to the map and photo popups. | all=no
+image: management-guide.jpg | Sign Inventory Management Guide | An InDesign user guide covering the system overview and how to add, remove, or replace sign photos. | purpose=design; product=report
+
+---
+
+project: Champassak Royalty and Sovereignty
+folder: champassak-royalty-and-sovereignty
+year: 2024
+caption: Maps for Ian G. Baird's history of the House of Champassak and its sovereignty across Laos, Thailand, and Cambodia, published by the University of Wisconsin Press.
+role: Designed the book's maps to University of Wisconsin Press print specifications.
+link: https://uwpress.wisc.edu/Books/C/Champassak-Royalty-and-Sovereignty
+link_type: book
+product: publication
+purpose: storytelling
+employer: UW Cartography Lab
+client: Ian G. Baird
+tools: ArcGIS Pro, Adobe Illustrator
+image: champassak-present.png | Present-Day Champassak Region | Towns and present-day borders of southern Laos, northeastern Thailand, and Cambodia.
+
+---
+
+project: The Russian Army in the Great War: The Eastern Front, 1914–1917
+folder: russian-army-in-the-great-war
+year: 2020
+caption: Maps for David R. Stone's history of the Russian Army on the Eastern Front in World War I, published by University Press of Kansas.
+link: https://kansaspress.ku.edu/9780700633081/
+link_type: book
+product: publication
+purpose: storytelling
+employer: UW Cartography Lab
+client: David R. Stone
+image: advance-of-central-powers.png | Advance of Central Powers | The Central Powers' advance from the February 1918 line to the front at its end, from the Gulf of Finland to the Black Sea.
+image: the-caucasus.png | The Caucasus | The limit of the Russian advance into eastern Turkey, from Trabzon past Lake Van to the Persian border.
+
+---
+
+project: Political Map of Africa
+folder: africa-political-map
+year: 2022
+caption: A political reference map of Africa, showing countries, capitals, major cities, and disputed territories over subtle shaded relief.
+role: Designed a continental reference map using the Africa Sinusoidal projection, with layered relief and multilingual place names.
+link:
+product: poster
+purpose: design
+employer: student
+client: Geography 370: Introduction to Cartography
+tools: ArcGIS Pro, Adobe Illustrator
+image: africa-political.jpg | Political Map of Africa | Countries, capitals, and disputed regions on the Africa Sinusoidal projection.
+
+---
+
+project: Political violence, migration, lack of citizenship, and agrobiodiversity loss in the borderlands of Thailand and Laos
+folder: thailand-laos-borderlands
+year: 2021
+caption: A map of the Emerald Triangle, where Thailand, Laos, and Cambodia meet, for Ian G. Baird's article on the borderlands of Thailand and Laos.
+role: Designed the article's Emerald Triangle map.
+link: https://www.sciencedirect.com/science/article/abs/pii/S0016718521000622
+link_type: article
+product: publication
+purpose: storytelling
+employer: UW Cartography Lab
+client: Ian G. Baird
+tools: ArcGIS Pro, Adobe Illustrator
+image: emerald-triangle.png | Emerald Triangle
+
+---
+
+project: Steamboat Springs Community Plan
+folder: steamboat-springs-community-plan
+year:
+caption: A series of simple existing conditions maps for the Steamboat Springs Community Plan.
+role: Created a shared basemap and design system, then produced the existing conditions map series, including the parcel lot coverage analysis.
+link:
+product: report
+purpose: planning
+employer: SE Group
+client: City of Steamboat Springs
+tools: ArcGIS Pro, Adobe Illustrator
+image: utilities.jpg | Utilities
+image: steamboat-collage.jpg | Existing Conditions Map Series |  | archive=yes
+image: land-use.jpg | Land Use
+image: lot-coverage.jpg | Lot Coverage |  | purpose=analysis
+image: facilities.jpg | Public Facilities
+image: recreation.jpg | Recreation
+image: transportation.jpg | Transportation
+
+---
+
+project: Burlington Great Streets
+folder: burlington-great-streets
+year:
+caption: An ArcGIS Experience Builder survey site and interactive map that gathered public input on street design priorities in Burlington.
+role: Built the survey and Experience Builder site, configuring the interactive map that residents used to submit feedback.
+link:
+product: interactive
+purpose: outreach, planning
+employer: SE Group
+client:
+tools: ArcGIS Experience Builder, ArcGIS Survey123, ArcGIS Online
+image: interactive-survey-map.jpg | Interactive Survey Map
+image: comment-sample.jpg | Comment Sample
+---
+
+project: Lewis and Clark County Growth Policy
+folder: lewis-and-clark-growth-policy
+year:
+caption: A public engagement site where residents placed comments directly on the map, paired with a county future land use web map built in ArcGIS Pro from many data inputs.
+role: Built the engagement site and map-based comment tool, and created the future land use layer in ArcGIS Pro from many data inputs.
+link:
+product: interactive
+purpose: outreach, planning
+employer: SE Group
+client:
+tools: ArcGIS Pro, ArcGIS Experience Builder, ArcGIS Survey123, ArcGIS Online
+image: future-land-use.png | Future Land Use Map
+image: survey-results-heatmap.png | Survey Results Heatmap
+image: survey-tool-mobile.png | Survey Tool (Mobile)
+---
+
+project: Montpelier Web-Based City Plan
+folder: montpelier-city-plan
+year:
+caption: A city plan built entirely in ArcGIS StoryMaps, with existing conditions chapters on land use, housing, transportation, and community facilities told through narrative pages and interactive maps.
+role: Built the plan's StoryMaps pages and interactive maps, adapting existing conditions mapping for a web-first format.
+link:
+product: interactive
+purpose: planning, storytelling
+employer: SE Group
+client:
+tools: ArcGIS StoryMaps, ArcGIS Online, ArcGIS Pro
+image: web-based-city-plan.gif | Web-Based City Plan
+---
+
+project: New Hampshire Outdoor Economy
+folder: nh-outdoor-economy
+year:
+caption: A custom ArcGIS JavaScript map viewer of the state's outdoor recreation economy, letting users filter retailers, recreation providers, manufacturers, and nonprofits by activity, with proportional symbols that aggregate by geography.
+role: Developed the custom map viewer, including the activity filters and the proportional symbol aggregation by geography level.
+link:
+product: interactive
+purpose: analysis, outreach
+employer: SE Group
+client:
+tools: ArcGIS Maps SDK for JavaScript, JavaScript, HTML/CSS
+image: database-viewer.gif | Outdoor Economy Database Viewer
+---
+
+project: Okemo Resort Master Development Plan
+folder: okemo-mdp
+year:
+caption: Selected maps from Okemo Mountain Resort's master development plan, including vicinity, slope analysis, and planned mountain upgrades.
+role: Produced the plan's 13-map series, from vicinity and terrain analysis to existing operations and the winter upgrade plan.
+link:
+product: report
+purpose: planning
+employer: SE Group
+client:
+tools: ArcGIS Pro, Adobe Illustrator
+image: slope-analysis.jpg | Slope Analysis
+---
+
+project: Palisades Tahoe 2024 Master Development Plan
+folder: palisades-tahoe-mdp
+year:
+caption: Selected maps from Palisades Tahoe's 2024 master development plan, covering existing conditions, terrain analysis, and planned upgrades.
+role: Produced master development plan maps covering terrain analysis, existing conditions, and planned upgrades.
+link:
+product: report
+purpose: planning
+employer: SE Group
+client:
+tools: ArcGIS Pro, Adobe Illustrator
+image: vicinity.jpg | Vicinity Map
+---
+
+project: Saint Albans Bay Vision Plan
+folder: st-albans-bay-vision-plan
+year:
+caption: A public survey platform and Experience Builder map for the St. Albans Bay Vision Plan, with a dashboard summarizing what residents said about the bay's future.
+role: Built the survey, the Experience Builder site, and the results dashboard.
+link:
+product: interactive
+purpose: outreach, planning
+employer: SE Group
+client:
+tools: ArcGIS Survey123, ArcGIS Experience Builder, ArcGIS Dashboards
+image: survey-tool.jpg | Survey Tool
+image: results-map.png | Results Map
+---
+
+project: SE Group Project Map
+folder: se-group-project-map
+year:
+caption: Mapbox maps for SE Group's website: an interactive spinning globe of the firm's projects worldwide and a Mercator web map with clickable project points and links.
+role: Designed and coded the spinning globe and project web map for the company website.
+link:
+product: interactive
+purpose: outreach
+employer: SE Group
+client:
+tools: Mapbox GL JS, JavaScript, HTML/CSS
+image: website-portfolio-map.gif | Website Portfolio Map
+---
+
+project: Spirit Mountain Ski Resort
+folder: spirit-mountain
+year:
+caption: An ArcGIS Online web map showing changes in lift ticket sales across the region, paired with a custom market impact score.
+role: Analyzed lift ticket sales by geography, designed a custom market impact score, and built the web map.
+link:
+product: interactive
+purpose: analysis
+employer: SE Group
+client:
+tools: ArcGIS Pro, ArcGIS Online
+image: data-viewer.gif | Data Viewer
+---
+
+project: Environmental Quality Index: Wisconsin
+folder: wisconsin-eqi
+year:
+caption: A D3.js dashboard mapping Wisconsin's Environmental Quality Index by county, with choropleth views of all six EQI domains.
+role: Designed and coded the dashboard, including linked choropleth views for each EQI domain.
+link:
+map: indexD3.html
+product: interactive
+purpose: analysis
+employer: student
+client:
+tools: D3.js, JavaScript, HTML/CSS
+image: eqi-dashboard.png | EQI Dashboard
+---
+
+project: Galapagos Islands: Voyage of the HMS Beagle
+folder: galapagos-hms-beagle
+year:
+caption: The route of Darwin's ship through the Galapagos, mapped with 3D-shaded islands and watercolor effects for Geography 572.
+role: Rendered 3D terrain for the islands and combined it with hand-applied watercolor textures and the route of the voyage.
+award: WLIA Map Competition: People's Choice, 2021
+link:
+product: poster
+purpose: design, storytelling
+employer: student
+client:
+tools: Blender, Adobe Photoshop, Adobe Illustrator
+image: voyage-of-the-hms-beagle.jpg | The Voyage of the HMS Beagle
+---
+
+project: Historical Rocket Launches
+folder: rocket-launches
+year:
+caption: A Leaflet.js web map of rocket launches through history, using proportional symbols to compare launch sites.
+role: Built the web map and its proportional symbol display of launch history.
+link:
+map: lab1index.html
+product: interactive
+purpose: storytelling
+employer: student
+client:
+tools: Leaflet, JavaScript, HTML/CSS
+image: historical-rocket-launches.png | Historical Rocket Launches
+---
+
+project: The Irradiated States of America
+folder: irradiated-states
+year:
+caption: A StoryMap for Geography 572 tracing the literal fallout of nuclear weapons tests across the continental United States.
+role: Researched, wrote, and mapped the StoryMap narrative.
+link:
+product: interactive
+purpose: storytelling
+employer: student
+client:
+tools: ArcGIS StoryMaps, ArcGIS Pro
+image: storymap-excerpt.png | StoryMap Excerpt
+---
+
+project: The Strewn Berry
+folder: strewn-berry
+year:
+caption: A watercolor thematic map telling the story of the strawberry, from its geographic origins to its journey to Europe and hybridization.
+role: Painted and designed the map, blending hand watercolor with digital cartography.
+link:
+product: poster
+purpose: design, storytelling
+employer: student
+client:
+tools: Watercolor, Adobe Photoshop, Adobe Illustrator
+image: the-strewn-berry.png | The Strewn Berry

@@ -1,0 +1,15 @@
+project: Glenwood Canyon Recreation Area Signage & Wayfinding
+year: 2023
+caption: A bilingual recreation map and interpretive signage for rest areas and trailheads along I-70 through Glenwood Canyon, Colorado.
+link: https://www.midcowatershed.org/projects/blog-post-title-two-t5my5-k4xmd-67jzh-kwy6w-lkhmr-lj646
+format: print
+product: signage
+symbolization: points, lines, shaded relief, graphic
+subject: recreation, tourism, environment
+purpose: wayfinding, outreach
+employer: SE Group
+client: U.S. Forest Service, Mid Colorado Watershed Council
+client_type: federal, non-profit
+image: fire-safety-panel.jpg | Fire Safety Sign Panel | Interpretive panel on the Grizzly Creek Fire, with the recreation map along the bottom. | symbolization=points, lines, shaded relief, graphic; subject=environment; purpose=wayfinding; 
+image: recreation-map.jpg | Glenwood Canyon Recreation Map | Rest areas, trailheads, and amenities along the canyon's 15-mile recreation path. | subject=recreation, tourism; purpose=wayfinding; symbolization=points, lines, shaded relief; all=no
+

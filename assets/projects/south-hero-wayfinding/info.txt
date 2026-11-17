@@ -1,0 +1,20 @@
+project: Town of South Hero Wayfinding and Road Etiquette Plan
+year: 2024
+caption: Route assessment, community input, and wayfinding sign planning for bike routes on South Hero Island, Vermont.
+link: https://southherovt.org/wp-content/uploads/2024/07/SHORE-Report-Draft_CouncilVersion.pdf
+format: print
+product: report, signage
+symbolization: lines, points, graphic
+subject: recreation, infrastructure
+purpose: wayfinding, planning, design
+employer: SE Group
+client: Town of South Hero
+client_type: municipal
+image: sign-plan.jpg | Wayfinding Sign Plan | Proposed locations of new and updated signs along the Apple Island Loop. | subject=recreation; purpose=wayfinding; product=signage; symbolization=lines, points
+image: route-assessment-and-branding.png | Route Assessment and Branding | Road segments rated by level of concern, alongside logo and sign concepts for South Hero Island. | symbolization=lines, graphic; subject=infrastructure, recreation; purpose=planning, design; product=report, signage;archive=yes
+image: route-assessment-and-reference.png | Route Assessment and Reference Map | Road segments rated from low to very high concern, alongside an island reference map. | symbolization=lines; subject=infrastructure; purpose=planning; product=report
+image: existing-wayfinding.jpg | Existing Routes and Wayfinding Signs | Current bike routes, Champlain Bikeway signs, and kiosks. | subject=recreation; purpose=wayfinding; product=report; symbolization=lines, points
+image: existing-and-proposed-routes.png | Existing and Proposed Routes | Existing routes alongside the proposed Apple Island Loop. | symbolization=lines; subject=recreation; purpose=planning; product=report; archive=yes
+image: sign-family.jpg | Wayfinding Sign Family | Route markers, entrance banner, and kiosk designs. | symbolization=graphic; subject=recreation; purpose=wayfinding, design; product=signage; archive=yes
+image: branding-concepts.jpg | Branding Concepts | Logo and sign concepts for South Hero Island. | symbolization=graphic; subject=recreation; purpose=design; product=signage
+image: process-maps.png | Process Maps | Sticker and sketch maps from public engagement on favorite destinations, rides, and problem areas. | symbolization=points, lines; purpose=planning; product=report; all=no

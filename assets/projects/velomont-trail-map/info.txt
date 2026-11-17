@@ -1,0 +1,13 @@
+project: Velomont Trail Map
+year:
+caption: An illustrated overview map of the Velomont Trail, made to promote the statewide hut-to-hut bike trail and its connections to Vermont's trail systems and downtowns.
+link: https://vermonthuts.org/the-velomont/
+format: print
+product: web
+symbolization: pictorial, points
+subject: recreation, tourism
+purpose: outreach
+employer: SE Group
+client: Vermont Huts Association
+client_type: non-profit
+image: velomont-trail-map.jpg | Velomont Trail Map | Huts, hostels, towns, and 25 local trail systems along the Velomont corridor.

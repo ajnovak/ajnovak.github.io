@@ -1,0 +1,13 @@
+project: Hmong Women's Rights and the Communist Party of Thailand
+year: 2022
+caption: A map of Communist Party of Thailand strongholds and disputed areas in northern Thailand for Ian G. Baird's article on Hmong women's rights.
+link: https://www.researchgate.net/publication/359929226_Hmong_women's_rights_and_the_Communist_Party_of_Thailand
+format: print
+product: article
+symbolization: shaded relief, areas, points
+subject: history & culture
+purpose: research
+employer: UW Cartography Lab
+client: Ian G. Baird
+client_type: academic
+image: cpt-strongholds.png | CPT Strongholds in Northern Thailand | Red Communist Party of Thailand strongholds and Pink disputed areas.

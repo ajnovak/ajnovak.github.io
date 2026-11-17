@@ -1,0 +1,13 @@
+project: Huerfano County Suitability Analysis and Viewer (Innovative Housing Opportunities Plan)
+year:
+caption: An interactive viewer for the housing suitability model behind Huerfano County, Walsenburg, and La Veta's 2024 Innovative Housing Opportunities Plan. The model ranks every parcel in the county by its proximity to amenities like schools, roads, and businesses, and its distance from constraints like burn risk, steep slopes, and hazardous sites.
+link: https://segroup.maps.arcgis.com/apps/instant/interactivelegend/index.html?appid=06eca90c17d44fe2a1c80ae200cacb4e
+format: interactive
+product: web map
+symbolization: choropleth, raster
+subject: land use
+purpose: analysis, planning
+employer: SE Group
+client: Huerfano County, Colorado
+client_type: county
+image: suitability-viewer.gif | Suitability Analysis Viewer | Final parcel suitability scores and the model's input layers.

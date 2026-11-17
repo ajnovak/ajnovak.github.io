@@ -1,0 +1,13 @@
+project: FairShare CSA Coalition Farm Map
+year: 2022
+caption: The 41 farms in the FairShare CSA Coalition for 2022, with a Dane County inset.
+link: https://www.csacoalition.org
+format: print
+product: poster
+symbolization: points
+subject: economic development
+purpose: outreach
+employer: UW Cartography Lab
+client: FairShare CSA Coalition
+client_type: non-profit
+image: farm-map-2022.jpg | 2022 CSA Farms

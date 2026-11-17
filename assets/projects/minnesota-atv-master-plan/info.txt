@@ -1,0 +1,13 @@
+project: Minnesota All-Terrain Vehicle Strategic Master Plan
+year: 2025
+caption: Twelve ADA-accessible maps for the Minnesota DNR's statewide ATV master plan, from registration and riding area patterns to a multi-factor suitability analysis for new ATV opportunities.
+link: https://material-civet.files.svdcdn.com/production/images/documents/MN-ATV-Strategic-Master-Plan-2025.pdf?dm=1767718970
+format: print
+product: report
+symbolization: points, choropleth, heatmap, raster
+subject: recreation
+purpose: analysis, planning
+employer: SE Group
+client: Minnesota Department of Natural Resources
+client_type: state
+image: minnesota-atv-collage.jpg | Statewide Map Series | Riding area, registration, and suitability analysis maps from the plan.

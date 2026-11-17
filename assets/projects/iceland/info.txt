@@ -1,0 +1,13 @@
+project: Iceland
+year: 2020
+caption: Cartographic design winner of the 2020 NACIS Student Map and Poster Competition.
+link: https://nacis.org/awards/2020-smpc-design-winner/
+format: print
+product: poster
+symbolization: shaded relief, points, lines
+subject: geography, tourism
+purpose: coursework
+employer: student
+client: Geography 370, University of Wisconsin–Madison
+client_type: academic
+image: iceland.png | Iceland | A poster capturing the beauty and culture of Iceland through terrain and cartographic design.

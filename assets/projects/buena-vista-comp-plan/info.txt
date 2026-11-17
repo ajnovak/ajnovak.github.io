@@ -1,0 +1,15 @@
+project: Town of Buena Vista Comprehensive Plan Update
+year: 2025
+caption: Selected maps from Buena Vista, Colorado's 2025 Comprehensive Plan update.
+link: https://storymaps.arcgis.com/stories/9f67b91a4fc5477aa0f4f10b99d5718f
+format: print
+product: report, storymap
+symbolization: choropleth, areas
+subject: land use
+purpose: planning, policy
+employer: SE Group
+client: Town of Buena Vista
+client_type: municipal
+image: zoning.jpg | Current Zoning |  | symbolization=areas; purpose=policy
+image: land-use.jpg | Land Use |  | symbolization=areas; purpose=planning
+image: lot-size.jpg | Parcel Lot Size |  | symbolization=choropleth; purpose=planning

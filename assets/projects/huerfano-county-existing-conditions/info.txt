@@ -1,0 +1,20 @@
+project: Huerfano County Comprehensive Plan: Existing Conditions
+year: 2024
+caption: Existing conditions maps for Huerfano County, Colorado's 2024 Comprehensive Plan, covering the county's landmarks, public lands, transportation, recreation, economy, and natural hazards.
+link: https://huerfano.us/notice-of-public-comment-draft-county-comprehensive-plan/
+format: print
+product: report
+symbolization: shaded relief, choropleth, raster, areas, lines, points
+subject: geography, history & culture, land use, infrastructure, recreation, economic development, environment
+purpose: planning
+employer: SE Group
+client: Huerfano County, Colorado
+client_type: county
+image: reference-map.jpg | County Reference Map | Towns, peaks, wilderness areas, and highways across Huerfano County. | symbolization=shaded relief, points, lines; subject=geography
+image: historic-landmarks.jpg | Historic Landmarks | Landmarks, former plazas, and the Taos and Old Spanish Trails. | symbolization=shaded relief, points, lines; subject=history & culture
+image: land-management.jpg | Land Management | Federal, state, county, and conserved lands. | symbolization=areas; subject=land use
+image: transportation.jpg | Transportation | Roads by functional class, railroads, airfields, and the Bustang route. | symbolization=lines, points; subject=infrastructure
+image: trails-and-recreation.jpg | Trails and Recreation | Trails, campgrounds, and recreation areas, with insets for La Veta and Walsenburg. | symbolization=lines, areas, points; subject=recreation
+image: cuchara-valley.jpg | Cuchara Valley | Reference map of Cuchara, its trails, and community services. | symbolization=shaded relief, lines, points; subject=geography
+image: economic-centers.jpg | Economic Centers | Business density per one-mile hexagon. | symbolization=choropleth; subject=economic development
+image: hazards.jpg | Hazards | Floodplains, wildfire risk, steep slopes, and burn risk. | symbolization=raster; subject=environment

@@ -1,0 +1,14 @@
+project: Town of Chester, VT Wayfinding Plan
+year: 2020
+caption: Kiosk panels with a walking map and village history for Chester, Vermont's wayfinding plan.
+link: https://www.chestertelegraph.org/wp-content/uploads/2020/11/Chester-Wayfinding-Plan-Nov-2020.pdf
+format: print
+product: signage
+symbolization: points, graphic
+subject: geography, tourism, history & culture
+purpose: wayfinding
+employer: SE Group
+client: Town of Chester
+client_type: municipal
+image: walking-map.jpg | Village Walking Map |  | subject=geography, tourism; symbolization=points
+image: kiosk.jpg | Kiosk Mockup |  | symbolization=points, graphic; subject=history & culture; all=no

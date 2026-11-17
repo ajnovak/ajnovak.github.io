@@ -1,0 +1,764 @@
+/* Styles for portfolio.html only. Everything is prefixed "pf-" so this file
+   can't affect the rest of the site, including the archived maps.html. */
+
+:root {
+    /* The site's slate green, for what you can act on: selected filters,
+       buttons, links. A pale tint of it for hovers, and a dark slate ink
+       for text on them. */
+    --pf-accent: #5c6b67;
+    --pf-accent-dark: #46534f;
+    --pf-accent-tint: #dfe5e3;
+    --pf-ink: #2f3836;
+    --pf-border: #cccccc;
+    --pf-muted: #5f5f5f;
+    --pf-text: #242424;
+}
+
+/* Only the portfolio pages (portfolio.html, and index.html with the landing
+   panorama above it) load this file, so the rest of the site keeps the
+   #f7f1fa background from style.css. The portfolio uses a plain page color. */
+body {
+    background-color: #f7f5f7;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.pf-no-scroll {
+    overflow: hidden;
+}
+
+/* Side margins line up with the navbar text in style.css: the navbar has 12%
+   side padding, then "Austin Novak" sits 8px further in and "Shop" ends 23px
+   further in (8px link padding + 15px column padding). */
+.pf-page {
+    padding: 1.5rem calc(12% + 23px) 4rem calc(12% + 8px);
+}
+
+/* Below 992px the navbar collapses, and its menu button sits right at 12%. */
+@media (max-width: 991.98px) {
+    .pf-page {
+        padding-right: 12%;
+    }
+}
+
+.pf-page button:focus-visible,
+.pf-page a:focus-visible,
+.pf-lightbox button:focus-visible {
+    outline: 3px solid var(--pf-accent);
+    outline-offset: 2px;
+}
+
+/* ---------- Filters ---------- */
+
+.pf-controls {
+    margin-bottom: 0.75rem;
+}
+
+/* Centered, two rows: "Filter by" + category tabs, then the selected
+   category's filters. */
+
+.pf-filter-label {
+    color: var(--pf-muted);
+    font-family: var(--font-text);
+    font-size: 1.05rem;
+    font-style: normal;
+}
+
+.pf-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 1.5rem;
+}
+
+.pf-tab {
+    padding: 0.1rem 0;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--pf-muted);
+    font-family: var(--font-text);
+    font-size: 1.1rem;
+    font-style: normal;
+    cursor: pointer;
+}
+
+.pf-tab:hover {
+    color: var(--pf-text);
+    border-bottom-color: var(--pf-border);
+}
+
+/* Bootstrap outlines buttons on every click; keep the outline for keyboard
+   focus only. */
+.pf-card:focus:not(:focus-visible),
+.pf-lightbox button:focus:not(:focus-visible),
+.pf-tab:focus:not(:focus-visible),
+.pf-chip:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.pf-tab[aria-pressed="true"] {
+    border-bottom-color: var(--pf-accent);
+    color: var(--pf-ink);
+}
+
+.pf-filter-groups {
+    max-width: 100%;
+}
+
+.pf-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Each chip is a soft pale pill with feathered edges and no outline, like
+   the patch behind "Filter by": a knockout that reads over the landscape.
+   Hover tints it green; selected fills it with the accent green. */
+.pf-chip {
+    padding: 5px 16px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(243, 243, 243, 0.92);
+    box-shadow: 0 0 10px 4px rgba(243, 243, 243, 0.75);
+    color: var(--pf-ink);
+    font-family: var(--font-text);
+    font-size: 15px;
+    font-style: normal;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.pf-chip:hover {
+    background: var(--pf-accent-tint);
+    box-shadow: 0 0 10px 4px rgba(223, 229, 227, 0.8);
+}
+
+.pf-chip[aria-pressed="true"],
+.pf-chip[aria-pressed="true"]:hover {
+    background: var(--pf-accent);
+    box-shadow: 0 0 10px 4px rgba(243, 243, 243, 0.75);
+    color: #fff;
+}
+
+.pf-status-row {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 1rem;
+    min-height: 2rem;
+    margin-bottom: 1rem;
+}
+
+.pf-status {
+    margin: 0;
+    color: var(--pf-muted);
+    font-size: 1.05rem;
+}
+
+.pf-clear {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--pf-accent);
+    font-size: 1.05rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.pf-clear:hover {
+    color: var(--pf-accent-dark);
+}
+
+/* ---------- Project grid ---------- */
+
+/* Masonry: portfolio.js sets how many of these 2px rows each card spans, based
+   on its height. The gap between stacked cards is built into that span. */
+.pf-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 2px;
+    grid-auto-flow: dense;
+    column-gap: 1.75rem;
+}
+
+.pf-card {
+    display: flex;
+    align-self: start;
+    flex-direction: column;
+    border: 0;
+    background: transparent;
+    /* A very small shadow lifts the map off the page in place of a frame. */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14), 0 0 1px rgba(0, 0, 0, 0.08);
+    color: var(--pf-text);
+    transition: box-shadow 0.25s ease;
+}
+
+/* The shadow fades out as the title panel fades in, so the panel still
+   blends into the page with no edge. */
+.pf-card:hover,
+.pf-card:focus {
+    box-shadow: none;
+    color: var(--pf-text);
+    text-decoration: none;
+}
+
+/* No frame: the maps sit directly on the page. */
+.pf-card-image {
+    position: relative;
+    display: block;
+    background: #eeeeee;
+}
+
+.pf-card-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Title and year sit over the bottom of the cover and fade in on hover or
+   keyboard focus. They stay in the page, so screen readers always get them. */
+.pf-card {
+    position: relative;
+    border-radius: 3px;
+}
+
+/* Very slightly rounded corners on the map and its title panel. */
+.pf-card-image {
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.pf-card-body {
+    border-radius: 0 0 3px 3px;
+}
+
+/* A panel in the page color slides up from the bottom edge: a small
+   spaced-out year over the title. It sits above the image frame and is
+   nearly opaque, so its sides and bottom have no edge and it reads as part
+   of the page; its top fades into the map. */
+.pf-card-body {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 3.4rem 1.3rem 1.05rem;
+    text-align: center;
+    /* Page color, slightly see-through behind the text, easing out over the
+       top 3.25rem so the map dissolves gently into the panel. */
+    background: linear-gradient(to top,
+        rgba(247, 245, 247, 0.88) 0,
+        rgba(247, 245, 247, 0.88) calc(100% - 3.25rem),
+        rgba(247, 245, 247, 0.6) calc(100% - 2rem),
+        rgba(247, 245, 247, 0.22) calc(100% - 0.9rem),
+        rgba(247, 245, 247, 0) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.pf-card:hover .pf-card-body,
+.pf-card:focus-visible .pf-card-body {
+    opacity: 1;
+    transform: none;
+}
+
+.pf-card-title {
+    color: #434a4c;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1.3;
+}
+
+/* Map cards only. Long captions are cut to three lines; the full caption
+   shows in the viewer. */
+.pf-card-caption {
+    display: -webkit-box;
+    overflow: hidden;
+    color: #6b787b;
+    font-family: var(--font-text);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+/* Comes after the title in the page, shown above it. */
+.pf-card-year {
+    order: -1;
+    color: #434a4c;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+}
+
+/* Phones and tablets can't hover, so they always show the title. */
+@media (hover: none) {
+    .pf-card-body {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ---------- Project view ---------- */
+
+/* Centered like the filters, in the same spot, so the two swap in place. */
+.pf-project-head {
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+    text-align: center;
+}
+
+.pf-project-title {
+    margin: 0 0 0.6rem;
+    color: #434a4c;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: normal;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+}
+
+.pf-project-title:focus {
+    outline: none;
+}
+
+.pf-project-caption {
+    max-width: 44rem;
+    margin: 0 auto 0.5rem;
+    color: #6b787b;
+    /* Georgia rather than the site's Garamond: its larger lowercase letters
+       stay readable at caption sizes on screen. */
+    font-family: var(--font-text);
+    font-size: 1.02rem;
+    line-height: 1.65;
+}
+
+/* Role and tools: a small spaced-caps label, then the text. */
+.pf-role,
+.pf-tools {
+    max-width: 44rem;
+    margin: 0 auto 0.4rem;
+    color: #5f6b6e;
+    font-family: var(--font-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.pf-tools {
+    margin-bottom: 0.75rem;
+}
+
+.pf-role[hidden],
+.pf-tools[hidden] {
+    display: none;
+}
+
+/* "Created at ... for ..., year": small, muted, italic, lightly spaced. */
+.pf-credit {
+    margin: 0 auto 1.25rem;
+    color: #6b7678;
+    font-family: var(--font-ui);
+    font-size: 0.95rem;
+    font-style: normal;
+    letter-spacing: 0.01em;
+}
+
+.pf-credit:empty {
+    display: none;
+}
+
+.pf-link {
+    color: var(--pf-accent);
+    font-size: 1.05rem;
+    text-decoration: underline;
+}
+
+.pf-link:hover {
+    color: var(--pf-accent-dark);
+}
+
+/* Close button: the filled style of a selected filter, but larger, so it's
+   the most obvious thing on the page after the maps. */
+.pf-close {
+    flex: 0 0 auto;
+    padding: 10px 28px;
+    border: 1px solid var(--pf-accent);
+    border-radius: 2px;
+    background: var(--pf-accent);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-size: 17px;
+    font-style: normal;
+    white-space: nowrap;
+    transition: all 0.2s ease-in-out;
+}
+
+.pf-close:hover,
+.pf-close:focus {
+    border-color: var(--pf-accent-dark);
+    background: var(--pf-accent-dark);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Justified rows of maps; portfolio.js sizes each map so full rows fill the
+   width. The gap here is read by the script, so rows and columns match. */
+.pf-maps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pf-map-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.pf-map-card .pf-card-image img {
+    max-width: none;
+}
+
+/* Map cards are buttons, so undo the browser's button styling. */
+.pf-map-card {
+    flex: 0 0 auto;
+    padding: 0;
+    font: inherit;
+    text-align: left;
+    cursor: zoom-in;
+}
+
+.pf-map-card:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Lightbox arrows */
+/* Viewer buttons (arrows and close), styled like the filter buttons: a thin
+   outline that fills pale yellow on hover. White outline and symbol here,
+   since they sit on the grey-green viewer. */
+.pf-arrow,
+.pf-lightbox-close {
+    flex: 0 0 auto;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 2px;
+    background: transparent;
+    color: #fff;
+    font-family: var(--font-ui);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.pf-arrow:hover,
+.pf-lightbox-close:hover {
+    border-color: var(--pf-accent-tint);
+    background: var(--pf-accent-tint);
+    color: var(--pf-ink);
+}
+
+/* ---------- Lightbox ---------- */
+
+/* Inset from the window edges so the dimmed page shows around it: a layer
+   over the page rather than a new screen. Full screen on phones. */
+.pf-lightbox {
+    position: fixed;
+    inset: 0;
+    width: calc(100vw - 4rem);
+    max-width: none;
+    height: calc(100vh - 4rem);
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    /* The dark slate green, slightly see-through */
+    background: rgba(70, 83, 79, 0.96);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+    color: #fff;
+}
+
+.pf-lightbox[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+.pf-lightbox::backdrop {
+    background: rgba(40, 44, 45, 0.6);
+}
+
+/* Project title and "3 of 6" across the top; right padding clears the
+   close button. */
+/* Centered project title. Equal side padding keeps it centered and clear of
+   the close button. */
+.pf-lightbox-bar {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 1.15rem 4.5rem 0.75rem;
+    text-align: center;
+}
+
+.pf-lightbox-project {
+    max-width: 100%;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-style: italic;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pf-lightbox-view {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    padding: 0.25rem 4.5rem 0;
+}
+
+.pf-lightbox-view img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    background: #fff;
+    cursor: zoom-in;
+}
+
+/* Actual size: the viewer scrolls and the map keeps its natural dimensions. */
+.pf-lightbox-view.is-zoomed {
+    display: block;
+    padding: 0;
+    overflow: auto;
+}
+
+.pf-lightbox-view.is-zoomed img {
+    max-width: none;
+    max-height: none;
+    cursor: zoom-out;
+}
+
+/* Map title and caption under the map, introduced by a short thin rule. */
+.pf-lightbox-text {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem 1.3rem;
+    color: #eef1f0;
+    text-align: center;
+}
+
+.pf-lightbox-text::before {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 1px;
+    margin: 0 auto 0.75rem;
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.pf-lightbox-map-title {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+}
+
+.pf-lightbox-map-caption {
+    display: block;
+    font-size: 1.12rem;
+    line-height: 1.45;
+}
+
+.pf-lightbox-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+}
+
+/* Prev/next: large, faint arrows with no outline. They brighten when hovered
+   or when the pointer is over that side of the map (set by portfolio.js),
+   where a click steps in that direction. */
+.pf-lightbox-prev,
+.pf-lightbox-next {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 7rem;
+    border: 0;
+    background: none;
+    color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-50%);
+}
+
+/* Thin drawn chevron, about 56px tall. */
+.pf-lightbox-prev svg,
+.pf-lightbox-next svg {
+    width: 28px;
+    height: 56px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pf-lightbox-prev:hover,
+.pf-lightbox-next:hover,
+.pf-lightbox[data-hover="prev"] .pf-lightbox-prev,
+.pf-lightbox[data-hover="next"] .pf-lightbox-next {
+    border: 0;
+    background: none;
+    color: #fff;
+}
+
+.pf-lightbox[data-hover] .pf-lightbox-view {
+    cursor: pointer;
+}
+
+/* Touch screens can't hover, so keep the arrows easy to see. */
+@media (hover: none) {
+    .pf-lightbox-prev,
+    .pf-lightbox-next {
+        color: rgba(255, 255, 255, 0.85);
+    }
+}
+
+.pf-lightbox-prev {
+    left: 0.75rem;
+}
+
+.pf-lightbox-next {
+    right: 0.75rem;
+}
+
+.pf-lightbox button:focus-visible {
+    outline-color: var(--pf-accent-tint);
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 1100px) {
+    .pf-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .pf-page {
+        padding-bottom: 3rem;
+    }
+
+    .pf-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    .pf-project-title {
+        font-size: 1.35rem;
+    }
+
+    .pf-lightbox {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .pf-lightbox-bar {
+        padding-right: 4rem;
+        padding-left: 4rem;
+    }
+
+    .pf-lightbox-view {
+        padding: 0.25rem 0.5rem 0;
+    }
+
+    .pf-lightbox-prev,
+    .pf-lightbox-next {
+        top: auto;
+        bottom: 0.5rem;
+        transform: none;
+    }
+
+    .pf-lightbox-text {
+        padding: 0.6rem 4rem 0.8rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pf-chip,
+    .pf-card,
+    .pf-card-body {
+        transition: none;
+    }
+}
+
+/* ---------- Opening and closing a project ----------
+   portfolio.js runs the switch as a view transition where supported. The
+   clicked cover glides into the project's first map (or back), and the
+   rest of the page cross-fades quickly behind it. */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.2s;
+    animation-timing-function: ease;
+}
+
+/* The cover moves and grows on a long, gentle ease-out. */
+::view-transition-group(pf-hero) {
+    animation-duration: 0.42s;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* It's the same image at both ends, so rather than cross-fading two copies
+   (the small one blown up, the large one shrunk, both half see-through
+   midway, which looks soft and dim when it grows in place), only the new,
+   sharp one is shown, scaled from the old one's spot. */
+::view-transition-old(pf-hero) {
+    animation: none;
+    opacity: 0;
+}
+
+::view-transition-new(pf-hero) {
+    animation: none;
+}
+
+/* If only one end exists (its card off screen), it fades like the page. */
+::view-transition-old(pf-hero):only-child {
+    opacity: 1;
+    animation: 0.2s ease both pf-hero-out;
+}
+
+::view-transition-new(pf-hero):only-child {
+    animation: 0.2s ease both pf-hero-in;
+}
+
+@keyframes pf-hero-out {
+    to { opacity: 0; }
+}
+
+@keyframes pf-hero-in {
+    from { opacity: 0; }
+}

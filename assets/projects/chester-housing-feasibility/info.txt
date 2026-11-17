@@ -1,0 +1,13 @@
+project: Chester Housing Feasibility Study
+year:
+caption: A data-dense study area map for evaluating housing sites in Chester, Vermont, combining parcels, zoning, building footprints, utilities, conserved lands, wetlands, and trails on a single sheet for internal decision making.
+link:
+format: print
+product: report
+symbolization: areas, lines, points
+subject: land use, infrastructure
+purpose: analysis, planning
+employer: SE Group
+client: Town of Chester
+client_type: municipal
+image: study-area-map.jpg | Study Area Map | Parcels, building uses, utilities, conserved lands, and environmental features around the village, with a zoning inset.

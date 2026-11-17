@@ -4,54 +4,1453 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="maps, cartography"/>
-	<title>Austin Novak</title>
+    <meta name="keywords" content="maps, cartography, GIS"/>
+    <meta name="description" content="Austin Novak: cartography, GIS and map design.">
+    <title>Austin Novak</title>
 
-    <!--put your Bootstrap stylesheet links below this comment and above style.css-->
+    <!-- The landing page and the portfolio in one: a horizon panorama whose
+         Portfolio label leads down into the project grid. -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/landing-horizon.css">
 </head>
 
-<body class="indexbackground">
-	<!-- Create the navbar -->
-	<nav class="navbar navbar-expand-lg sticky-top d-flex justify-content-between ">
+<body class="horizon">
+    <!-- A filter that roughens the edges of the chips' hover and selected
+         pills, so they look hand-laid rather than perfect
+         (css/landing-horizon.css). -->
+    <svg class="horizon-defs" width="0" height="0" aria-hidden="true" focusable="false">
+        <filter id="horizon-rough-crisp" x="-10%" y="-30%" width="120%" height="160%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="5" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+    </svg>
+    <!-- The site navbar. Its name and links are the landing's own labels:
+         at the top of the page each sits exactly over its label in the sky,
+         and as the page scrolls they rise with it, shrink, and glide along
+         into the bar (js below; data-glide pairs each with its label). -->
+    <nav class="navbar navbar-expand-lg fixed-top d-flex justify-content-between horizon-navbar" id="horizon-navbar">
 
-    <div class="navbar-nav  col-4 align-items-start ">
-        <a class="navbar-brand" href="index.html">Austin Novak</a>
-    </div>
-
-    <button type="button" class="navbar-toggler ml-auto  align-items-end" data-toggle="collapse" data-target="#navbarNavDropdown" aria-expanded="false" aria-controls="navbarNavDropdown">
-                    <span class="sr-only">Toggle navigation</span>
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" /></svg>
-                    <span class="menu"></span>
-                </button>
-
-    <div class="collapse navbar-collapse  col-8 justify-content-end" id="navbarNavDropdown">
-        <div class="navbar-nav ml-auto ">
-            <a class="nav-item nav-link" href="maps.html">Portfolio</a>
-            <a class="nav-item nav-link" href="contact.html">Contact</a>
-            <a class="nav-item nav-link" href="resume.html">Resume</a>
-            <a class="nav-item nav-link" href="https://www.etsy.com/shop/MapsAndSnaps?ref=seller-platform-mcnav">Shop</a>
+        <div class="navbar-nav col-4 align-items-start">
+            <a class="navbar-brand" href="index.html" data-glide="name">Austin Novak</a>
         </div>
-    </div>
 
-</nav>  
-	
-	<div class="jumbotron">
-		<div blockquote class="blockquote text-center">
-            <p class="mb-0">You cannot depend on your eyes if your imagination is out of focus</p>
-            <footer class="blockquote-footer">Mark Twain</footer>
-            </blockquote>
+        <button type="button" class="navbar-toggler ml-auto align-items-end" data-toggle="collapse" data-target="#navbarNavDropdown" aria-expanded="false" aria-controls="navbarNavDropdown">
+            <span class="sr-only">Toggle navigation</span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" /></svg>
+        </button>
 
-            <a href="maps.html" class="btn portfolio-btn">View My Portfolio</a>
-
+        <div class="collapse navbar-collapse col-8 justify-content-end" id="navbarNavDropdown">
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="#pf-browse" data-scroll-to="pf-browse" data-glide="portfolio">Portfolio</a>
+                <a class="nav-item nav-link" href="resume.html" data-glide="resume">Resume</a>
+                <a class="nav-item nav-link" href="contact.html" data-glide="contact">Contact</a>
+            </div>
         </div>
+
+    </nav>
+
+    <header class="horizon-hero" id="pf-hero">
+        <!-- Everything inside the frame is placed on the photo's own
+             coordinates: --x and --y are a landform's position, in percent
+             across and down the photo. Each label sits in the sky with a
+             hairline leader down to its landform, like the labels on a
+             panorama drawing. The photo is the top of the page backdrop
+             (backdrop-full-final-alt2.jpg), at full sharpness. Earlier versions
+             are kept: no suffix from backdrop-full-final.jpg, -alt from
+             backdrop-full-final-alt.jpg.
+             -->
+        <div class="horizon-frame">
+            <img class="horizon-layer" src="img/horizon-final-alt4.webp" alt="">
+
+            <!-- The middle of the view, the edge of the ridge shelf, and the
+                 canyon notch between the buttes, to the east of the peak.
+                 (The canyon rim at --x: 61.3; --y: 40.2 and the lone butte at
+                 --x: 72.5; --y: 37.4 are free for more labels.) -->
+            <nav class="horizon-nav" aria-label="Main">
+                <a class="horizon-link horizon-link-main" href="#pf-browse" data-scroll-to="pf-browse" data-glide="portfolio" style="--x: 50; --y: 33.8">Portfolio</a>
+                <a class="horizon-link" href="resume.html" data-glide="resume" style="--x: 58.6; --y: 39.83">Resume<span class="horizon-ring" aria-hidden="true"></span><span class="horizon-anchor" data-trail="r0" aria-hidden="true"></span></a>
+                <a class="horizon-link" href="contact.html" data-glide="contact" style="--x: 67.3; --y: 38.6">Contact<span class="horizon-ring" aria-hidden="true"></span><span class="horizon-anchor" data-trail="c0" aria-hidden="true"></span></a>
+            </nav>
+        </div>
+
+        <!-- The name is set on the page's grid rather than the photo: its
+             left edge lines up with the portfolio's and the navbar's. -->
+        <div class="horizon-title">
+            <h1 class="horizon-name" data-glide="name">Austin Novak</h1>
+        </div>
+
+        <!-- The name's leader, from under its middle down to the ridge;
+             placed by the script below. -->
+        <span class="horizon-name-lead" aria-hidden="true" hidden></span>
+
+        <!-- Or a summit mark under the name instead (css picks which). -->
+        <span class="horizon-name-mark" aria-hidden="true"></span>
+    </header>
+
+    <!-- The portfolio, straight below the panorama. Portfolio's line
+         (.horizon-lead) runs from under its label down to the filters. -->
+    <div class="horizon-continue">
+        <span class="horizon-lead" aria-hidden="true"></span>
+
+        <!-- The trail: Portfolio’s line ends at a survey mark, and a
+             dashed footpath winds from it past each intro stop to Projects.
+             The marks and the path shapes are the SVGs in assets/trail/
+             (drawn in Illustrator); the script at the end fits each path
+             between its two marks, whatever the screen size. -->
+        <span class="trail-mark trail-start" data-trail="0" data-gap="2" data-svg="assets/trail/circle-basic.svg" data-halo="assets/trail/halo-start.svg" style="--i: 0" aria-hidden="true"></span>
+        <svg class="trail-line" aria-hidden="true" focusable="false"></svg>
+
+        <main class="pf-page">
+
+            <!-- Project grid with filters -->
+            <div id="pf-browse">
+                <!-- The intro, or (on the Resume or Contact route) that
+                     route's end and its list, in the same place. -->
+                <div class="intro-stack">
+                <!-- Projects: a heading like the résumé's, on the same spot as
+                     Education, where the Portfolio trail ends (on the x
+                     shared with the Resume route), with the count at the end
+                     of its leader. Under it, the filters, each set on a
+                     topo map's bridge symbol: "Filter by" and the categories
+                     on one, the open category's filters on the other, and a
+                     dashed line between them. -->
+                <section class="pf-intro" aria-label="Projects">
+                    <h2 class="resume-h">Projects</h2>
+                    <div class="pf-filter-bar">
+                        <div class="pf-frame pf-frame-1">
+                            <span class="pf-filter-label">Filter by</span>
+                            <div class="pf-tabs" id="pf-filter-tabs" role="group" aria-label="Filter by"></div>
+                        </div>
+                        <span class="pf-filter-dash" aria-hidden="true"></span>
+                        <div class="pf-frame pf-frame-2">
+                            <div class="pf-filter-groups" id="pf-filter-groups"></div>
+                        </div>
+                    </div>
+                    <div class="pf-status-row">
+                        <p class="pf-status" id="pf-status" role="status">Loading projects&hellip;</p>
+                        <button class="pf-clear" id="pf-clear" type="button" hidden>Show all</button>
+                    </div>
+                </section>
+
+                <div class="alt-view">
+                <!-- Resume route: clicking Resume rolls the Portfolio trail
+                     back up and draws this route down from Resume's circle
+                     to this diamond, with the résumé in place of the cards.
+                     (Remove this, the résumé list below, the anchor in the
+                     Resume link, and the "Resume route" blocks in the script
+                     and css/landing-horizon.css to revert.) -->
+                <div class="resume-head" aria-hidden="true">
+                    <a class="resume-pdf" data-route="resume" href="assets/Austin_Novak_Resume.pdf" tabindex="-1">Download PDF</a>
+                    <a class="resume-pdf" data-route="contact" href="mailto:ajnovak@proton.me" tabindex="-1">ajnovak@proton.me</a>
+                    <span class="trail-mark" data-trail="r1" data-gap="1" data-svg="assets/trail/diamond-point.svg" aria-hidden="true"></span>
+                    <h2 class="trail-head"><span data-route="resume">Résumé</span><span data-route="contact">Contact</span></h2>
+                </div>
+
+                <!-- Where the Portfolio trail and the Resume route end: a small x
+                     on the first heading's rule (Projects or Education), in a gap
+                     in the rule (placed by css/landing-horizon.css, "The résumé"). -->
+                <span class="trail-mark trail-resume-end" data-trail="r2" data-gap="2" data-svg="assets/resume/divider-mark-x.svg" aria-hidden="true"></span>
+
+                <section class="alt-list resume-list resume-sheet" id="pf-resume" aria-label="Résumé">
+                    <h3 class="resume-h">Education<a class="resume-download" href="assets/Austin_Novak_Resume.pdf">Download PDF</a></h3>
+                    <ul class="resume-items">
+                        <li class="resume-major resume-school">University of Wisconsin–Madison</li>
+                        <li class="resume-degree">B.S. in Cartography and Geographic Information Systems + People-Environment Geography</li>
+                    </ul>
+
+                    <h3 class="resume-h">Experience<img class="resume-lat" src="assets/resume/burlington-latlon.svg" alt="" aria-hidden="true"></h3>
+                    <div class="resume-entry">
+                        <div class="resume-row"><h4>Cartographer and GIS Analyst</h4><span class="resume-date">May 2023 – Feb 2025</span></div>
+                        <div class="resume-row resume-where"><span>SE Group</span><span>Burlington, VT</span></div>
+                        <ul class="resume-items resume-bullets">
+                            <li>As the resident cartography and geospatial specialist and a community and recreation planning analyst, supported a team of 40+ planners, landscape architects, and environmental specialists with map design, data sourcing, and GIS troubleshooting; created shared basemaps, map templates, style libraries, and automated workflows such as batch GIS-to-CAD clipping and exports.</li>
+                            <li>Produced 100+ static maps and graphics for 24 public and private sector projects, from site-scale concept and permitting maps to coordinated municipal, county, and statewide plan map series, as well as illustrated promotional maps, wayfinding signage, and ADA-accessible maps, while balancing concurrent projects, budgets, and deadlines.</li>
+                            <li>Built interactive maps and apps for 11+ projects, including maps and StoryMap pages for Montpelier’s award-winning city plan, a custom ArcGIS Maps SDK for JavaScript viewer of a geocoded statewide business dataset, Mapbox spinning-globe and project maps for the company website, and an ArcGIS Online sign inventory system for a wildlife refuge, with GitHub-hosted photo popups.</li>
+                            <li>Designed a map-based engagement platform in ArcGIS Experience Builder and Survey123 that brought the “place a dot” exercise online, gathering 261 location-tagged responses for Lewis and Clark County’s growth policy, analyzing the results with density maps and a summary report, and refining the platform across two more projects into a reusable template.</li>
+                            <li>Co-developed weighted suitability models in ModelBuilder for county and regional housing studies, combining amenities, infrastructure, and hazards data into composite parcel scores that helped identify 13+ affordable housing opportunity sites, and published results in a webmap with filterable scores and parcel-level popups.</li>
+                            <li>Built Lewis and Clark County’s future land use layer from scratch using geoprocessing tools, reclassifying land based on zoning, growth, infrastructure, and natural constraints, and creating a new agricultural heritage category from soils data and satellite imagery of active farmland; the layer now guides subdivision reviews and policy development.</li>
+                        </ul>
+                    </div>
+                    <div class="resume-entry">
+                        <img class="resume-lat" src="assets/resume/madison-latlon.svg" alt="" aria-hidden="true">
+                        <div class="resume-row"><h4>Student Production Cartographer</h4><span class="resume-date">Jan 2020 – May 2023</span></div>
+                        <div class="resume-row resume-where"><span>University of Wisconsin Cartography Lab</span><span>Madison, WI</span></div>
+                        <ul class="resume-items resume-bullets">
+                            <li>Completed 40 maps and figures across 9 projects for authors, academic publications, and nonprofits, working independently with clients from initial concept to final deliverable and earning repeat requests.</li>
+                            <li>Took part in 3 cartography challenges: rapid newsroom mapping, a K–5 curriculum, and bird migration GIS.</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="resume-h">Awards</h3>
+                    <ul class="resume-items resume-awards">
+                        <li class="resume-major"><strong>NACIS</strong>: <a href="#iceland">Cartographic Design Winner</a> (2020); <a href="https://jake-steinberg.github.io/2022_DarkSkies_js/">Group Dynamic Map Winner</a> (2022)</li>
+                        <li class="resume-major"><strong>WLIA</strong>: <a href="#iceland">Best Student Map</a> (2020); <a href="#galapagos-hms-beagle">People’s Choice</a> (2021); 3× Runner-up, Base &amp; Reference and Most Unique Map (2020–2022)</li>
+                    </ul>
+
+                    <h3 class="resume-h">Technical Skills</h3>
+                    <ul class="resume-items resume-skills">
+                        <li class="resume-major"><strong>GIS</strong>: ArcGIS Pro (ModelBuilder, ArcPy, Spatial Analyst), QGIS, Global Mapper, ArcMap</li>
+                        <li class="resume-major"><strong>ArcGIS Online</strong>: Experience Builder, Survey123, StoryMaps, Dashboards, Instant Apps, Arcade</li>
+                        <li class="resume-major"><strong>Web &amp; Code</strong>: JavaScript, ArcGIS Maps SDK for JavaScript, Leaflet, Mapbox GL JS, Python, HTML/CSS, GitHub</li>
+                        <li class="resume-major"><strong>Design</strong>: Adobe Illustrator, Photoshop, InDesign, Figma, Blender</li>
+                        <li class="resume-major"><strong>Methods</strong>: Spatial analysis, geoprocessing &amp; automation, cartographic design, web mapping, participatory GIS</li>
+                    </ul>
+
+                    <h3 class="resume-h">Other Experience</h3>
+                    <div class="resume-entry">
+                        <div class="resume-row"><h4>Sailing Instructor</h4><span class="resume-date">2021 – 2022 &amp; May 2026 – Present</span></div>
+                        <div class="resume-row resume-where"><span>Hoofers Sailing Club</span><span>Madison, WI</span></div>
+                        <ul class="resume-items resume-bullets">
+                            <li>Led sailing lessons for all ages and skill levels, managing small-craft fleets and groups on vessels up to 24 ft in heavy conditions; praised for time management, inclusivity, and supportive teaching.</li>
+                        </ul>
+                    </div>
+                    <div class="resume-entry">
+                        <div class="resume-row"><h4>Greenhouse Store Associate</h4><span class="resume-date">2020 – 2023 &amp; June 2025 – Present</span></div>
+                        <div class="resume-row resume-where"><span>Madison Greenhouse Store</span><span>Madison, WI</span></div>
+                        <ul class="resume-items resume-bullets">
+                            <li>Managed plants and customer service in a fast-paced shop, advising on plant selection and care.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="alt-list contact-list resume-sheet" id="pf-contact" aria-label="Contact">
+                    <h3 class="resume-h">Get in touch</h3>
+                    <ul class="resume-items">
+                        <li class="resume-major resume-school">Email me at <a href="mailto:ajnovak@proton.me">ajnovak@proton.me</a></li>
+                    </ul>
+
+                    <h3 class="resume-h">About me</h3>
+                    <div class="resume-about">
+                        <p>I work to bring the world, its people, and its stories to life through compelling visual stories, transforming data and narratives into inspiring designs that are both meaningful and purposeful.</p>
+                        <p>While I love making artistic designs, an effective map is much more than just eye-candy. It is a feat of planning, collaboration, and thoughtfulness at every step in the process.</p>
+                    </div>
+                </section>
+                </div>
+                </div>
+
+
+                <!-- Shown once the projects load (the filters above wait on
+                     it). With no filters on the grid shows projects; any
+                     filter shows the matching images instead. -->
+                <div class="pf-controls" id="pf-controls" hidden></div>
+
+                <div class="pf-grid" id="pf-grid"></div>
+
+            </div>
+
+            <!-- One project's maps, shown in place of the panorama and the
+                 project grid when the URL is index.html#<project-folder> -->
+            <article class="pf-project" id="pf-project" hidden>
+                <!-- Sits where the filters were; the two swap in place. -->
+                <!-- Laid out like a map sheet: the title on its rule, with the year
+                     at the rule's right end; under it, the caption and credit;
+                     the maps; then a foot to the previous and next projects. -->
+                <header class="pf-project-head">
+                    <a class="pf-close pf-back" href="#"><span class="pf-nav-arrow" aria-hidden="true"></span>All projects</a>
+                    <div class="pf-project-heading">
+                        <h1 class="resume-h pf-project-title" id="pf-project-title" tabindex="-1"></h1>
+                        <span class="pf-project-year" id="pf-year"></span>
+                    </div>
+                    <div class="pf-project-sheet">
+                        <ul class="pf-project-awards" id="pf-awards" aria-label="Awards" hidden></ul>
+                        <p class="pf-project-caption" id="pf-project-caption"></p>
+                        <p class="pf-project-credit"><span id="pf-credit"></span> <a class="pf-link pf-map-link" id="pf-map-link" target="_blank" rel="noopener" hidden></a> <a class="pf-link" id="pf-link" target="_blank" rel="noopener">Visit the project page &#8599;</a></p>
+                    </div>
+                </header>
+
+                <h2 class="sr-only">Images in this project</h2>
+                <div class="pf-maps" id="pf-map-grid"></div>
+
+                <!-- The sheet's foot, one line: the previous project at the left,
+                     all projects in the middle, the next at the right. -->
+                <nav class="pf-project-nav" aria-label="More projects">
+                    <a class="pf-step pf-prev" id="pf-prev" href="#"><span class="pf-nav-arrow" aria-hidden="true"></span><span class="sr-only">Previous project: </span><span class="pf-step-title" id="pf-prev-title"></span></a>
+                    <a class="pf-close pf-all" href="#">All projects</a>
+                    <a class="pf-step pf-next" id="pf-next" href="#"><span class="sr-only">Next project: </span><span class="pf-step-title" id="pf-next-title"></span><span class="pf-nav-arrow pf-nav-arrow-next" aria-hidden="true"></span></a>
+                </nav>
+            </article>
+
+            <!-- Full-resolution viewer -->
+            <dialog class="pf-lightbox" id="pf-lightbox" aria-label="Full-size image">
+                <div class="pf-lightbox-bar">
+                    <span class="pf-lightbox-project" id="pf-lightbox-project"></span>
+                </div>
+                <button class="pf-lightbox-close" id="pf-lightbox-close" type="button" aria-label="Close">&times;</button>
+                <button class="pf-arrow pf-lightbox-prev" id="pf-lightbox-prev" type="button" aria-label="Previous image"><svg viewBox="0 0 24 48" aria-hidden="true"><polyline points="20,4 4,24 20,44"/></svg></button>
+                <button class="pf-arrow pf-lightbox-next" id="pf-lightbox-next" type="button" aria-label="Next image"><svg viewBox="0 0 24 48" aria-hidden="true"><polyline points="4,4 20,24 4,44"/></svg></button>
+                <div class="pf-lightbox-view" id="pf-lightbox-view">
+                    <img id="pf-lightbox-img" alt="">
+                </div>
+                <p class="pf-lightbox-text" id="pf-lightbox-text"></p>
+            </dialog>
+
+        </main>
     </div>
 
-    <!--put your external script links here-->
-    <script type="text/javascript" src="lib/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+    <!-- The cloud backdrop behind the whole page: the panorama continued
+         down into clouds, lined up under the landscape above. -->
+    <div class="horizon-sky" aria-hidden="true">
+        <div class="horizon-backdrop"></div>
+    </div>
+
+    <script src="lib/jquery-3.5.1.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="js/load-projects.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script>
+        /* Landing behaviour: the navbar's name and links glide out of the sky
+           into the bar as the page scrolls, and the Portfolio links glide
+           down to the filters instead of jumping. */
+        (function () {
+            "use strict";
+            var hero = document.getElementById("pf-hero");
+            var navbar = document.getElementById("horizon-navbar");
+
+            /* ---------- The glide ----------
+               Each navbar item (data-glide) is drawn over its landing label,
+               whose own text is hidden. Scrolling, it first rides up with the
+               page, exactly over its label and leader, until it reaches the
+               bar's line; meanwhile, over a longer stretch, it shrinks to the
+               bar's size and slides along to its place, the leaders fade, and
+               the bar's background fades in. Scrolling back reverses it. Items
+               the bar doesn't show (the links inside the phone menu) are left
+               alone, their labels scrolling away as usual. */
+            var ALONG = 160; // px of scroll, past the rise, to finish sliding
+            var pairs = [];
+            var reach = 1;
+            var rise = 1;    // the longest rise, by when the leaders are gone
+            var lead = document.querySelector(".horizon-lead");
+            var leadTop = 0; // the Portfolio line's top, on the page
+            var leadBottom = 0;
+            var barFoot = 0; // the bar's bottom edge, on screen (it's fixed)
+            var last = {};   // values last written, so unchanged ones aren't rewritten
+
+            // Writes a style only when it changes: rewriting styles on every
+            // scroll makes the browser redo work for nothing.
+            function set(key, element, property, value) {
+                if (last[key] === value) {
+                    return;
+                }
+                last[key] = value;
+                if (property.charAt(0) === "-") {
+                    element.style.setProperty(property, value);
+                } else {
+                    element.style[property] = value;
+                }
+            }
+            var dirty = true;
+            var queued = false;
+
+            // The box of an element's text alone (labels are zero-width boxes
+            // with their text spilling out of them). Just the text: a link's
+            // hover ring is inside it too.
+            function textBox(element) {
+                var range = document.createRange();
+                var text = element.firstChild;
+                if (text && text.nodeType === 3) {
+                    range.selectNodeContents(text);
+                } else {
+                    range.selectNodeContents(element);
+                }
+                return range.getBoundingClientRect();
+            }
+
+            /* ---------- The name's leader ----------
+               From under the middle of the name down to the ridge, which is
+               traced here from the landscape photo: [% across, % down] of
+               its skyline, around the summit (35.7, 23.8). */
+            var RIDGE = [[24, 31.01], [25, 30.34], [26, 30.11], [27, 29.51], [28, 28.91],
+                [29, 27.94], [30, 26.82], [31, 26.07], [32, 25.54], [33, 25.09], [34, 25.09],
+                [34.5, 24.72], [35, 24.04], [35.5, 23.75], [36, 23.82], [36.5, 23.75], [37, 24.04],
+                [38, 24.72], [39, 25.24], [40, 25.32], [41, 25.99], [42, 27.04], [43, 28.54],
+                [44, 29.66], [45, 29.96], [46, 30.34]];
+            var nameLead = document.querySelector(".horizon-name-lead");
+            var nameMark = document.querySelector(".horizon-name-mark");
+
+            function ridgeAt(x) {
+                if (x <= RIDGE[0][0]) {
+                    return RIDGE[0][1];
+                }
+                for (var i = 1; i < RIDGE.length; i++) {
+                    if (x <= RIDGE[i][0]) {
+                        var a = RIDGE[i - 1], b = RIDGE[i];
+                        return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]);
+                    }
+                }
+                return RIDGE[RIDGE.length - 1][1];
+            }
+
+            function placeNameLead() {
+                var name = hero.querySelector(".horizon-name");
+                var frame = hero.querySelector(".horizon-frame");
+                if (!nameLead || !name || !frame) {
+                    return;
+                }
+                var page = hero.getBoundingClientRect();
+                var f = frame.getBoundingClientRect();
+                var letters = textBox(name);
+                var size = parseFloat(getComputedStyle(name).fontSize);
+                // The letters' middle (the box includes the spacing after
+                // the last one).
+                var x = Math.round(letters.left + (letters.width - 0.14 * size) / 2);
+                // It starts level with the links' leaders, in the space
+                // between the two words; where the links have none (tall
+                // screens), just under the letters.
+                var top = letters.bottom + 8;
+                var link = hero.querySelector(".horizon-link:not(.horizon-link-main)");
+                var after = link && getComputedStyle(link, "::after");
+                if (after && after.display !== "none") {
+                    top = link.getBoundingClientRect().top + parseFloat(after.top);
+                }
+                // It ends just above the ridge, the dot on its edge.
+                var end = f.top + ridgeAt((x - f.left) / f.width * 100) / 100 * f.height - 2;
+                // The mark floats midway between the letters' baseline
+                // (about a fifth of the size above the text box's foot) and
+                // the summit.
+                // It stands over the summit (35.7% across the photo).
+                if (nameMark) {
+                    var baseline = letters.bottom - 0.2 * size;
+                    var peakX = Math.round(f.left + 0.357 * f.width);
+                    var summit = f.top + ridgeAt(35.7) / 100 * f.height;
+                    // ...but never into the letters (it's 8px tall).
+                    var mid = Math.max((baseline + summit) / 2, baseline + 5 + 4);
+                    nameMark.style.left = (peakX - page.left) + "px";
+                    nameMark.style.top = Math.round(mid - page.top) + "px";
+                }
+                nameLead.hidden = end - top < 6;
+                nameLead.style.left = (x - page.left) + "px";
+                nameLead.style.top = Math.round(top - page.top) + "px";
+                nameLead.style.height = Math.round(end - top) + "px";
+            }
+
+            function measure() {
+                var y = window.pageYOffset;
+                placeNameLead();
+                pairs = [];
+                reach = 1;
+                rise = 1;
+                Array.prototype.forEach.call(navbar.querySelectorAll("[data-glide]"), function (item) {
+                    item.style.transform = "";
+                    var label = hero.querySelector('[data-glide="' + item.dataset.glide + '"]');
+                    var shown = item.offsetParent && item.getClientRects().length;
+                    if (label) {
+                        label.classList.toggle("is-glided", !!shown);
+                        // A hidden link leaves the tab order to its twin.
+                        if (label.tagName === "A") {
+                            if (shown) {
+                                label.setAttribute("tabindex", "-1");
+                                label.setAttribute("aria-hidden", "true");
+                            } else {
+                                label.removeAttribute("tabindex");
+                                label.removeAttribute("aria-hidden");
+                            }
+                        }
+                    }
+                    if (!label || !shown) {
+                        return;
+                    }
+                    // Portfolio, Resume and Contact sit in the bar right above
+                    // their labels (letters centred on letters, less each
+                    // one's trailing letter spacing), so they glide straight
+                    // up. Not in the stacked menu on small screens.
+                    if (label.classList.contains("horizon-link")) {
+                        item.style.position = "relative";
+                        item.style.left = "0px";
+                        if (window.matchMedia("(min-width: 992px)").matches) {
+                            var bar = textBox(item);
+                            var own = textBox(label);
+                            var barSpace = parseFloat(getComputedStyle(item).letterSpacing) || 0;
+                            var ownSpace = parseFloat(getComputedStyle(label).letterSpacing) || 0;
+                            var shift = (own.left + (own.width - ownSpace) / 2) - (bar.left + (bar.width - barSpace) / 2);
+                            item.style.left = shift.toFixed(1) + "px";
+                        }
+                    }
+                    var to = textBox(item);
+                    var from = textBox(label);
+                    var box = item.getBoundingClientRect();
+                    var pair = {
+                        item: item,
+                        label: label,
+                        dx: from.left - to.left,
+                        top: from.top + y,           // the label's text, on the page
+                        rise: Math.max(1, from.top + y - to.top),
+                        // Resume's and Contact's labels, whose leaders can stay
+                        // (on their route) and so are cut off at the bar.
+                        cuts: label.classList.contains("horizon-link") && !label.classList.contains("horizon-link-main"),
+                        boxTop: label.getBoundingClientRect().top + y,
+                        scale: parseFloat(getComputedStyle(label).fontSize) /
+                            parseFloat(getComputedStyle(item).fontSize)
+                    };
+                    item.style.transformOrigin = (to.left - box.left) + "px " + (to.top - box.top) + "px";
+                    reach = Math.max(reach, pair.rise);
+                    rise = Math.max(rise, pair.rise);
+                    pairs.push(pair);
+                });
+                reach += ALONG;
+                if (lead) {
+                    var leadBox = lead.getBoundingClientRect();
+                    leadTop = leadBox.top + y;
+                    leadBottom = leadBox.bottom + y;
+                }
+                barFoot = navbar.getBoundingClientRect().bottom;
+                last = {};
+                dirty = false;
+            }
+
+            function update() {
+                queued = false;
+                if (hero.hidden) {
+                    // A project is open: the bar is simply there.
+                    pairs.forEach(function (pair) {
+                        pair.item.style.transform = "";
+                        pair.label.style.clipPath = "";
+                    });
+                    navbar.style.setProperty("--nav-p", 1);
+                    navbar.classList.add("is-landed");
+                    if (lead) {
+                        lead.style.clipPath = "";
+                    }
+                    last = {};
+                    dirty = true;
+                    return;
+                }
+                if (dirty) {
+                    measure();
+                }
+                var y = Math.max(0, window.pageYOffset);
+                // The items ride up with their labels untouched until they
+                // near the bar (ALONG px short of it); only then do they
+                // shrink and slide to their places, finishing ALONG px past
+                // it. (With the scene lowered, the labels have a long way to
+                // rise first.)
+                var start = Math.max(0, rise - ALONG);
+                var along = Math.min(1, Math.max(0, (y - start) / Math.max(1, reach - start)));
+                along = along * along * (3 - 2 * along); // ease in and out
+                pairs.forEach(function (pair, i) {
+                    var up = Math.max(0, pair.rise - y);
+                    var scale = pair.scale + (1 - pair.scale) * along;
+                    var dx = pair.dx * (1 - along);
+                    set("t" + i, pair.item, "transform", along >= 1 ? "" :
+                        "translate(" + dx.toFixed(2) + "px, " + up.toFixed(2) + "px) scale(" + scale.toFixed(4) + ")");
+                });
+                set("p", navbar, "--nav-p", along.toFixed(3));
+                if (last.landed !== (along >= 1)) {
+                    last.landed = along >= 1;
+                    navbar.classList.toggle("is-landed", last.landed);
+                }
+                // The leaders fade as their labels rise off them, gone by the
+                // bar, all but the active route's (see the CSS), which stays
+                // and is cut off at the bar's foot so it never shows through.
+                var glide = Math.min(1, Math.max(0, (y - start) / Math.max(1, rise - start))).toFixed(3);
+                set("g", hero, "--glide", glide);
+                if (lead) {
+                    set("gc", lead.parentNode, "--glide", glide);
+                }
+                pairs.forEach(function (pair, i) {
+                    if (pair.cuts) {
+                        var off = Math.max(0, barFoot - (pair.boxTop - y));
+                        // (Open at the sides and foot, for the leader and rings.)
+                        set("k" + i, pair.label, "clipPath", off ? "inset(" + Math.round(off) + "px -400px -4000px -400px)" : "");
+                    }
+                });
+                // Labels with no twin in the bar (the links, behind the phone
+                // menu) fade as they near it instead of scrolling through it.
+                set("a", hero, "--away", Math.min(1, y / 60).toFixed(3));
+                if (lead) {
+                    // Once the line is wholly behind the bar, it's left be.
+                    var cut = Math.max(0, Math.min(barFoot - (leadTop - y), leadBottom - leadTop));
+                    // (Open at the sides and foot, for the ring around its end.)
+                    set("c", lead, "clipPath", cut ? "inset(" + Math.round(cut) + "px -20px -20px -20px)" : "");
+                }
+            }
+
+            function queue() {
+                if (!queued) {
+                    queued = true;
+                    window.requestAnimationFrame(update);
+                }
+            }
+
+            function remeasure() {
+                dirty = true;
+                queue();
+            }
+
+            window.addEventListener("scroll", queue, { passive: true });
+            window.addEventListener("resize", remeasure);
+            window.addEventListener("hashchange", remeasure);
+            window.addEventListener("popstate", remeasure);
+            if (document.fonts) {
+                document.fonts.ready.then(remeasure);
+            }
+            // The hero is hidden or shown as projects open and close.
+            new MutationObserver(remeasure).observe(hero, { attributes: true, attributeFilter: ["hidden"] });
+            update();
+
+            // Hovering a bar item while it's over its label darkens the
+            // label's leader, as hovering the label itself does; and
+            // hovering the label's leader or circle lights the bar item's
+            // text, which is what shows (the label's own is hidden).
+            Array.prototype.forEach.call(navbar.querySelectorAll("[data-glide]"), function (item) {
+                var label = hero.querySelector('.horizon-link[data-glide="' + item.dataset.glide + '"]');
+                if (!label) {
+                    return;
+                }
+                function hot(on) {
+                    label.classList.toggle("is-hot", on);
+                    item.classList.toggle("is-hot", on);
+                }
+                [item, label].forEach(function (element) {
+                    element.addEventListener("mouseenter", function () { hot(true); });
+                    element.addEventListener("mouseleave", function () { hot(false); });
+                });
+            });
+
+            // Portfolio's circle (the trail's start) counts as Portfolio too,
+            // as Resume's and Contact's circles count as theirs.
+            (function () {
+                var start = document.querySelector(".trail-start");
+                var main = hero.querySelector(".horizon-link-main");
+                var twin = main && navbar.querySelector('[data-glide="' + main.dataset.glide + '"]');
+                if (!start || !main) {
+                    return;
+                }
+                function hot(on) {
+                    main.classList.toggle("is-hot", on);
+                    if (twin) {
+                        twin.classList.toggle("is-hot", on);
+                    }
+                }
+                start.addEventListener("mouseenter", function () { hot(true); });
+                start.addEventListener("mouseleave", function () { hot(false); });
+                start.addEventListener("click", function () { main.click(); });
+            })();
+
+            Array.prototype.forEach.call(document.querySelectorAll("[data-scroll-to]"), function (link) {
+                link.addEventListener("click", function (event) {
+                    var target = document.getElementById(link.dataset.scrollTo);
+                    if (!target || target.hidden) {
+                        return;
+                    }
+                    event.preventDefault();
+                    var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    // Up to just above the trail's start (Portfolio's circle),
+                    // so the trail is seen drawing down to the Projects heading,
+                    // the first cards under it. Where there's no trail (tall
+                    // screens), straight to the heading.
+                    var start = document.querySelector(".trail-start");
+                    var line = document.querySelector(".trail-line");
+                    var stop = target.querySelector(".pf-intro");
+                    var air = 24;
+                    if (window.routeInstant) {
+                        // Scrolled past the trail: straight to the Projects
+                        // heading (the page swapped in place).
+                        target = document.querySelector(".intro-stack") || target;
+                    } else if (start && line && start.getClientRects().length && getComputedStyle(line).display !== "none") {
+                        target = start;
+                        air = 48;
+                    } else if (stop && stop.getClientRects().length) {
+                        target = stop;
+                    }
+                    // Only back up to the trail's circle when it's out of sight
+                    // (under the bar or above the screen), as Resume and
+                    // Contact do; where it's in view (the landing's first
+                    // screen), stay put.
+                    if (target === start && start.getBoundingClientRect().top - navbar.offsetHeight >= 16) {
+                        return;
+                    }
+                    var top = target.getBoundingClientRect().top + window.pageYOffset - navbar.offsetHeight - air;
+                    window.scrollTo({ top: top, behavior: still || window.routeInstant ? "auto" : "smooth" });
+                });
+            });
+        }());
+
+        /* ---------- The trail ----------
+           The marks and path shapes are SVGs drawn in Illustrator, in
+           assets/trail/. Each mark's file is read in and set into the page
+           in the text color. Each path is laid between the centers of its
+           two marks: each end keeps the angle it was drawn at and its
+           distance from its mark, and in between it's stretched along the
+           way while its bends keep their drawn size, so it looks hand-drawn
+           at any screen width. Re-export
+           a file to change it; nothing here needs to change. */
+        (function () {
+            "use strict";
+            var continued = document.querySelector(".horizon-continue");
+            var svg = continued && continued.querySelector(".trail-line");
+            if (!svg || !window.fetch) {
+                return;
+            }
+            var NS = "http://www.w3.org/2000/svg";
+            var GAP = 3.5;        // drawn units of air between a path and a mark (data-gap overrides)
+            var DESIGN_SIZE = 18; // the headings' size in the drawing, in its units
+            // The routes' stroke, in drawn units (pt), for every dashed route;
+            // null uses each file's own. (Their dashes stay as drawn.)
+            var ROUTE_WIDTH = 1.25;
+            // How fast every route draws, in px a second, so each takes as
+            // long as it is long (the times go to the CSS; see draw()).
+            var DRAW_SPEED = 600;
+            var drawTimes = {};
+            var LEGS = [
+                // Portfolio's trail: from its circle to the x on the Projects
+                // heading's rule (the Resume route ends there too).
+                { from: 0, to: "r2", file: "assets/trail/trail-portfolio.svg", glow: true },
+                // Resume and Contact routes: from each one's circle to the same
+                // x, on the first rule of the résumé or the contact page.
+                { from: "r0", to: "r2", file: "assets/trail/trail-resume.svg", alt: "resume", glow: true },
+                { from: "c0", to: "r2", file: "assets/trail/trail-contact.svg", alt: "contact", glow: true }
+            ];
+            var marks = {};
+            // Their starts: invisible boxes on Resume's and Contact's circles.
+            Array.prototype.forEach.call(document.querySelectorAll(".horizon-anchor"), function (anchor) {
+                marks[anchor.dataset.trail] = anchor;
+            });
+
+            /* ---------- Trail entrance (to revert: delete from here to
+               "end of trail entrance", the lines marked "entrance:" and revealMask()
+               below, and the matching block in css/landing-horizon.css) ----------
+               Arriving at the top of the page, everything under the
+               landscape waits, hidden; the first click on Portfolio, scroll,
+               or tab into it plays it in: the trail draws itself from
+               Portfolio's circle down to Projects, each stop appearing as it
+               gets there, then the filters and cards rise in. Skipped when
+               the page opens on a project or partway down, or for reduced
+               motion. */
+            var heroEl = document.getElementById("pf-hero");
+            var gated = !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+                heroEl && !heroEl.hidden && window.pageYOffset < 30 && !location.hash.replace("#", "");
+            function reveal(animate) {
+                if (!continued.classList.contains("trail-gated")) {
+                    return;
+                }
+                if (animate) {
+                    continued.classList.add("trail-revealing");
+                    window.setTimeout(function () {
+                        continued.classList.remove("trail-revealing");
+                    }, 4500);
+                }
+                continued.classList.remove("trail-gated");
+            }
+            if (gated) {
+                continued.classList.add("trail-gated");
+                window.addEventListener("scroll", function () {
+                    if (window.pageYOffset > 30) {
+                        reveal(true);
+                    }
+                }, { passive: true });
+                Array.prototype.forEach.call(document.querySelectorAll('[data-scroll-to="pf-browse"]'), function (link) {
+                    link.addEventListener("click", function () {
+                        reveal(true);
+                    });
+                });
+                continued.addEventListener("focusin", function () {
+                    reveal(true);
+                });
+                // A project opening (the panorama hides) shows it at once.
+                new MutationObserver(function () {
+                    if (heroEl.hidden) {
+                        reveal(false);
+                    }
+                }).observe(heroEl, { attributes: true, attributeFilter: ["hidden"] });
+            }
+            /* ---------- end of trail entrance ---------- */
+
+            /* ---------- Resume route (to revert: delete from here to "end
+               of resume route", the "resume" leg in LEGS and the lines
+               marked "resume route:", the anchor in the Resume link, the
+               .resume-head and .resume-list in the page, and the matching
+               block in css/landing-horizon.css) ----------
+               Clicking Resume rolls the Portfolio trail back up into its
+               circle (stops, filters and cards fading as it goes) and draws
+               the Resume route down from Resume's circle to the diamond,
+               then shows the résumé where the cards were. Clicking Portfolio
+               plays it back. The CSS times it all; this switches classes:
+               .route-resume (the Resume route is out), .route-switching
+               (while it plays), .route-list (the résumé replaces the cards,
+               once they've faded), .route-leaving / .route-returning (the
+               résumé fading out, the cards coming back). */
+            var resumeHead = continued.querySelector(".resume-head");
+            var route = "portfolio";
+            var routeTimers = [];
+            function later(ms, fn) {
+                routeTimers.push(window.setTimeout(fn, ms));
+            }
+            // name: "portfolio", "resume" or "contact". Classes on the page:
+            // .route-alt and .route-<name> while on Resume or Contact;
+            // .list-<name> once its list has replaced the cards (or the
+            // other's list); .route-leaving while a list fades out.
+            // --route-wait is how long the new route waits for the old one
+            // to roll up: the Portfolio trail's three legs, the other
+            // route's one, or nothing when arriving fresh.
+            // Whether the trails' end (the x on the first heading's rule) has
+            // scrolled up out of sight: then there's no trail to watch, and
+            // a route switch happens at once, in place (.route-instant).
+            function trailOffscreen() {
+                var end = continued.querySelector(".alt-view > .trail-resume-end");
+                var bar = document.getElementById("horizon-navbar");
+                if (!end || !end.getClientRects().length) {
+                    return false;
+                }
+                return end.getBoundingClientRect().bottom < (bar ? bar.offsetHeight : 0);
+            }
+            // Read by the Portfolio links' scroll (set just before it runs).
+            window.routeInstant = false;
+            function setRoute(name, instant) {
+                if (!resumeHead || name === route) {
+                    return;
+                }
+                routeTimers.forEach(window.clearTimeout);
+                routeTimers = [];
+                var list = continued.classList;
+                // Instant: the routes snap to their new state (no drawing) and
+                // the new page shows straight away; back to normal after.
+                list.toggle("route-instant", !!instant);
+                if (instant) {
+                    later(800, function () { list.remove("route-instant"); });
+                }
+                var fresh = list.contains("trail-gated");
+                list.remove("trail-gated");
+                continued.style.setProperty("--route-wait", fresh ? "0s" :
+                    route === "portfolio" ? "" : "calc(var(--draw-" + route + ") * var(--up))");
+                if (name !== "portfolio") {
+                    continued.style.setProperty("--alt-draw", "var(--draw-" + name + ")");
+                } else if (route !== "portfolio") {
+                    continued.style.setProperty("--alt-back", "calc(var(--draw-" + route + ") * var(--up))");
+                }
+                var hadList = list.contains("route-list");
+                list.add("route-switching");
+                list.remove("route-resume", "route-contact", "route-returning", "route-head-out", "route-head-in");
+                if (hadList) {
+                    list.add("route-leaving");
+                }
+                if (name === "portfolio") {
+                    // The list goes at once (Portfolio scrolls away to the
+                    // Projects row, which the list would otherwise still be
+                    // pushing down), and the cards come back.
+                    list.remove("route-alt", "route-list", "route-leaving", "list-resume", "list-contact");
+                    list.add("route-returning");
+                } else {
+                    var fromAlt = list.contains("route-alt");
+                    list.add("route-alt", "route-" + name);
+                    if (fromAlt) {
+                        // From the other route: its end row fades out, and
+                        // comes back with this route's name and link as
+                        // this route arrives (after it rolls up and this
+                        // one draws: two route-draws).
+                        list.add("route-head-out");
+                        var up = parseFloat(getComputedStyle(continued).getPropertyValue("--up")) || 1;
+                        later(((drawTimes[route] || 1.35) * up + (drawTimes[name] || 1.35)) * 1000, function () {
+                            resumeHead.dataset.shown = name;
+                            list.remove("route-head-out");
+                            list.add("route-head-in");
+                        });
+                    } else {
+                        resumeHead.dataset.shown = name;
+                    }
+                    later(instant ? 0 : 350, function () {
+                        list.remove("route-leaving", "list-resume", "list-contact");
+                        list.add("route-list", "list-" + name);
+                    });
+                }
+                later(6500, function () { list.remove("route-switching", "route-returning", "route-head-in"); });
+                route = name;
+                // The end row comes and goes with the route; re-lay the routes.
+                queue();
+                resumeHead.setAttribute("aria-hidden", String(name === "portfolio"));
+                Array.prototype.forEach.call(resumeHead.querySelectorAll("a"), function (link) {
+                    link.tabIndex = link.dataset.route === name ? 0 : -1;
+                });
+            }
+            ["resume", "contact"].forEach(function (name) {
+                Array.prototype.forEach.call(document.querySelectorAll('a[data-glide="' + name + '"]'), function (link) {
+                    link.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        var go = function () {
+                            var instant = trailOffscreen();
+                            setRoute(name, instant);
+                            var bar = document.getElementById("horizon-navbar");
+                            if (instant) {
+                                // Scrolled past the trail: straight to the new
+                                // page's heading, no animation to wait through.
+                                var stack = continued.querySelector(".intro-stack");
+                                window.scrollTo({ top: stack.getBoundingClientRect().top + window.pageYOffset - (bar ? bar.offsetHeight : 0) - 24, behavior: "auto" });
+                                return;
+                            }
+                            // Only if the route's start (its circle) is out of
+                            // sight, under the bar or above the screen, come
+                            // back up just far enough to see it draw from
+                            // there. Where it's visible, stay put.
+                            var start = marks[name === "resume" ? "r0" : "c0"];
+                            if (start && bar && start.getClientRects().length) {
+                                var seen = start.getBoundingClientRect().top - bar.offsetHeight;
+                                if (seen < 16) {
+                                    var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                                    window.scrollTo({ top: Math.max(0, window.pageYOffset + seen - 48), behavior: still ? "auto" : "smooth" });
+                                }
+                            }
+                        };
+                        // With a project open, close it first.
+                        if (heroEl && heroEl.hidden) {
+                            location.hash = "";
+                            window.setTimeout(go, 80);
+                        } else {
+                            go();
+                        }
+                    });
+                });
+            });
+            Array.prototype.forEach.call(document.querySelectorAll('[data-scroll-to="pf-browse"]'), function (link) {
+                // Capturing, so the route switches before the click's own
+                // scroll to the Projects row measures where that row is.
+                link.addEventListener("click", function () {
+                    window.routeInstant = trailOffscreen();
+                    setRoute("portfolio", window.routeInstant);
+                }, true);
+            });
+            /* ---------- end of resume route ---------- */
+            var queued = false;
+
+            function read(file) {
+                return fetch(file).then(function (response) {
+                    if (!response.ok) {
+                        throw new Error(file + " returned " + response.status);
+                    }
+                    return response.text();
+                }).then(function (text) {
+                    var drawing = new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
+                    if (!drawing.firstElementChild) {
+                        throw new Error(file + " is empty");
+                    }
+                    trim(drawing);
+                    return drawing;
+                });
+            }
+
+            // Crops a drawing's box to the drawing itself (plus half its
+            // thickest stroke), so a file exported with its whole artboard
+            // sizes and stretches the same as one cropped to the art.
+            function trim(drawing) {
+                var host = document.createElementNS(NS, "svg");
+                host.setAttribute("style", "position:absolute;width:0;height:0;overflow:hidden;visibility:hidden");
+                var group = document.createElementNS(NS, "g");
+                host.appendChild(group);
+                Array.prototype.forEach.call(drawing.childNodes, function (node) {
+                    group.appendChild(document.importNode(node, true));
+                });
+                document.body.appendChild(host);
+                var box = group.getBBox();
+                // The shape's own center: the middle of its longest outline,
+                // by length (a triangle's sits above its box's middle).
+                var longest = null;
+                var length = 0;
+                Array.prototype.forEach.call(group.querySelectorAll("path, circle, ellipse, polygon, polyline, rect"), function (shape) {
+                    var l = shape.getTotalLength ? shape.getTotalLength() : 0;
+                    if (l > length) {
+                        length = l;
+                        longest = shape;
+                    }
+                });
+                if (longest) {
+                    var cx = 0;
+                    var cy = 0;
+                    for (var i = 0; i < 120; i++) {
+                        var point = longest.getPointAtLength(length * i / 120);
+                        cx += point.x / 120;
+                        cy += point.y / 120;
+                    }
+                    drawing.setAttribute("data-cx", cx);
+                    drawing.setAttribute("data-cy", cy);
+                }
+                var stroke = 0;
+                Array.prototype.forEach.call(group.querySelectorAll("[stroke]"), function (shape) {
+                    if (shape.getAttribute("stroke") !== "none") {
+                        var width = parseFloat(shape.getAttribute("stroke-width"));
+                        stroke = Math.max(stroke, isNaN(width) ? 1 : width);
+                    }
+                });
+                document.body.removeChild(host);
+                if (!box.width && !box.height) {
+                    return;
+                }
+                var pad = stroke / 2;
+                var w = box.width + 2 * pad;
+                var h = box.height + 2 * pad;
+                drawing.setAttribute("viewBox", [box.x - pad, box.y - pad, w, h].join(" "));
+                drawing.setAttribute("width", w);
+                drawing.setAttribute("height", h);
+            }
+
+            // A drawing for the page: in currentColor, sized in em so it
+            // scales with the text around it.
+            function inline(file) {
+                return read(file).then(function (drawing) {
+                    Array.prototype.forEach.call(drawing.querySelectorAll("[stroke], [fill]"), function (shape) {
+                        ["stroke", "fill"].forEach(function (attribute) {
+                            var value = shape.getAttribute(attribute);
+                            if (value && value !== "none") {
+                                shape.setAttribute(attribute, "currentColor");
+                            }
+                        });
+                    });
+                    drawing.removeAttribute("id");
+                    drawing.setAttribute("aria-hidden", "true");
+                    drawing.setAttribute("focusable", "false");
+                    drawing.style.width = (parseFloat(drawing.getAttribute("width")) / DESIGN_SIZE) + "em";
+                    drawing.style.height = (parseFloat(drawing.getAttribute("height")) / DESIGN_SIZE) + "em";
+                    drawing.removeAttribute("width");
+                    drawing.removeAttribute("height");
+                    // How far its shape's center is from its box's, in em.
+                    var view = (drawing.getAttribute("viewBox") || "").split(/[\s,]+/).map(Number);
+                    var placed = document.importNode(drawing, true);
+                    placed.dataset.ox = 0;
+                    placed.dataset.oy = 0;
+                    if (view.length === 4 && drawing.hasAttribute("data-cx")) {
+                        placed.dataset.ox = (parseFloat(drawing.getAttribute("data-cx")) - view[0] - view[2] / 2) / DESIGN_SIZE;
+                        placed.dataset.oy = (parseFloat(drawing.getAttribute("data-cy")) - view[1] - view[3] / 2) / DESIGN_SIZE;
+                    }
+                    return placed;
+                });
+            }
+
+            // A mark, and its halo (data-halo): the larger outline that
+            // opens around it while Portfolio is hovered.
+            function loadMark(span) {
+                var halo = span.dataset.halo ? inline(span.dataset.halo).catch(function (error) {
+                    console.warn("Trail:", error.message);
+                    return null;
+                }) : Promise.resolve(null);
+                return Promise.all([inline(span.dataset.svg), halo]).then(function (drawings) {
+                    span.appendChild(drawings[0]);
+                    if (drawings[1]) {
+                        var ring = document.createElement("span");
+                        ring.className = "trail-halo";
+                        // Centered on the mark's shape, not just its box.
+                        var dx = drawings[0].dataset.ox - drawings[1].dataset.ox;
+                        var dy = drawings[0].dataset.oy - drawings[1].dataset.oy;
+                        ring.style.setProperty("--halo-at", "translate(calc(-50% + " + dx.toFixed(3) + "em), calc(-50% + " + dy.toFixed(3) + "em))");
+                        ring.appendChild(drawings[1]);
+                        span.appendChild(ring);
+                    }
+                    marks[span.dataset.trail] = span;
+                });
+            }
+
+            // A path: points along its drawn shape, and its dash pattern.
+            function loadLeg(leg) {
+                return read(leg.file).then(function (drawing) {
+                    var source = drawing.querySelector("path");
+                    var probe = document.createElementNS(NS, "path");
+                    probe.setAttribute("d", source.getAttribute("d"));
+                    probe.setAttribute("visibility", "hidden");
+                    svg.appendChild(probe);
+                    var length = probe.getTotalLength();
+                    var count = Math.max(24, Math.round(length / 1.5));
+                    leg.points = [];
+                    for (var i = 0; i <= count; i++) {
+                        var point = probe.getPointAtLength(length * i / count);
+                        leg.points.push([point.x, point.y]);
+                    }
+                    svg.removeChild(probe);
+                    leg.dashes = (source.getAttribute("stroke-dasharray") || "").split(/[\s,]+/).filter(Boolean).map(Number);
+                    // No stroke-width means SVG's default, 1 (Illustrator
+                    // leaves it out for 1pt lines).
+                    var width = parseFloat(source.getAttribute("stroke-width"));
+                    leg.width = isNaN(width) ? 1 : width;
+                    leg.path = document.createElementNS(NS, "path");
+                    leg.path.setAttribute("fill", "none");
+                    leg.path.setAttribute("stroke", "currentColor");
+                    leg.path.setAttribute("stroke-linecap", "round");
+                    leg.path.setAttribute("stroke-linejoin", "round");
+                    svg.appendChild(leg.path);
+                    // entrance: the mask that draws the leg in.
+                    leg.reveal = revealMask(leg.path, LEGS.indexOf(leg));
+                    // A white glow along it (glow: true in LEGS; "soft" for
+                    // a gentler one).
+                    if (leg.glow) {
+                        leg.path.classList.add(leg.glow === "soft" ? "trail-leg-glow-soft" : "trail-leg-glow");
+                    }
+                    // resume route: its own leg, timed apart from the others.
+                    if (leg.alt) {
+                        leg.reveal.classList.add("trail-reveal-alt", "trail-reveal-" + leg.alt);
+                        leg.path.classList.add("trail-leg-alt");
+                    }
+                });
+            }
+
+            // A mark on the page: its center, half its size, and the air
+            // its paths leave around it (data-gap, in drawn units).
+            function markBox(span, origin) {
+                var box = span.getBoundingClientRect();
+                return {
+                    x: box.left + box.width / 2 - origin.left,
+                    y: box.top + box.height / 2 - origin.top,
+                    hw: box.width / 2,
+                    hh: box.height / 2,
+                    gap: span.dataset.gap ? parseFloat(span.dataset.gap) : GAP
+                };
+            }
+
+            function unit(x, y) {
+                var length = Math.sqrt(x * x + y * y) || 1;
+                return [x / length, y / length];
+            }
+
+            // From a mark's center to where a path should stop, heading in
+            // direction t: its edge that way, plus its gap (drawn units).
+            function reach(mark, t, scale) {
+                var ax = Math.abs(t[0]);
+                var ay = Math.abs(t[1]);
+                var toEdge = Math.min(ax > 1e-6 ? mark.hw / scale / ax : Infinity,
+                    ay > 1e-6 ? mark.hh / scale / ay : Infinity);
+                return toEdge + mark.gap;
+            }
+
+            // Lays a path's drawn shape between its marks, a and b, as it was
+            // drawn: each end keeps its angle and its distance from its mark
+            // (so a path still comes in over a waypoint and leaves under it).
+            function lay(leg, a, b, scale) {
+                var points = leg.points;
+                var n = points.length - 1;
+                // Drawn the other way round: flip it end for end.
+                if ((points[n][0] - points[0][0]) * (b.x - a.x) + (points[n][1] - points[0][1]) * (b.y - a.y) < 0) {
+                    points = points.slice().reverse();
+                }
+                var s = points[0];
+                var e = points[n];
+                var k = Math.min(3, n);
+                var leaving = unit(points[k][0] - s[0], points[k][1] - s[1]);
+                var arriving = unit(e[0] - points[n - k][0], e[1] - points[n - k][1]);
+                // Where the marks were in the drawing: just behind each end,
+                // the way it points.
+                var ra = reach(a, leaving, scale);
+                var rb = reach(b, arriving, scale);
+                var sc = [s[0] - leaving[0] * ra, s[1] - leaving[1] * ra];
+                var ec = [e[0] + arriving[0] * rb, e[1] + arriving[1] * rb];
+                // The drawing goes down as drawn (at the trail's scale, never
+                // turned), its first mark on the page's; whatever's left over
+                // between where it expects its second mark and where that
+                // mark is gets spread along it, a little more at each step,
+                // so the second end lands too. Drawn for the page's layout,
+                // that's next to nothing; at other widths it gently
+                // stretches or tilts the path.
+                var missX = (b.x - a.x) - scale * (ec[0] - sc[0]);
+                var missY = (b.y - a.y) - scale * (ec[1] - sc[1]);
+                var run = [0];
+                for (var i = 1; i <= n; i++) {
+                    var stepX = points[i][0] - points[i - 1][0];
+                    var stepY = points[i][1] - points[i - 1][1];
+                    run.push(run[i - 1] + Math.sqrt(stepX * stepX + stepY * stepY));
+                }
+                var total = run[n] || 1;
+                // The marks are too close for this path.
+                var chordX = scale * (e[0] - s[0]) + missX;
+                var chordY = scale * (e[1] - s[1]) + missY;
+                if (Math.sqrt(chordX * chordX + chordY * chordY) < 4 ||
+                    chordX * (b.x - a.x) + chordY * (b.y - a.y) <= 0) {
+                    return null;
+                }
+                return points.map(function (p, i) {
+                    var t = run[i] / total;
+                    return (a.x + scale * (p[0] - sc[0]) + t * missX).toFixed(1) + " " +
+                        (a.y + scale * (p[1] - sc[1]) + t * missY).toFixed(1);
+                });
+            }
+
+            function draw() {
+                queued = false;
+                // Hidden with a project open, and on tall screens.
+                if (!svg.getClientRects().length || getComputedStyle(svg).display === "none") {
+                    return;
+                }
+                var origin = svg.getBoundingClientRect();
+                var head = continued.querySelector(".trail-head");
+                var scale = head ? parseFloat(getComputedStyle(head).fontSize) / DESIGN_SIZE : 1;
+                LEGS.forEach(function (leg) {
+                    var from = marks[leg.from];
+                    var to = marks[leg.to];
+                    if (!leg.path || !from || !to || !from.getClientRects().length || !to.getClientRects().length) {
+                        return;
+                    }
+                    var points = lay(leg, markBox(from, origin), markBox(to, origin), scale);
+                    if (!points) {
+                        leg.path.removeAttribute("d");
+                        return;
+                    }
+                    leg.path.setAttribute("d", "M" + points.join(" L"));
+                    // entrance: keep the drawing-in mask on the same course.
+                    if (leg.reveal) {
+                        leg.reveal.setAttribute("d", leg.path.getAttribute("d"));
+                        var length = leg.reveal.getTotalLength();
+                        leg.reveal.setAttribute("stroke-dasharray", length + " " + length);
+                        leg.reveal.style.setProperty("--len", length);
+                        leg.time = length / DRAW_SPEED;
+                    }
+                    leg.path.setAttribute("stroke-width", ((ROUTE_WIDTH || leg.width) * scale).toFixed(2));
+                    if (leg.dashes.length) {
+                        leg.path.setAttribute("stroke-dasharray", leg.dashes.map(function (n) {
+                            return (n * scale).toFixed(2);
+                        }).join(" "));
+                    }
+                });
+                setTimes();
+            }
+
+            // The Portfolio trail's legs one after another, each as long as
+            // it takes to draw: when each starts (--at) and, rolling up in
+            // reverse, when each starts back (--back); when the trail
+            // reaches each stop (--at1..3, also on the stops' marks, for
+            // their outlines); and each route's own time.
+            function setTimes() {
+                var t = 0;
+                var times = [];
+                LEGS.forEach(function (leg) {
+                    if (!leg.alt && leg.reveal && leg.time) {
+                        times.push({ leg: leg, at: t });
+                        t += leg.time;
+                    }
+                });
+                if (!times.length) {
+                    return;
+                }
+                var total = t;
+                var s = function (n) { return n.toFixed(3) + "s"; };
+                times.forEach(function (item) {
+                    var r = item.leg.reveal.style;
+                    r.setProperty("--dur", s(item.leg.time));
+                    r.setProperty("--at", s(item.at));
+                    r.setProperty("--back", s(total - item.at - item.leg.time));
+                });
+                [1, 2, 3].forEach(function (i) {
+                    var item = times[Math.min(i, times.length) - 1];
+                    continued.style.setProperty("--at" + i, s(item.at + item.leg.time));
+                });
+                if (marks[0]) {
+                    marks[0].style.setProperty("--mark-at", "0s");
+                }
+                LEGS.forEach(function (leg) {
+                    if (leg.alt && leg.reveal && leg.time) {
+                        leg.reveal.style.setProperty("--dur", s(leg.time));
+                        continued.style.setProperty("--draw-" + leg.alt, s(leg.time));
+                        drawTimes[leg.alt] = leg.time;
+                    }
+                });
+            }
+
+            function queue() {
+                if (!queued) {
+                    queued = true;
+                    window.requestAnimationFrame(draw);
+                }
+            }
+
+            /* The leaders' textured lines and their end circles are CSS masks
+               (so the leaders' colors, hover and fades still apply): each
+               drawing, set to stretch to its box, becomes a --mask-* on the
+               page, and .trail-masks switches them on once all are read. */
+            var MASKS = {
+                "--mask-line-portfolio": "assets/trail/leader-portfolio.svg",
+                "--mask-line-resume": "assets/trail/leader-resume.svg",
+                "--mask-line-contact": "assets/trail/leader-contact.svg",
+                "--mask-circle": "assets/trail/circle-basic.svg",
+                "--mask-circle-large": "assets/trail/halo-start.svg",
+                // The navbar's rough bottom rule (its colors come from the CSS).
+                "--mask-navbar-rule": "assets/nav/navbar-line.svg",
+                // The résumé's rules, stretched to their headings and jobs.
+                "--mask-rule-solid": "assets/resume/divider-line-solid.svg",
+                "--mask-rule-dashed": "assets/resume/divider-line-dashed.svg",
+                // The filters: the drawn underline and arrow under a chosen
+                // one, the bridge frames (each cut into its two ends and the
+                // line between, below, so only the line stretches), and the
+                // dashed line between the frames (repeated like the dots).
+                "--mask-tab-underline": "assets/portfolio/filter-line.svg",
+                "--mask-filter-arrow": "assets/portfolio/filter-arrow.svg",
+                "--mask-filter-frame-1": "assets/portfolio/filter-frame-1.svg",
+                "--mask-filter-frame-2": "assets/portfolio/filter-frame-2.svg",
+                "--mask-filter-dash": "assets/portfolio/filter-dash.svg",
+                // The dotted rules, repeated along their length at their drawn
+                // size (each cropped to a whole number of dots below).
+                "--mask-dot1": "assets/resume/dot1.svg",
+                "--mask-dot3": "assets/resume/dot3.svg",
+                "--mask-dot4": "assets/resume/dot4.svg"
+            };
+            var root = document.documentElement;
+            // How wide each end of a bridge frame is, in its drawing's units
+            // (the CSS sizes the ends to match: --frame-end).
+            var FRAME_END = 10;
+            Promise.all(Object.keys(MASKS).map(function (name) {
+                return read(MASKS[name]).then(function (drawing) {
+                    // Its drawn width, too (--mask-*-w), for the CSS to size
+                    // it by, so a re-export at a new size just works.
+                    var width = parseFloat(drawing.getAttribute("width"));
+                    if (!width) {
+                        throw new Error(MASKS[name] + " has no size");
+                    }
+                    root.style.setProperty(name + "-w", String(width));
+                    // A leader is centered on its ink, not its box: a
+                    // roughened line's box can sit lopsided around it, which
+                    // would put one line across two pixel columns (heavier)
+                    // and another in one.
+                    var view = (drawing.getAttribute("viewBox") || "").split(/[\s,]+/).map(Number);
+                    if (/line/.test(name) && view.length === 4 && drawing.hasAttribute("data-cx")) {
+                        view[0] = parseFloat(drawing.getAttribute("data-cx")) - view[2] / 2;
+                        drawing.setAttribute("viewBox", view.join(" "));
+                    }
+                    // A dotted rule repeats seamlessly only if it's a whole
+                    // number of dots long, so it's cropped to that: from half
+                    // a dot-spacing before its first dot to half after its
+                    // last, the spacing averaged over its dots.
+                    if (/--mask-dot|--mask-filter-dash/.test(name)) {
+                        cropToDots(drawing);
+                    }
+                    drawing.setAttribute("preserveAspectRatio", "none");
+                    // A bridge frame: its ends (FRAME_END drawn units each)
+                    // as -l and -r, the line between as -m, which reaches
+                    // half a unit under each end so no seam shows.
+                    if (/--mask-filter-frame/.test(name) && view.length === 4) {
+                        [["-l", 0, FRAME_END], ["-m", FRAME_END - 0.5, view[2] - 2 * FRAME_END + 1], ["-r", view[2] - FRAME_END, FRAME_END]].forEach(function (part) {
+                            var piece = drawing.cloneNode(true);
+                            piece.setAttribute("viewBox", [view[0] + part[1], view[1], part[2], view[3]].join(" "));
+                            piece.setAttribute("width", part[2]);
+                            root.style.setProperty(name + part[0], "url(\"data:image/svg+xml," + encodeURIComponent(new XMLSerializer().serializeToString(piece)) + "\")");
+                        });
+                        return;
+                    }
+                    var xml = new XMLSerializer().serializeToString(drawing);
+                    root.style.setProperty(name, "url(\"data:image/svg+xml," + encodeURIComponent(xml) + "\")");
+                });
+            })).then(function () {
+                root.classList.add("trail-masks");
+            }, function (error) {
+                console.warn("Trail:", error.message);
+            });
+
+            function cropToDots(drawing) {
+                var host = document.createElementNS(NS, "svg");
+                host.setAttribute("style", "position:absolute;width:0;height:0;overflow:hidden;visibility:hidden");
+                var group = document.createElementNS(NS, "g");
+                host.appendChild(group);
+                Array.prototype.forEach.call(drawing.childNodes, function (node) {
+                    group.appendChild(document.importNode(node, true));
+                });
+                document.body.appendChild(host);
+                var xs = Array.prototype.map.call(group.querySelectorAll("path, circle, ellipse, rect, polygon"), function (dot) {
+                    var box = dot.getBBox();
+                    return box.x + box.width / 2;
+                }).sort(function (a, b) { return a - b; });
+                document.body.removeChild(host);
+                var view = (drawing.getAttribute("viewBox") || "").split(/[\s,]+/).map(Number);
+                if (xs.length < 2 || view.length !== 4) {
+                    return;
+                }
+                var spacing = (xs[xs.length - 1] - xs[0]) / (xs.length - 1);
+                var width = xs.length * spacing;
+                view[0] = xs[0] - spacing / 2;
+                view[2] = width;
+                drawing.setAttribute("viewBox", view.join(" "));
+                drawing.setAttribute("width", width);
+            }
+
+            // A solid copy of a leg's course, as its mask: undrawn (its dash
+            // offset at its length), the leg is hidden; drawn, it's whole.
+            function revealMask(path, index) {
+                var defs = svg.querySelector("defs");
+                if (!defs) {
+                    defs = document.createElementNS(NS, "defs");
+                    svg.insertBefore(defs, svg.firstChild);
+                }
+                var mask = document.createElementNS(NS, "mask");
+                mask.id = "trail-reveal-" + index;
+                mask.setAttribute("maskUnits", "userSpaceOnUse");
+                ["x", "y"].forEach(function (a) { mask.setAttribute(a, "-5000"); });
+                ["width", "height"].forEach(function (a) { mask.setAttribute(a, "20000"); });
+                var solid = document.createElementNS(NS, "path");
+                solid.setAttribute("class", "trail-reveal");
+                solid.setAttribute("fill", "none");
+                solid.setAttribute("stroke", "#fff");
+                solid.setAttribute("stroke-width", "18");
+                solid.setAttribute("stroke-linecap", "round");
+                solid.style.setProperty("--i", index);
+                mask.appendChild(solid);
+                defs.appendChild(mask);
+                path.setAttribute("mask", "url(#" + mask.id + ")");
+                return solid;
+            }
+
+            var loads = Array.prototype.map.call(document.querySelectorAll("[data-svg]"), loadMark)
+                .concat(LEGS.map(loadLeg));
+            Promise.all(loads.map(function (load) {
+                return load.catch(function (error) {
+                    console.warn("Trail:", error.message);
+                });
+            })).then(function () {
+                queue();
+                window.addEventListener("resize", queue);
+                if (document.fonts) {
+                    document.fonts.ready.then(queue);
+                }
+                var hero = document.getElementById("pf-hero");
+                if (hero) {
+                    new MutationObserver(queue).observe(hero, { attributes: true, attributeFilter: ["hidden"] });
+                }
+            });
+        }());
+
+        /* ---------- The résumé's rules ----------
+           Each heading's rule and mark get --snap: how far to move them so
+           the rule sits on whole device pixels. Otherwise each rule lands at
+           its own fraction of a pixel and draws a little lighter or heavier
+           than the next. Run once the list has risen in (its rise moves it),
+           and on resizing. */
+        // The Projects count sits at the end of the heading's leader, which
+        // stops short of it: --status-w is its width, kept up as it changes.
+        (function () {
+            "use strict";
+            var status = document.querySelector(".pf-intro .pf-status-row");
+            if (!status || !window.ResizeObserver) {
+                return;
+            }
+            new ResizeObserver(function () {
+                status.parentNode.style.setProperty("--status-w", status.offsetWidth + "px");
+            }).observe(status);
+        })();
+
+        (function () {
+            "use strict";
+            var lists = document.querySelectorAll(".resume-sheet");
+            function snap() {
+                var ratio = window.devicePixelRatio || 1;
+                // Where the first headings' leaders start (after the name), for
+                // the gap around the trails' x.
+                Array.prototype.forEach.call(document.querySelectorAll(".resume-sheet .resume-h:first-of-type, .pf-intro .resume-h:first-of-type"), function (heading) {
+                    if (!heading.getClientRects().length || !heading.firstChild) {
+                        return;
+                    }
+                    var range = document.createRange();
+                    range.selectNodeContents(heading.firstChild);
+                    var lead = parseFloat(getComputedStyle(heading, "::after").marginLeft) || 0;
+                    heading.style.setProperty("--line-left", (range.getBoundingClientRect().right - heading.getBoundingClientRect().left + lead).toFixed(1) + "px");
+                });
+                Array.prototype.forEach.call(document.querySelectorAll(".resume-h"), function (heading) {
+                    if (!heading.getClientRects().length) {
+                        return;
+                    }
+                    heading.style.removeProperty("--snap");
+                    var foot = heading.getBoundingClientRect().bottom * ratio;
+                    heading.style.setProperty("--snap", ((Math.round(foot) - foot) / ratio).toFixed(3) + "px");
+                });
+            }
+            Array.prototype.forEach.call(lists, function (list) {
+                list.addEventListener("animationend", snap);
+            });
+            window.addEventListener("resize", snap);
+            if (document.fonts) {
+                document.fonts.ready.then(snap);
+            }
+        }());
+    </script>
 </body>
 
 </html>

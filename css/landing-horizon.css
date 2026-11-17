@@ -1,0 +1,3005 @@
+/* Landing page (index.html): a grainy horizon panorama whose foreground fades
+   to white, above the portfolio. There's no navbar at first: the name and
+   links are labels in the sky, each with a hairline leader down to a
+   landform, like a panorama drawing; from Portfolio's landform its line
+   runs on down into the filters. The site navbar slides in once the
+   panorama is scrolled past. portfolio.css styles the portfolio itself. */
+
+:root {
+    --horizon-ink: #3d4443;   /* the name */
+    --horizon-text: #4f5756;  /* the links and leaders */
+    /* The photo is sized as if it covered a box 86% of the screen tall (or
+       the full width, if that's bigger), but the panorama is cut off at
+       --cut, 60% down the photo, where its foreground turns to white, so the
+       filters and cards start right there. */
+    --scene-h: max(86vh, 30rem);
+    --frame-w: max(100vw, var(--scene-h) * 2.6957);
+    --frame-h: calc(var(--frame-w) / 2.6957);
+    --lead-end: 20.0;   /* where Portfolio's line ends: % of the photo's height above its foot */
+    --cut: 60;
+    --leader-top: 20.6;  /* leaders start 20.6% down the photo */
+    --line-ink: #666666;  /* every line and symbol: leaders, trail, marks */
+    --leader: var(--line-ink);
+    /* The one color, from the site's slate green, kept for what you can
+       act on: hovered links, the Portfolio line into the work, selected
+       filters (portfolio.css), and the summit mark. */
+    --accent: #5c6b67;
+    --accent-dark: #46534f;
+    --leader-main: var(--line-ink);  /* Portfolio's line */
+    --label-bottom: 19.8;  /* labels end 19.8% down the photo */
+    /* The name scales with the panorama, not the window, so centered over
+       its peak it keeps the same clearance from Portfolio's label at any
+       screen shape (1.65% of the photo's width). */
+    --name-size: clamp(1.5rem, var(--frame-w) * 0.0165, 3.2rem);
+    /* How far the name's baseline stands above the links' (negative is
+       below): set so it's half as far above the summit (23.8% down the
+       photo, 4% below the labels' line) as it was at 0.75 link-sizes up. */
+    --name-rise: calc(0.375 * var(--link-size) - 0.02 * var(--frame-h) - 0.045 * var(--name-size));
+    --link-size: clamp(15px, 1.25vw, 22px);
+
+    /* The scene is lifted (frame, backdrop and all) so the tops of the
+       name's capitals, the tallest label, sit --top-gap below the top of the
+       page, trimming the empty sky above them. They're 0.74 name-size above
+       its box's foot (its baseline 0.09em up, its capitals about 0.65em
+       tall, in Reforma 1918), which is --name-rise above --label-bottom.
+       ...but where the screen has room, the scene comes down instead, so
+       the mountain's middle (--center-at, % down the photo: between the
+       summit and its shadowed foot) sits at the middle of the screen, with
+       open sky above the labels to balance the fog below. It never goes
+       higher than the --top-gap spacing. (A negative lift lowers it.) */
+    --top-gap: 6rem;
+    --center-at: 37;
+    --lift: min(max(0px, var(--frame-h) * var(--label-bottom) / 100 - var(--name-rise) - 0.74 * var(--name-size) - var(--top-gap)),
+        var(--frame-h) * var(--center-at) / 100 - 50vh);
+
+    /* The name is centered over its peak, which sits 14.3% of the
+       photo's width left of the page's middle; the page's left edge,
+       shared by the navbar and the portfolio, is wherever the name starts
+       (its letters, in Fraunces, are about 9.52 name-sizes wide). Percentages are of the
+       page's width. */
+    --peak: calc(50% - 0.143 * var(--frame-w));
+    --name-w: calc(9.52 * var(--name-size));
+    --edge: max(16px, var(--peak) - 0.5 * var(--name-w));
+}
+
+/* Leaders fade out toward their landform. Registered as a color so the
+   hover change can transition through the gradient. */
+@property --leader-ink {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: rgba(79, 87, 86, 0.75);
+}
+
+body.horizon {
+    position: relative; /* holds .horizon-sky */
+    /* At least a screen tall, so the clouds (which fill the body) reach the
+       bottom of the window on short pages, such as a small project. */
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #e6e6e6; /* the clouds' average tone, below the backdrop */
+}
+
+/* ---------- Cloud backdrop ----------
+   The backdrop (full-backdrop-final-alt4.webp) is the panorama, at the same
+   width, continued down into soft clouds; the landscape photo above is its
+   top, sharper. It sits behind the whole page at the frame's size and
+   place, so its landscape lies exactly under the photo's, and the photo's
+   fade reveals the clouds beneath. Its foot fades into the page color for
+   long pages, and the sky box clips it to the page so it never adds
+   scroll. */
+.horizon-sky {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    /* Where the scene is lowered (a negative --lift), the open sky above
+       the photo, in the photo's own sky white, so it carries on unbroken. */
+    background: linear-gradient(#fff, #fff) left top / 100% max(0px, -1 * var(--lift) + 2px) no-repeat;
+}
+
+.horizon-backdrop {
+    position: absolute;
+    top: calc(-1 * var(--lift));
+    top: round(calc(-1 * var(--lift)), 1px);
+    left: calc(50% - var(--frame-w) / 2);
+    left: round(calc(50% - var(--frame-w) / 2), 1px);
+    width: var(--frame-w);
+    height: calc(var(--frame-w) * 3.0884); /* 3995 x 12338 */
+    background: url("../img/full-backdrop-final-alt4.webp") center top / 100% auto no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
+}
+
+/* With a project open the panorama is hidden, so the clouds move up with
+   the page to stay behind it. */
+#pf-hero[hidden] ~ .horizon-sky {
+    background: none;
+}
+
+#pf-hero[hidden] ~ .horizon-sky .horizon-backdrop {
+    top: calc(var(--frame-h) * var(--cut) / -100);
+}
+
+.horizon-hero {
+    position: relative;
+    height: calc(var(--frame-h) * var(--cut) / 100 - var(--lift));
+    height: calc(var(--frame-h) * var(--cut) / 100 + round(calc(-1 * var(--lift)), 1px));
+    overflow: hidden;
+}
+
+/* ---------- Layers ----------
+   The frame holds the whole photo (3995 x 1482, a 2.6957 ratio), centered
+   across the screen and starting at the top, so positions inside it are
+   fixed points on the photo at any screen shape. The photo fills it exactly,
+   as the backdrop does below it, so they line up. It's also a size
+   container: inside it,
+   1cqw and 1cqh are 1% of the photo's width and height, so a label's --x and
+   --y (in percent) place it and size its leader. */
+.horizon-frame {
+    /* Placed with left, not a transform, and rounded to a whole pixel (as
+       are the labels inside it): at some screen sizes (a 1920px fullscreen,
+       say) the frame would otherwise start on a fraction of a pixel, which
+       can leave a 1px leader between two pixels, where some graphics cards
+       drop it. The plain line is for browsers without round(); the backdrop
+       is rounded the same way so the two stay lined up. */
+    position: absolute;
+    top: calc(-1 * var(--lift));
+    top: round(calc(-1 * var(--lift)), 1px);
+    left: calc(50% - var(--frame-w) / 2);
+    left: round(calc(50% - var(--frame-w) / 2), 1px);
+    width: var(--frame-w);
+    height: var(--frame-h);
+    container-type: size;
+}
+
+/* The photo fades out toward the cut, into the page's white, so there's no
+   edge. */
+.horizon-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-mask-image: linear-gradient(to bottom, #000 46%, transparent 60%);
+    mask-image: linear-gradient(to bottom, #000 46%, transparent 60%);
+}
+
+/* ---------- Labels ----------
+   Each label is centered over its landform, in the sky. The links draw a
+   hairline leader from just under their letters down to the landform; the
+   name, over its peak, has none. All use line-height 1, so each box's bottom sits the same
+   fraction of its font size (0.09em in Reforma 1918) below its baseline:
+   the links are raised by the difference to share the name's baseline.
+
+   Each label box is zero wide, standing exactly on its landform's x, with
+   its text centered on it and spilling out to both sides, so the leader
+   (left: 0) needs no transform either. */
+.horizon-link {
+    position: absolute;
+    left: calc(var(--x) * 1cqw);
+    left: round(calc(var(--x) * 1cqw), 1px);
+    display: flex;
+    justify-content: center;
+    width: 0;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+/* The name, centered over its peak, outside the photo's frame so it can
+   set the page's edge (--edge): the portfolio and navbar line up with it.
+   The box is zero wide, standing on the summit, with the name centered on
+   it; its foot is --name-rise above the labels' line. */
+.horizon-title {
+    position: absolute;
+    bottom: calc((var(--cut) - var(--label-bottom)) * var(--frame-h) / 100 + var(--name-rise));
+    left: var(--peak);
+    display: flex;
+    justify-content: center;
+    width: 0;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+/* The leader runs from --leader-top down to the landform (--y), measured from
+   this label's own bottom edge. */
+.horizon-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 1px;
+    /* A see-through color rather than opacity: an opacity change can move
+       the line onto its own graphics layer, where some graphics cards drop
+       1px lines. */
+    --leader-ink: var(--leader);
+    background: var(--leader-ink);
+    transition: --leader-ink 0.2s ease;
+}
+
+.horizon-name {
+    /* On the labels' line, sharing the links' baseline. */
+    position: relative;
+    top: 0;
+    margin: 0;
+    /* Letter spacing also follows the last letter; this centers the
+       letters themselves. */
+    margin-right: -0.2em;
+    color: var(--horizon-ink);
+    font-family: var(--font-nav);
+    font-size: var(--name-size);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    line-height: 1;
+    text-transform: uppercase;
+    /* Lets the sky's grain show through the letters, as if printed. */
+    mix-blend-mode: multiply;
+}
+
+.horizon-link {
+    --raise: calc(0.09 * (var(--name-size) - var(--link-size)));
+    bottom: calc((100 - var(--label-bottom)) * 1cqh + var(--raise));
+    /* Shifts the letters right by half the spacing after the last one, so
+       they center on the leader. */
+    padding-left: 0.08em;
+    color: var(--horizon-text);
+    font-family: var(--font-nav);
+    font-size: var(--link-size);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+
+.horizon-link::after {
+    top: calc(100% + var(--raise) + (var(--leader-top) - var(--label-bottom)) * 1cqh);
+    top: round(calc(100% + var(--raise) + (var(--leader-top) - var(--label-bottom)) * 1cqh), 1px);
+    /* --extend (optional, per label) lengthens a leader past its landform. */
+    height: calc((var(--y) - var(--leader-top)) * 1cqh + var(--extend, 0px));
+}
+
+.horizon-link:hover,
+.horizon-link:focus {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.horizon-link:hover::after,
+.horizon-link:focus::after {
+    --leader-ink: var(--accent);
+}
+
+.horizon-link:hover::before,
+.horizon-link:focus::before {
+    background: var(--accent-dark);
+}
+
+/* Portfolio's line is a single element, .horizon-lead (below), so it has
+   no leader of its own here. */
+.horizon-link-main::after {
+    content: none;
+}
+
+/* A 5px dot ends each leader (Portfolio's, its line's, just above the
+   filters), centered on the 1px line. */
+.horizon-link::before,
+.horizon-lead::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    width: 5px;
+    height: 5px;
+    margin-top: -2px;
+    border-radius: 50%;
+    background: var(--horizon-text);
+}
+
+/* Resume's and Contact's dots are in the accent green, so they read as
+   markers. */
+.horizon-link::before {
+    left: -2px;
+    width: 5px;
+    height: 5px;
+    margin-top: -2px;
+    background: var(--line-ink);
+    top: calc(100% + var(--raise) + (var(--y) - var(--label-bottom)) * 1cqh + var(--extend, 0px));
+    top: round(calc(100% + var(--raise) + (var(--y) - var(--label-bottom)) * 1cqh + var(--extend, 0px)), 1px);
+}
+
+.horizon-link-main::before {
+    content: none;
+}
+
+/* Portfolio's line simply ends, just above the filters. */
+.horizon-lead::before {
+    content: none;
+}
+
+/* The name's leader: from just under the middle of the name straight down
+   to the mountain's ridge, ending in a dot like the others. The name leans
+   off its summit by different amounts at different screen sizes, so where
+   it meets the ridge varies; index.html places it from a trace of the
+   ridge's skyline. It fades as the name glides into the bar. */
+.horizon-name-lead {
+    position: absolute;
+    width: 1px;
+    background: color-mix(in srgb, var(--leader) calc((1 - var(--glide, 0)) * 100%), transparent);
+    pointer-events: none;
+}
+
+/* Option: hidden while trying the summit mark below instead. */
+.horizon-name-lead {
+    display: none;
+}
+
+/* The name's summit mark: a small solid triangle over the summit, as on a
+   map, pointing up to the name and floating midway between them (placed
+   by index.html). It fades as the name glides into the bar. */
+.horizon-name-mark {
+    position: absolute;
+    width: 9px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    background: color-mix(in srgb, var(--line-ink) calc((1 - var(--glide, 0)) * 100%), transparent);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    pointer-events: none;
+}
+
+.horizon-name-lead::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: -2px;
+    width: 5px;
+    height: 5px;
+    margin-top: -2px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--horizon-text) calc((1 - var(--glide, 0)) * 100%), transparent);
+}
+
+/* The link box is zero wide, so it shows focus with an underline instead of
+   an outline. */
+.horizon-link:focus {
+    outline: none;
+}
+
+.horizon-link:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+}
+
+/* ---------- Into the portfolio ----------
+   The Portfolio line (.horizon-lead) runs from under its label, down the
+   middle of the screen through the terrain, to the filters. */
+.horizon-continue {
+    position: relative;
+    display: flow-root; /* keeps .pf-page's negative margin inside, so the line stays put */
+}
+
+/* The filters tuck up into the bottom of the panorama, where it has faded
+   to cloud. */
+.horizon-continue .pf-page {
+    /* In the photo's own terms (58px at 1920), so the intro sits on
+       the same part of the landscape at any width. */
+    margin-top: calc(-6.24 * var(--frame-h) / 100);
+    padding-top: 0;
+    /* On the shared edge; the right keeps portfolio.css's extra 15px. */
+    padding-left: var(--edge);
+    padding-right: calc(var(--edge) + 15px);
+}
+
+@media (max-width: 991.98px) {
+    .horizon-continue .pf-page {
+        padding-right: calc(var(--edge) - 8px);
+    }
+}
+
+/* One unbroken element, rather than a leader plus a continuation, so it
+   can't render in two pieces. It sits in the portfolio below the panorama
+   and reaches up over it to where the leaders start; it's a little darker than
+   the other leaders, since it leads on into the
+   portfolio, and ends just above the filters. */
+.horizon-lead {
+    --above: calc(var(--frame-h) * (var(--cut) - var(--leader-top)) / 100);
+    --leader-ink: var(--leader-main);
+    position: absolute;
+    top: calc(-1 * var(--above));
+    top: round(calc(-1 * var(--above)), 1px);
+    left: 50%;
+    left: round(50%, 1px);
+    width: 1px;
+    /* It ends --lead-end (% of the photo's height) above the photo's foot,
+       on the same spot in the landscape at any width. */
+    height: calc(var(--above) - var(--lead-end) * var(--frame-h) / 100);
+    background: var(--leader-ink);
+    pointer-events: none;
+    transition: --leader-ink 0.2s ease;
+}
+
+.horizon-hero:has(.horizon-link-main:hover, .horizon-link-main:focus) + .horizon-continue .horizon-lead {
+    --leader-ink: var(--accent-dark);
+}
+
+/* With a project open the panorama is hidden, and the line with it. */
+#pf-hero[hidden] + .horizon-continue .horizon-lead {
+    display: none;
+}
+
+#pf-hero[hidden] + .horizon-continue .pf-page {
+    margin-top: 0;
+    padding-top: 1.5rem;
+}
+
+/* ---------- The trail ----------
+   Portfolio's line ends at a survey mark (.trail-start); from it a dashed
+   footpath (.trail-line, drawn by index.html) winds past each intro stop's
+   waypoint to the triangle at Projects. Everything is sized from
+   --trail-size, the stops' headings, so the drawn marks and dashes keep
+   their proportions to the type. */
+:root {
+    --trail-size: max(15px, calc(0.62 * var(--name-size)));
+    --trail-ink: var(--line-ink);
+}
+
+.trail-mark {
+    display: inline-flex;
+    flex: 0 0 auto;
+    line-height: 0;
+    color: var(--trail-ink);
+    transition: color 0.2s ease;
+}
+
+.trail-mark svg {
+    display: block;
+    overflow: visible;
+}
+
+/* The survey mark hangs from the foot of Portfolio's line. */
+.trail-start {
+    position: absolute;
+    /* A hair below the line's end (--leader-gap). */
+    top: calc(-1 * var(--lead-end) * var(--frame-h) / 100 + var(--leader-gap));
+    left: 50%;
+    left: round(50%, 1px);
+    font-size: var(--trail-size);
+    transform: translateX(-50%);
+    margin-left: 0.5px;
+    /* Hovering it hovers Portfolio, and clicking it follows it, as with
+       Resume's and Contact's circles (index.html). */
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.trail-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    color: var(--trail-ink);
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+/* ---------- Hand-drawn leaders ----------
+   Once index.html has read the drawings (.trail-masks), each leader is
+   its textured line from assets/trail/, stretched to the leader's length,
+   and Resume's and Contact's end in a small drawn circle that hangs from
+   the line, as Portfolio's does. They're masks over the leaders' colors,
+   so hover and the glide's fades work as before. Sizes follow the trail's
+   scale (--trail-size per 18 drawn units), from each drawing's own width
+   (--mask-*-w, set by index.html as it reads them). */
+:root {
+    --ring: calc(var(--trail-size) * var(--mask-circle-w, 7.76661) / 18);
+    --ring-large: calc(var(--trail-size) * var(--mask-circle-large-w, 40.22757) / 18);
+    /* The air between a leader's end and its circle. */
+    --leader-gap: calc(var(--trail-size) * 1.5 / 18);
+    /* One drawn width for all three leaders, in whole pixels, so they
+       always render at the same weight (the browser rounds a line's
+       drawing to whole pixels, and 1.41px and 1.51px round to 1 and 2). */
+    --leader-mask-w: max(1px, round(calc(var(--trail-size) * 1.2 / 18), 1px));
+}
+
+.trail-masks .horizon-lead {
+    --leader-w: calc(var(--trail-size) * var(--mask-line-portfolio-w, 1.256) / 18);
+}
+
+.trail-masks .horizon-link[data-glide="resume"]::after {
+    --leader-w: calc(var(--trail-size) * var(--mask-line-resume-w, 1.256) / 18);
+}
+
+.trail-masks .horizon-link[data-glide="contact"]::after {
+    --leader-w: calc(var(--trail-size) * var(--mask-line-contact-w, 1.256) / 18);
+}
+
+/* Each line sits in the same 3px whole-pixel box, centered on the middle
+   of its leader's pixel, with the drawing at its own width in the middle:
+   so all three land on the pixel grid alike and render at the same weight
+   (a ~1.3px line starting at different fractions of a pixel looks heavier
+   in one place and fainter in another). */
+.trail-masks .horizon-link::after,
+.trail-masks .horizon-lead {
+    width: calc(var(--leader-mask-w) + 2px);
+    margin-left: -1px;
+    -webkit-mask-size: var(--leader-mask-w) 100%;
+    mask-size: var(--leader-mask-w) 100%;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.trail-masks .horizon-lead {
+    -webkit-mask-image: var(--mask-line-portfolio);
+    mask-image: var(--mask-line-portfolio);
+}
+
+.trail-masks .horizon-link[data-glide="resume"]::after {
+    -webkit-mask-image: var(--mask-line-resume);
+    mask-image: var(--mask-line-resume);
+}
+
+.trail-masks .horizon-link[data-glide="contact"]::after {
+    -webkit-mask-image: var(--mask-line-contact);
+    mask-image: var(--mask-line-contact);
+}
+
+/* The end circle hangs a hair (--leader-gap) below the line's end. */
+.trail-masks .horizon-link::before {
+    left: calc(0.5px - var(--ring) / 2);
+    width: var(--ring);
+    height: var(--ring);
+    margin-top: var(--leader-gap);
+    border-radius: 0;
+    -webkit-mask: var(--mask-circle) center / 100% 100% no-repeat;
+    mask: var(--mask-circle) center / 100% 100% no-repeat;
+}
+
+/* Hovering Resume or Contact (or its twin in the bar) opens a larger
+   drawn circle around its end circle. */
+.horizon-ring {
+    position: absolute;
+    top: calc(100% + var(--raise) + (var(--y) - var(--label-bottom)) * 1cqh + var(--extend, 0px) + var(--leader-gap) + var(--ring) / 2);
+    left: 0.5px;
+    width: var(--ring-large);
+    height: var(--ring-large);
+    margin: calc(var(--ring-large) / -2) 0 0 calc(var(--ring-large) / -2);
+    background: var(--line-ink);
+    -webkit-mask: var(--mask-circle-large) center / 100% 100% no-repeat;
+    mask: var(--mask-circle-large) center / 100% 100% no-repeat;
+    opacity: 0;
+    transform: scale(0.2);
+    transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+    pointer-events: none;
+}
+
+html:not(.trail-masks) .horizon-ring {
+    display: none;
+}
+
+.horizon-link:hover .horizon-ring,
+.horizon-link:focus-visible .horizon-ring,
+.horizon-link.is-hot .horizon-ring {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Hovering Portfolio darkens the whole route, as it does the line. */
+.horizon-hero:has(.horizon-link-main:hover, .horizon-link-main:focus, .horizon-link-main.is-hot) + .horizon-continue {
+    --trail-ink: var(--accent-dark);
+}
+
+/* ...and sends a larger outline down the route: each point's outline opens
+   as it gets there and closes behind it as the next one opens (--i, each
+   point's place along the route, sets when), until it reaches Projects,
+   whose outline stays open, as Resume's and Contact's circles do. */
+.trail-mark:not(.trail-start) {
+    position: relative;
+}
+
+.trail-halo {
+    --halo-at: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    line-height: 0;
+    opacity: 0;
+    transform: var(--halo-at) scale(0.3);
+    transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+    pointer-events: none;
+}
+
+.trail-halo svg {
+    display: block;
+    overflow: visible;
+}
+
+.horizon-continue {
+    --halo-step: 0.22s;   /* from one point's outline to the next */
+}
+
+@keyframes trail-halo-pass {
+    0% {
+        opacity: 0;
+        transform: var(--halo-at) scale(0.3);
+    }
+    20%,
+    60% {
+        opacity: 1;
+        transform: var(--halo-at) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: var(--halo-at) scale(0.3);
+    }
+}
+
+.horizon-hero:has(.horizon-link-main:hover, .horizon-link-main:focus, .horizon-link-main.is-hot) + .horizon-continue .trail-halo {
+    /* Each opens in a step, stays open while the next two open, then
+       closes slowly behind them. */
+    animation: trail-halo-pass calc(5 * var(--halo-step)) ease-in-out both;
+    animation-delay: calc(var(--i, 0) * var(--halo-step));
+}
+
+/* The first, at Portfolio's circle, and the last, at Projects, open and
+   stay, as Resume's and Contact's circles do. */
+.horizon-hero:has(.horizon-link-main:hover, .horizon-link-main:focus, .horizon-link-main.is-hot) + .horizon-continue .trail-start .trail-halo {
+    animation: none;
+    opacity: 1;
+    transform: var(--halo-at) scale(1);
+    transition-delay: calc(var(--i, 0) * var(--halo-step));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .horizon-hero:has(.horizon-link-main:hover, .horizon-link-main:focus, .horizon-link-main.is-hot) + .horizon-continue .trail-halo {
+        animation: none;
+    }
+
+    .trail-halo,
+    .horizon-hero:has(.horizon-link-main:hover, .horizon-link-main:focus, .horizon-link-main.is-hot) + .horizon-continue .trail-start .trail-halo {
+        transform: var(--halo-at);
+        transition: opacity 0.2s ease;
+        transition-delay: 0s;
+    }
+}
+
+#pf-hero[hidden] + .horizon-continue .trail-start,
+#pf-hero[hidden] + .horizon-continue .trail-line {
+    display: none;
+}
+
+/* Each stop: heading, waypoint, then a line about it, on one baseline. */
+
+.trail-head {
+    margin: 0;
+    color: var(--horizon-text);
+    font-family: var(--font-ui);
+    font-size: 1em;
+    font-weight: normal;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* One centerline per row: each piece of text is trimmed to its capitals
+   (cap height to baseline), so centering the boxes puts the middle of a
+   heading's caps level with the middle of its line's capitals, whatever
+   their sizes and faces. The tabs' underline gets matching space above,
+   so it doesn't pull them off center. (Where text-box isn't supported, the
+   rows stay on a shared baseline.) */
+@supports (text-box: trim-both cap alphabetic) {
+    .trail-head {
+        text-box: trim-both cap alphabetic;
+    }
+
+}
+
+/* Until the projects load, there's nothing to filter. */
+#pf-browse:has(.pf-controls[hidden]) .pf-filter-bar {
+    visibility: hidden;
+}
+
+.intro-stack + .pf-controls {
+    margin-top: 1.4rem;
+}
+
+/* ---------- Filters over the landscape ---------- */
+.horizon-continue .pf-filter-label,
+.horizon-continue .pf-tab {
+    color: #2f3836;
+}
+
+/* The SVG filters (index.html) that roughen the chips' edges. */
+.horizon-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.horizon-continue .pf-chips {
+    position: relative;
+    isolation: isolate;
+}
+
+.horizon-continue .pf-chips {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* The chips themselves are plain until hovered (a green tint) or
+   selected (solid green): a crisp, only slightly rounded patch with the
+   same roughened edge, unfeathered, drawn on a layer behind the name. */
+.horizon-continue .pf-chip,
+.horizon-continue .pf-chip:hover,
+.horizon-continue .pf-chip[aria-pressed="true"],
+.horizon-continue .pf-chip[aria-pressed="true"]:hover {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+    box-shadow: none;
+}
+
+.horizon-continue .pf-chip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 4px 6px 3px 5px;
+    background: transparent;
+    filter: url(#horizon-rough-crisp);
+    transition: background-color 0.2s ease;
+}
+
+/* No patches now: the chips are words, a size up, that darken on hover;
+   a chosen one is underlined with the drawn line the Product/Purpose tabs
+   use (--mask-tab-underline). */
+.horizon-continue .pf-chip {
+    font-size: 17px;
+}
+
+.horizon-continue .pf-chip::before {
+    content: none;
+}
+
+.horizon-continue .pf-chip:hover {
+    color: var(--accent);
+}
+
+.horizon-continue .pf-chip[aria-pressed="true"],
+.horizon-continue .pf-chip[aria-pressed="true"]:hover {
+    color: var(--pf-ink);
+}
+
+.horizon-continue .pf-chip[aria-pressed="true"]::after {
+    content: "";
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 1px;
+    height: 1.5px;
+    background: var(--accent);
+    -webkit-mask: var(--mask-tab-underline) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-tab-underline) no-repeat 0 0 / 100% 100%;
+}
+
+/* ---------- Navbar ----------
+   The site navbar is always there, but at the top of the page it's only
+   its name and links, drawn over the landing's labels; as the page scrolls
+   they glide into the bar and its background fades in (index.html sets
+   --nav-p from 0 to 1, and is-landed once it's done). Styled like the
+   landing's labels rather than the site's grey-green strip: pale sky
+   (opaque once landed, so nothing shows through; without the site navbar's blur, which is costly to
+   redraw over the grainy backdrop while scrolling), dark ink small capitals with the same spacing, and a
+   leader-colored hairline along the bottom. */
+.navbar.horizon-navbar {
+    --nav-p: 0;
+    /* Its name starts on the shared edge, past the link's 8px padding. */
+    padding-left: calc(var(--edge) - 8px);
+    padding-right: calc(var(--edge) - 8px);
+    /* A slim bar (about 58px): the small capitals don't need more. */
+    min-height: 58px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    background-color: rgba(238, 238, 238, var(--nav-p));
+    border-bottom: 1px solid rgba(79, 87, 86, calc(0.35 * var(--nav-p)));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+/* Once the drawings are read (.trail-masks), the hairline gives way to
+   the drawn rule, assets/nav/navbar-line.svg, stretched across the bar in
+   the résumé rules' green-grey and fading in with the bar. */
+.trail-masks .navbar.horizon-navbar {
+    border-bottom-color: transparent;
+}
+
+.trail-masks .navbar.horizon-navbar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+    opacity: var(--nav-p);
+    -webkit-mask: var(--mask-navbar-rule) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-navbar-rule) no-repeat 0 0 / 100% 100%;
+    pointer-events: none;
+}
+
+.horizon-navbar [data-glide] {
+    will-change: transform;
+}
+
+/* The menu button has nothing to glide from, so it fades in with the bar. */
+.horizon-navbar .navbar-toggler {
+    opacity: var(--nav-p);
+}
+
+.horizon-navbar:not(.is-landed) .navbar-toggler {
+    pointer-events: none;
+}
+
+/* A label with a twin in the bar hides its own text (its leader stays),
+   and leaves the tab order to the twin. Their leaders fade out as the
+   labels glide off (--glide, 0 to 1). */
+.horizon-name.is-glided,
+.horizon-link.is-glided {
+    color: transparent;
+}
+
+.horizon-link.is-glided::after {
+    background: color-mix(in srgb, var(--leader-ink) calc((1 - var(--glide, 0)) * 100%), transparent);
+}
+
+.horizon-link.is-glided::before {
+    background: color-mix(in srgb, var(--line-ink) calc((1 - var(--glide, 0)) * 100%), transparent);
+}
+
+/* ...all but the active route's, which stays (cut off at the bar by
+   index.html): on Resume or Contact, that route's leader stays and
+   Portfolio's line and circle fade instead. */
+.horizon-hero:has(+ .route-resume) .horizon-link[data-glide="resume"].is-glided::after,
+.horizon-hero:has(+ .route-contact) .horizon-link[data-glide="contact"].is-glided::after {
+    background: var(--leader-ink);
+}
+
+.horizon-hero:has(+ .route-resume) .horizon-link[data-glide="resume"].is-glided::before,
+.horizon-hero:has(+ .route-contact) .horizon-link[data-glide="contact"].is-glided::before {
+    background: var(--line-ink);
+}
+
+.horizon-continue.route-alt .horizon-lead {
+    background: color-mix(in srgb, var(--leader-ink) calc((1 - var(--glide, 0)) * 100%), transparent);
+}
+
+.horizon-continue.route-alt .trail-start {
+    opacity: calc(1 - var(--glide, 0));
+}
+
+/* A link with no twin in the bar fades as the page starts to scroll, so
+   it doesn't pass through the bar (--away, 0 to 1). */
+.horizon-link:not(.is-glided) {
+    opacity: calc(1 - var(--away, 0));
+}
+
+/* Hovering a bar item over its label darkens that label's leader. */
+.horizon-link.is-hot::after {
+    --leader-ink: var(--accent);
+}
+
+.horizon-hero:has(.horizon-link-main.is-hot) + .horizon-continue .horizon-lead {
+    --leader-ink: var(--accent-dark);
+}
+
+.horizon-navbar .navbar-brand {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: var(--horizon-ink);
+    font-size: 21px;
+    letter-spacing: 0.2em;
+    text-shadow: none;
+}
+
+.horizon-navbar .nav-item {
+    /* The name's ink, so hover lights them as it does the name. */
+    color: var(--horizon-ink);
+}
+
+/* Less air above and below the links, for the slim bar. */
+.horizon-navbar .nav-link {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    letter-spacing: 0.16em;
+    text-shadow: none;
+}
+
+/* No hover underline (style.css draws one for the other pages): the color
+   change, and the leaders' circles, are enough. */
+.horizon-navbar .nav-item::after {
+    content: none;
+}
+
+.horizon-navbar .navbar-brand:hover,
+.horizon-navbar .navbar-brand:focus,
+.navbar.horizon-navbar .nav-item:hover,
+.navbar.horizon-navbar .nav-item:focus,
+.navbar.horizon-navbar .nav-item.is-hot {
+    color: var(--accent);
+}
+
+.horizon-navbar .navbar-toggler {
+    border-color: var(--leader);
+    color: var(--horizon-text);
+    fill: var(--horizon-text);
+}
+
+.horizon-navbar .navbar-toggler:hover,
+.horizon-navbar .navbar-toggler:focus {
+    color: var(--accent);
+    fill: var(--accent);
+}
+
+@media (max-width: 991.98px) {
+    .navbar.horizon-navbar .navbar-collapse {
+        border-top-color: var(--leader);
+    }
+}
+
+/* The fixed navbar covers the top of an open project; make room. */
+#pf-hero[hidden] + .horizon-continue {
+    padding-top: 60px;
+}
+
+/* ---------- Tall screens ----------
+   The panorama is much wider than a tall screen, which would only see the
+   empty saddle in its middle, so the main peak is centered instead. The
+   canyons are off screen there, so the links drop their leaders and center
+   on a line above the name. */
+@media (max-aspect-ratio: 4/3) {
+    /* Here the intro starts under the photo as it always has. */
+    .horizon-continue .pf-page {
+        margin-top: -98px;
+    }
+
+    /* Here the links are the top line: one 15px row, 1.4rem over the name;
+       and the name is centered on the peak, so the edge is the usual 12%. */
+    :root {
+        --edge: calc(12% + 8px);
+        /* Here the panorama is sized by the height; the name, by the width;
+           and it's on the labels' line, under the links. */
+        --name-size: clamp(1.5rem, 2.45vw, 3.2rem);
+        --name-rise: 0px;
+        --lift: max(0px, var(--frame-h) * var(--label-bottom) / 100 - var(--name-size) - 1.4rem - 12px - var(--top-gap));
+    }
+
+    .horizon-frame,
+    .horizon-backdrop {
+        left: calc(50% - var(--frame-w) * 0.357);
+        left: round(calc(50% - var(--frame-w) * 0.357), 1px);
+    }
+
+    /* Here the peak is centered on the page, and the name on it. */
+    .horizon-title {
+        left: 50%;
+        justify-content: center;
+    }
+
+    .horizon-nav {
+        position: absolute;
+        left: calc(35.7cqw - 50vw);
+        bottom: calc((100 - var(--label-bottom)) * 1cqh + var(--name-size) + 1.4rem);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.4rem 1.25rem;
+        width: 100vw;
+        padding: 0 1rem;
+    }
+
+    .horizon-link {
+        position: static;
+        display: inline-block;
+        width: auto;
+        padding-left: 0;
+        font-size: 15px;
+        letter-spacing: 0.22em;
+    }
+
+    .horizon-link::after,
+    .horizon-link::before,
+    .horizon-lead {
+        display: none;
+    }
+
+    /* No line comes down from Portfolio here, so no route either; the
+       waypoints stay as markers, and each line wraps under its heading. */
+    .trail-start,
+    .trail-line,
+    .horizon-ring {
+        display: none;
+    }
+
+}
+
+@media (max-width: 575.98px) {
+    .horizon-link {
+        font-size: 13px;
+        letter-spacing: 0.14em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .horizon-link,
+    .horizon-link::after,
+    .horizon-lead,
+    .horizon-navbar {
+        transition: none;
+    }
+}
+
+/* ---------- Trail entrance ----------
+   (To revert, delete this block and the "Trail entrance" script in
+   index.html.) Arriving at the top, everything under the landscape waits
+   (.trail-gated); the first click on Portfolio, scroll, or tab into it
+   plays it in (.trail-revealing): each leg of the trail draws itself
+   (its mask's dash offset runs down to 0), each stop fades in as the trail
+   reaches it, with its outline passing, then the filters and cards rise. */
+.horizon-continue {
+    --reveal-step: 0.45s;   /* one leg of the trail */
+}
+
+.trail-gated .pf-controls,
+.trail-gated .pf-status-row,
+.trail-gated .pf-grid {
+    opacity: 0;
+}
+
+.trail-gated .pf-controls,
+.trail-gated .pf-status-row,
+.trail-gated .pf-grid {
+    transform: translateY(14px);
+}
+
+.trail-gated .trail-reveal {
+    stroke-dashoffset: var(--len, 0);
+}
+
+.trail-revealing .trail-reveal {
+    transition: stroke-dashoffset var(--dur, var(--reveal-step)) linear;
+    transition-delay: var(--at, calc(var(--i, 0) * var(--reveal-step)));
+}
+
+.trail-revealing .pf-controls,
+.trail-revealing .pf-status-row,
+.trail-revealing .pf-grid {
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--at3, calc(3 * var(--reveal-step))) + 0.3s);
+}
+
+.trail-revealing .trail-halo {
+    animation: trail-halo-pass calc(5 * var(--reveal-step)) ease-in-out both;
+    animation-delay: var(--mark-at, calc(var(--i, 0) * var(--reveal-step)));
+}
+
+/* ---------- Resume route ----------
+   (To revert, delete this block and the "Resume route" pieces in
+   index.html.) Clicking Resume rolls the Portfolio trail back up (each leg
+   undrawing back toward Portfolio's circle, its stop fading as it goes) and
+   draws the Resume route down from Resume's circle to the diamond, where
+   the Projects triangle was; the résumé then rises where the cards were.
+   Clicking Portfolio plays it back. Contact works the same way, with its
+   own route to the same diamond, and Resume and Contact swap directly.
+   index.html sets the classes: .route-alt and .route-resume/-contact (on
+   one of those routes), .route-switching (while it plays), .route-list and
+   .list-resume/-contact (its list shown, the cards gone), .route-leaving
+   (a list fading out) and .route-returning (the cards coming back). */
+.horizon-continue {
+    /* Every route draws at one speed, so each takes as long as it is long.
+       index.html sets the times from the routes' lengths: per leg, --dur
+       (drawing it), --at (when it starts, after the legs before it) and
+       --back (when it starts rolling up, after the legs after it); --at1,
+       --at2, --at3 (when the trail reaches each stop; --at3, the whole
+       trail); --draw-resume and --draw-contact (each route's draw); and,
+       while switching, --route-wait (rolling the old route up), --alt-draw
+       (drawing the new one) and --alt-back (rolling one up on the way back
+       to Portfolio). */
+    /* Rolling a route back up takes this share of its drawing time, so
+       switching keeps moving. */
+    --up: 0.55;
+    --route-wait: calc(var(--at3, 1.35s) * var(--up));
+    --alt-draw: 1.35s;
+    --alt-back: 1.35s;
+}
+
+/* Resume's circle, as the route's start (an invisible box on it). */
+.horizon-anchor {
+    position: absolute;
+    top: calc(100% + var(--raise) + (var(--y) - var(--label-bottom)) * 1cqh + var(--extend, 0px) + var(--leader-gap));
+    left: calc(0.5px - var(--ring) / 2);
+    width: var(--ring);
+    height: var(--ring);
+    pointer-events: none;
+}
+
+/* Projects and the Resume route's end share one place. */
+
+@supports (text-box: trim-both cap alphabetic) {
+
+    .resume-head .resume-pdf {
+        text-box: trim-both cap alphabetic;
+    }
+}
+
+/* The route's end: the diamond on the page's middle, "Résumé" to its
+   right, and the PDF balancing it on the left, as Projects' row is. */
+.resume-head {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding-left: 15px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.resume-head [data-route] {
+    display: none;
+}
+
+.resume-head[data-shown="resume"] [data-route="resume"],
+.resume-head[data-shown="contact"] [data-route="contact"] {
+    display: revert;
+}
+
+.resume-head .trail-mark {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.resume-head .trail-head {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: start;
+    margin-left: 0.45em;
+}
+
+.resume-head .resume-pdf {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    margin-right: 0.8em;
+    color: #2f3836;
+    font-family: var(--font-text);
+    font-size: 1.1rem;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.resume-head .resume-pdf:hover,
+.resume-head .resume-pdf:focus {
+    color: var(--accent);
+}
+
+@media (max-width: 991.98px) {
+    .resume-head {
+        padding-left: 0;
+        padding-right: 8px;
+    }
+}
+
+/* On the Resume route: the Portfolio trail, stops, filters and cards
+   gone; its route drawn and its end shown. */
+.route-alt .pf-controls,
+.route-alt .pf-status-row,
+.route-alt .pf-grid {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.route-alt .trail-reveal:not(.trail-reveal-alt),
+.horizon-continue:not(.route-resume) .trail-reveal-resume,
+.horizon-continue:not(.route-contact) .trail-reveal-contact {
+    stroke-dashoffset: var(--len, 0);
+}
+
+.route-alt .resume-head {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* The résumé or contact details, where the cards were. */
+.alt-list {
+    display: none;
+    max-width: 46rem;
+    margin: 2.5rem auto 5rem;
+    color: #2f3836;
+    font-family: var(--font-text);
+}
+
+/* The résumé and the contact page (.resume-sheet) span the navbar text,
+   from the A of Austin to the T of Contact. Contact keeps 0.16em of letter
+   spacing after its T. */
+.resume-sheet {
+    max-width: none;
+    margin-left: 0;
+    margin-right: calc(0.16 * var(--link-size));
+}
+
+.route-list .pf-controls,
+.route-list .pf-status-row,
+.route-list .pf-grid {
+    display: none;
+}
+
+.list-resume .resume-list,
+.list-contact .contact-list {
+    display: block;
+    animation: route-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.route-leaving .alt-list {
+    animation: route-fall 0.3s ease both;
+}
+
+.route-returning .pf-controls,
+.route-returning .pf-status-row,
+.route-returning .pf-grid {
+    animation: route-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    /* Right away: the projects don't wait for the trail, which redraws
+       above as they come in. */
+    animation-delay: 0.05s;
+}
+
+@keyframes route-rise {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes route-fall {
+    to {
+        opacity: 0;
+    }
+}
+
+.alt-list h3 {
+    margin: 2.4rem 0 1rem;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid rgba(102, 102, 102, 0.35);
+    color: var(--line-ink);
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: normal;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.alt-list h3:first-child {
+    margin-top: 0;
+}
+
+.alt-list a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.alt-list a:hover {
+    color: var(--accent-dark);
+}
+
+/* ---------- The résumé, laid out after the Illustrator mockup ----------
+   Sizes are in --u, one unit of the mockup's drawing. Its column is 777
+   units wide, so --u scales everything with the column (never under 1.1px,
+   for phones). The rules, marks and bullets are its SVGs in assets/resume/;
+   the route ends on the first rule at the x mark (divider-mark-x.svg).
+   Headings in Fraunces, everything else in Reforma 2018. */
+.intro-stack,
+.alt-view {
+    position: relative;
+    container-type: inline-size;
+}
+
+.intro-stack {
+    --u: max(1.1px, calc(100cqi / 777));
+    /* Where the résumé starts: level with the first stop, as the route's
+       end row was. */
+    --resume-top: calc(1.5 * var(--trail-size));
+    /* Each heading's box; its rule runs along the foot. */
+    --resume-h: calc(30 * var(--u));
+    --resume-ink: var(--horizon-ink);
+}
+
+/* The old end row (diamond, route name, link) is retired: every route now
+   ends on the x on its first heading's rule. */
+.horizon-continue .resume-head {
+    display: none;
+}
+
+.resume-sheet {
+    position: relative;
+    margin-top: var(--resume-top);
+    color: var(--resume-ink);
+    font-family: var(--font-ui);
+}
+
+.resume-sheet ul {
+    margin: 0;
+    padding: 0;
+    color: inherit; /* style.css greys every ul */
+    list-style: none;
+}
+
+.resume-sheet li {
+    font-family: inherit; /* style.css sets every li in Tahoma */
+}
+
+/* Section headings (the résumé's, and Projects), each over a rule with
+   its mark at the left. */
+:is(.resume-sheet, .pf-intro, .pf-project) .resume-h {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    height: var(--resume-h);
+    margin: calc(14 * var(--u)) 0 0;
+    padding: 0 0 calc(2.5 * var(--u)) calc(1 * var(--u));
+    border: 0;
+    color: var(--resume-ink);
+    font-family: var(--font-nav);
+    font-size: calc(19 * var(--u));
+    font-weight: 400; /* Fraunces Regular, as the navbar */
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+:is(.resume-sheet, .pf-intro) .resume-h:first-of-type {
+    margin-top: 0;
+}
+
+.resume-h::before,
+.resume-h::after,
+.resume-entry + .resume-entry::before,
+.resume-entry + .resume-entry::after,
+.resume-items li::before {
+    content: "";
+    position: absolute;
+    background: no-repeat 0 0 / 100% 100%;
+}
+
+/* The rule and its mark are nudged together onto whole pixels (--snap,
+   set by index.html), so every rule draws at the same weight. */
+.resume-h::before,
+.resume-h::after {
+    translate: 0 var(--snap, 0px);
+}
+
+/* The rule, from just past its mark (--rule-left: the mark's width and a
+   hair) to the right edge: a whole 2px tall, its ink centred 1px up from
+   the heading's foot. */
+.resume-h::after {
+    --rule-left: calc(19.5 * var(--u));
+    left: var(--rule-left);
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    /* The drawn line as a mask (index.html reads it in as --mask-rule-solid,
+       set to stretch to any box), in the marks' green-grey. */
+    background: var(--accent);
+    -webkit-mask: var(--mask-rule-solid) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-rule-solid) no-repeat 0 0 / 100% 100%;
+}
+
+/* Its mark: the tick, with its arm centred on the rule's ink (3.04 units
+   up from its foot). */
+.resume-h::before {
+    left: 0;
+    bottom: calc(1px - 3.04 * var(--u));
+    width: calc(17.88 * var(--u));
+    height: calc(6.42 * var(--u));
+    background-image: url("../assets/resume/divider-mark-2.svg");
+}
+
+/* The PDF, at the right end of the Education heading. */
+.resume-sheet .resume-download {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    height: var(--resume-h);
+    padding-bottom: calc(3.5 * var(--u));
+    font-size: max(15px, calc(14 * var(--u)));
+    line-height: 1;
+    /* No underline: it would run into the rule just below. */
+    text-decoration: none;
+}
+
+/* The trails' end: the small x, centred on the first heading's rule
+   (its ink is 1px up from the heading's foot), mid-column, in a gap in
+   the rule (below). Outside the list, so it's in place (for the routes to
+   be laid to) before the list shows, and doesn't ride its rise. */
+.alt-view > .trail-resume-end {
+    position: absolute;
+    top: calc(var(--resume-top) + var(--resume-h) - 1px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--accent);
+    font-size: calc(18 * var(--u));
+    opacity: 0;
+}
+
+/* The gap in the first heading's rule around the x: the rule's mask
+   intersected with one that's clear for 9 units either side of the
+   column's middle (50cqi, from the column's left, less where the rule
+   starts). */
+:is(.resume-sheet, .pf-intro) .resume-h:first-of-type::after {
+    /* Past the wider arrow mark. */
+    --rule-left: calc(21.8 * var(--u));
+    --gap-at: calc(50cqi - var(--rule-left));
+    --gap-half: calc(9 * var(--u));
+    -webkit-mask: var(--mask-rule-solid) no-repeat 0 0 / 100% 100%,
+        linear-gradient(to right, #000 calc(var(--gap-at) - var(--gap-half)), transparent 0 calc(var(--gap-at) + var(--gap-half)), #000 0);
+    -webkit-mask-composite: source-in;
+    mask: var(--mask-rule-solid) no-repeat 0 0 / 100% 100%,
+        linear-gradient(to right, #000 calc(var(--gap-at) - var(--gap-half)), transparent 0 calc(var(--gap-at) + var(--gap-half)), #000 0);
+    mask-composite: intersect;
+}
+
+/* Every route ends at it (Portfolio, Resume and Contact), so it stays put
+   while one route rolls up and the next draws. It waits until a route
+   first draws in: the trail's entrance, or a first click on Resume or
+   Contact from the top. */
+.horizon-continue:not(.trail-gated) .alt-view > .trail-resume-end {
+    opacity: 1;
+}
+
+.trail-revealing .alt-view > .trail-resume-end {
+    transition: opacity 0.5s ease var(--at3, 1.35s);
+}
+
+.route-switching.route-alt .alt-view > .trail-resume-end {
+    transition: opacity 0.5s ease calc(var(--route-wait) + var(--alt-draw));
+}
+
+/* Bulleted items: diamonds for the top-level ones (the school, awards,
+   skills), small squares for the rest, all on one indent. */
+.resume-items li {
+    position: relative;
+    padding-left: calc(46 * var(--u));
+}
+
+.resume-items li::before {
+    left: calc(28 * var(--u));
+    top: calc(0.5lh - 3 * var(--u));
+    width: calc(6.22 * var(--u));
+    height: calc(6.08 * var(--u));
+    background-image: url("../assets/resume/bullet-square.svg");
+}
+
+.resume-items .resume-major::before {
+    left: calc(24.7 * var(--u));
+    top: calc(0.5lh - 6.3 * var(--u));
+    width: calc(12.61 * var(--u));
+    height: calc(12.53 * var(--u));
+    background-image: url("../assets/resume/bullet-diamond.svg");
+}
+
+/* Education: the school, then the degree. */
+.resume-school {
+    margin-top: calc(12 * var(--u));
+    font-size: max(17px, calc(15.5 * var(--u)));
+    line-height: calc(23 * var(--u));
+}
+
+.resume-degree {
+    font-size: max(15px, calc(14.5 * var(--u)));
+    line-height: calc(23 * var(--u));
+}
+
+/* A job: title and dates, then employer and place, left and right. */
+.resume-entry {
+    position: relative;
+    margin-top: calc(14 * var(--u));
+}
+
+.resume-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0 1rem;
+    line-height: calc(22.5 * var(--u));
+}
+
+.resume-sheet h4 {
+    margin: 0;
+    color: var(--resume-ink);
+    font-family: var(--font-ui);
+    font-size: max(18px, calc(16.5 * var(--u)));
+    font-weight: 500;
+    line-height: inherit;
+}
+
+/* Dates under the titles in weight: a size down, in the lighter ink. */
+.resume-date {
+    color: var(--accent);
+    font-size: max(16px, calc(14.5 * var(--u)));
+    white-space: nowrap;
+}
+
+.resume-where {
+    font-size: max(15px, calc(14.5 * var(--u)));
+    font-style: italic;
+}
+
+/* The main jobs' coordinates (assets/resume/<place>-latlon.svg), right-aligned just
+   above the rule over the job: the heading's rule (14 units above the
+   first job) or the dotted rule between jobs (at the job's top). */
+.resume-lat {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 18 * var(--u));
+    /* Sized by height; each keeps its own width (lat and lon). */
+    width: auto;
+    height: calc(6.16 * var(--u));
+}
+
+.resume-entry + .resume-entry .resume-lat {
+    bottom: calc(100% + 4 * var(--u));
+}
+
+/* Between jobs: a dotted rule with a small x at its left. */
+.resume-entry + .resume-entry {
+    margin-top: calc(17 * var(--u));
+    padding-top: calc(15.5 * var(--u));
+}
+
+.resume-entry + .resume-entry::before {
+    left: calc(14 * var(--u));
+    right: 0;
+    top: 0;
+    height: calc(1.55 * var(--u));
+    /* As the solid rule: tinted to the marks; its drawn 60% opacity stays. */
+    background: var(--accent);
+    -webkit-mask: var(--mask-rule-dashed) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-rule-dashed) no-repeat 0 0 / 100% 100%;
+}
+
+.resume-entry + .resume-entry::after {
+    left: calc(6 * var(--u));
+    top: calc(-1.7 * var(--u));
+    width: calc(4.51 * var(--u));
+    height: calc(5.05 * var(--u));
+    background-image: url("../assets/resume/divider-mark-x.svg");
+}
+
+/* The running text: the job bullets, awards and skills. */
+.resume-bullets,
+.resume-awards,
+.resume-skills {
+    font-size: max(15px, calc(13.3 * var(--u)));
+    line-height: 1.25;
+}
+
+.resume-sheet .resume-bullets {
+    margin-top: calc(14 * var(--u));
+}
+
+.resume-bullets li + li {
+    margin-top: calc(12 * var(--u));
+}
+
+.resume-sheet .resume-awards,
+.resume-sheet .resume-skills {
+    margin-top: calc(14.5 * var(--u));
+}
+
+.resume-awards li + li,
+.resume-skills li + li {
+    margin-top: calc(13.5 * var(--u));
+}
+
+/* Skills go without bullets, on the same indent. */
+.resume-items.resume-skills li::before {
+    content: none;
+}
+
+.resume-sheet strong {
+    font-weight: 700;
+}
+
+.resume-awards a {
+    color: inherit;
+    text-decoration-color: rgba(61, 68, 67, 0.4);
+}
+
+.resume-awards a:hover {
+    color: var(--accent);
+}
+
+/* Going to the Resume route: the cards fade at once; the trail rolls up
+   from Projects back to Portfolio's circle, leg by leg, each stop fading
+   as it goes; then the Resume route draws (after --route-wait), and its
+   end appears; the résumé rises after. */
+.route-switching.route-alt .pf-controls,
+.route-switching.route-alt .pf-status-row,
+.route-switching.route-alt .pf-grid {
+    transition: opacity 0.3s ease;
+}
+
+.route-switching.route-alt .trail-reveal:not(.trail-reveal-alt) {
+    transition: stroke-dashoffset calc(var(--dur, var(--reveal-step)) * var(--up)) linear;
+    transition-delay: calc(var(--back, calc((2 - var(--i, 0)) * var(--reveal-step))) * var(--up));
+}
+
+.route-switching.route-resume .trail-reveal-resume,
+.route-switching.route-contact .trail-reveal-contact {
+    transition: stroke-dashoffset var(--dur, 1.35s) linear var(--route-wait);
+}
+
+.route-switching.route-alt .resume-head {
+    transition: opacity 0.5s ease calc(var(--route-wait) + var(--alt-draw));
+}
+
+.route-switching.route-alt .alt-list {
+    /* Right away (once it replaces the cards), not after the route draws. */
+    animation-delay: 0s;
+}
+
+/* Back to Portfolio: the résumé and the route's end fade; the Resume
+   route rolls back up into Resume's circle; then the Portfolio trail
+   draws down again, stop by stop, and the cards rise. */
+.route-switching:not(.route-alt) .resume-head {
+    transition: opacity 0.3s ease;
+}
+
+.route-switching:not(.route-resume) .trail-reveal-resume,
+.route-switching:not(.route-contact) .trail-reveal-contact {
+    transition: stroke-dashoffset calc(var(--dur, 1.35s) * var(--up)) linear;
+}
+
+.route-switching:not(.route-alt) .trail-reveal:not(.trail-reveal-alt) {
+    transition: stroke-dashoffset var(--dur, var(--reveal-step)) linear;
+    transition-delay: calc(var(--alt-back) + var(--at, calc(var(--i, 0) * var(--reveal-step))));
+}
+
+/* No route on tall screens: just the swap. */
+@media (max-aspect-ratio: 4/3) {
+    .horizon-anchor,
+    .alt-view > .trail-resume-end {
+        display: none;
+    }
+}
+
+.alt-list p {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* Swapping straight between Resume and Contact, the end row fades out
+   while one route rolls up and the other draws, and fades back in with
+   the new name (index.html times it). */
+.route-alt.route-head-out .resume-head {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.route-switching.route-alt.route-head-in .resume-head {
+    transition: opacity 0.5s ease;
+}
+
+/* The intro and, on Resume or Contact, that route's end row and list share
+   one place: the end row on the Cartography stop's line, the list right
+   under it, so the routes end higher, with less empty fog. */
+.intro-stack {
+    display: grid;
+}
+
+.intro-stack > * {
+    grid-area: 1 / 1;
+    min-width: 0;
+}
+
+.alt-view {
+    pointer-events: none;
+}
+
+.alt-view > .alt-list {
+    pointer-events: auto;
+}
+
+/* Level with the first stop: the same distance down, at the same size. */
+.alt-view .resume-head {
+    margin-top: calc(1.5 * var(--trail-size));
+    font-size: var(--trail-size);
+}
+
+@supports (text-box: trim-both cap alphabetic) {
+    .alt-view .resume-head {
+        margin-top: calc(1.8 * var(--trail-size));
+    }
+}
+
+/* A white glow along the routes that cross the darker part of the
+   landscape: the Portfolio trail's first leg, and the Resume and Contact
+   routes (glow: true in index.html's LEGS). */
+.trail-leg-glow {
+    filter: drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.75)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+}
+
+/* A gentler one for the rest of the Portfolio trail, over the paler fog
+   by the intro. */
+.trail-leg-glow-soft {
+    filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+}
+
+/* ---------- Projects heading (the Portfolio route's end) ----------
+   Laid out like the résumé, on the spot Education takes: the heading and
+   its rule, and under it the filters on the left and the count on the
+   right, like a job's employer and place. The trail ends on the bracket the
+   Resume route uses. */
+.pf-intro {
+    position: relative;
+    margin-top: var(--resume-top);
+    color: var(--resume-ink);
+    font-family: var(--font-ui);
+}
+
+.pf-intro .pf-filter-label,
+.pf-intro .pf-tab {
+    color: var(--resume-ink);
+    font-family: var(--font-ui);
+    font-size: max(15px, calc(14 * var(--u)));
+    line-height: 1;
+    text-box: none;
+}
+
+.pf-intro .pf-filter-label {
+    font-style: italic;
+}
+
+.pf-intro .pf-tabs {
+    gap: 0 calc(16 * var(--u));
+}
+
+/* The chosen filter is underlined with a drawn line
+   (assets/portfolio/filter-line.svg, read in as --mask-tab-underline and
+   stretched to the word), in the rules' green-grey. */
+.pf-intro .pf-tab {
+    position: relative;
+    padding: 0;
+    border: 0;
+}
+
+.pf-intro .pf-tab:hover {
+    color: var(--accent);
+}
+
+.pf-intro .pf-tab[aria-pressed="true"]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.32em;
+    height: max(1.5px, calc(1.2 * var(--u)));
+    background: var(--accent);
+    -webkit-mask: var(--mask-tab-underline) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-tab-underline) no-repeat 0 0 / 100% 100%;
+}
+
+/* Under the rule: the filters on the left, the count on the right, like
+   an employer and place. Drawn in past the arrow mark (and as far in on
+   the right), so the row can tuck up close under the rule. */
+
+.pf-intro .pf-status-row {
+    min-height: 0;
+    /* A step below the filters: the count is a footnote to them. */
+    font-size: max(13px, calc(12 * var(--u)));
+    margin: 0;
+    gap: 0 1rem;
+}
+
+.pf-intro .pf-status {
+    color: inherit;
+    font-size: inherit;
+}
+
+.pf-intro .pf-clear {
+    font-size: inherit;
+    font-style: normal;
+}
+
+/* Waits with the rest until the trail first draws in, then shows as it
+   arrives; gives way to the résumé or contact on their routes. */
+.trail-gated .pf-intro,
+.route-alt .pf-intro {
+    opacity: 0;
+}
+
+.route-alt .pf-intro {
+    pointer-events: none;
+}
+
+.trail-revealing .pf-intro {
+    transition: opacity 0.5s ease var(--at3, 1.35s);
+}
+
+.route-switching.route-alt .pf-intro {
+    transition: opacity 0.4s ease;
+}
+
+.route-switching:not(.route-alt) .pf-intro {
+    transition: opacity 0.5s ease 0.05s;
+}
+
+/* Card captions in the résumé's voice: the title, then the year (and
+   image count) under it in italic, left-aligned like a job's lines. */
+.horizon-continue .pf-card-body {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.horizon-continue .pf-card-title {
+    color: var(--horizon-ink);
+    font-family: var(--font-ui);
+    font-weight: 500;
+}
+
+.horizon-continue .pf-card-year {
+    order: 0;
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-style: italic;
+    letter-spacing: 0;
+}
+
+/* ---------- Contact, in the résumé's layout ----------
+   Headings and rules as the résumé's (it's a .resume-sheet too): the email
+   as a top-level item, on the diamond; About Me as running text on the
+   items' indent. */
+.resume-about {
+    margin-top: calc(14 * var(--u));
+    padding-left: calc(46 * var(--u));
+    font-size: max(15px, calc(14 * var(--u)));
+    line-height: 1.45;
+}
+
+.resume-sheet .resume-about p {
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.resume-sheet .resume-about p + p {
+    margin-top: calc(12 * var(--u));
+}
+
+/* ---------- Instant route switches ----------
+   Switching while scrolled past the trail (index.html, .route-instant): the
+   routes snap to their new state with no drawing, and the new page shows
+   at once with a quick fade. */
+.route-instant .trail-reveal,
+.route-instant .alt-view > .trail-resume-end {
+    transition: none !important;
+}
+
+.route-instant .alt-list,
+.route-instant .pf-controls,
+.route-instant .pf-status-row,
+.route-instant .pf-grid {
+    animation-duration: 0.3s !important;
+    animation-delay: 0s !important;
+}
+
+.route-instant .pf-intro,
+.route-instant .pf-controls,
+.route-instant .pf-status-row,
+.route-instant .pf-grid {
+    transition-duration: 0.2s !important;
+    transition-delay: 0s !important;
+}
+
+/* The contact page is short. Without this, switching to it from a longer
+   page (the projects, the résumé) while scrolled a little down makes the
+   page shorter than the scroll, and the browser pulls the view up. A
+   screen's height keeps the view where it was. */
+.contact-list {
+    min-height: 100vh;
+}
+
+/* ---------- An open project: a map sheet ----------
+   The title on its rule (the résumé's heading, with the arrow mark) and
+   the year at the rule's right end; under it, the caption and credit; the
+   maps; and a foot leading on to the neighbouring projects. --u is the column
+   over the mockup's 777 units, as for the résumé. */
+.horizon-continue .pf-project {
+    container-type: inline-size;
+    --u: max(1.1px, calc(100cqi / 777));
+    --resume-h: calc(30 * var(--u));
+    --resume-ink: var(--horizon-ink);
+    color: var(--resume-ink);
+    font-family: var(--font-ui);
+}
+
+.horizon-continue .pf-project-head {
+    margin-bottom: calc(30 * var(--u));
+    padding-top: 0;
+    text-align: left;
+}
+
+/* Back to the projects: a quiet link above the sheet. */
+.horizon-continue .pf-project .pf-close {
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-size: max(15px, calc(14 * var(--u)));
+    text-decoration: none;
+}
+
+.horizon-continue .pf-project .pf-close:hover,
+.horizon-continue .pf-project .pf-close:focus {
+    background: none;
+    color: var(--accent-dark);
+}
+
+.horizon-continue .pf-back {
+    margin-bottom: calc(14 * var(--u));
+}
+
+/* The title, a size up from the résumé's headings, wrapping upward when
+   long; room on the right for the year. */
+.pf-project-heading {
+    position: relative;
+}
+
+.horizon-continue .pf-project .resume-h {
+    height: auto;
+    min-height: calc(40 * var(--u));
+    margin: 0;
+    padding: calc(4 * var(--u)) calc(70 * var(--u)) calc(3 * var(--u)) calc(1 * var(--u));
+    font-size: calc(26 * var(--u));
+    line-height: 1.15;
+}
+
+/* The year: small and spaced at the rule's right end, like the
+   coordinates over the résumé's jobs. In Reforma 2018, as the résumé's
+   dates: its figures line up (lining-nums, from the body); this Fraunces
+   has only old-style ones, which stagger. */
+.pf-project-year {
+    position: absolute;
+    right: 0;
+    bottom: calc(6 * var(--u));
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-size: max(14px, calc(14 * var(--u)));
+    letter-spacing: 0.18em;
+    line-height: 1;
+}
+
+/* Caption and credit, tucked in past the arrow. */
+.pf-project-sheet {
+    margin-top: calc(18 * var(--u));
+    padding-left: calc(28 * var(--u));
+}
+
+.horizon-continue .pf-project .pf-project-caption {
+    max-width: none;
+    margin: 0;
+    color: var(--resume-ink);
+    font-family: var(--font-text);
+    font-size: max(17px, calc(17.5 * var(--u)));
+    line-height: 1.5;
+}
+
+/* Each row: its label in a narrow column, the text beside it. (The rows
+   also carry portfolio.css's .pf-role/.pf-tools; these undo its look.) */
+
+.horizon-continue .pf-project .pf-link {
+    display: inline-block;
+    margin-top: calc(12 * var(--u));
+    color: var(--accent);
+    font-size: max(15px, calc(14 * var(--u)));
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.horizon-continue .pf-project .pf-link[hidden] {
+    display: none;
+}
+
+/* The foot: a dotted rule with its x, then the previous project on the
+   left, all projects in the middle, the next on the right. */
+.pf-project-nav {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: calc(20 * var(--u));
+    margin-top: calc(40 * var(--u));
+    padding-top: calc(16 * var(--u));
+}
+
+.pf-project-nav::before,
+.pf-project-nav::after {
+    content: "";
+    position: absolute;
+    top: 0;
+}
+
+.pf-project-nav::before {
+    left: calc(14 * var(--u));
+    right: 0;
+    height: calc(1.55 * var(--u));
+    background: var(--accent);
+    -webkit-mask: var(--mask-rule-dashed) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-rule-dashed) no-repeat 0 0 / 100% 100%;
+}
+
+.pf-project-nav::after {
+    left: calc(6 * var(--u));
+    top: calc(-1.7 * var(--u));
+    width: calc(4.51 * var(--u));
+    height: calc(5.05 * var(--u));
+    background: url("../assets/resume/divider-mark-x.svg") no-repeat 0 0 / 100% 100%;
+}
+
+.pf-step {
+    display: flex;
+    flex-direction: column;
+    gap: calc(4 * var(--u));
+    min-width: 0;
+    color: var(--resume-ink);
+    text-decoration: none;
+}
+
+.pf-step[hidden] {
+    visibility: hidden;
+}
+
+.pf-next {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.pf-step-title {
+    font-size: max(16px, calc(15.5 * var(--u)));
+    line-height: 1.3;
+}
+
+.pf-step:hover,
+.pf-step:focus {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* ---------- Inline headings ----------
+   Each heading reads along one line: its mark leading in at the left, the
+   name, then a dotted leader out to the right edge, through the middle of
+   the capitals. Anything that belongs at the line's far end (the PDF link,
+   a job's coordinates, a project's year) ends the leader instead of sitting
+   on it. The leader is the heading's ::after, a flex item after the name. */
+:is(.resume-sheet, .pf-intro, .pf-project) .resume-h {
+    align-items: center;
+    padding: 0 0 0 calc(24 * var(--u));
+}
+
+/* The leader: the drawn dotted line, in the marks' green-grey. Raised a
+   unit so it runs through the middle of the capitals, not the box. */
+.resume-h::after {
+    position: static;
+    flex: 1 1 0;
+    min-width: calc(20 * var(--u));
+    height: calc(1.55 * var(--u));
+    margin-left: calc(12 * var(--u));
+    translate: 0 calc(var(--snap, 0px) - 1 * var(--u));
+    background: var(--accent);
+    -webkit-mask: var(--mask-rule-dashed) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-rule-dashed) no-repeat 0 0 / 100% 100%;
+}
+
+/* The mark, its arm on the leader: the tick's arm is 3.38 units down from
+   its top. Every heading has the same tick (the first's arrow went: the
+   trails' x already marks where they arrive). */
+.resume-h::before {
+    top: calc(50% - 1 * var(--u) - 3.38 * var(--u));
+    bottom: auto;
+}
+
+/* The trails' x sits on the first heading's leader, mid-column; the gap
+   around it is measured from where the leader starts (--line-left, set
+   by index.html once the heading's name is laid out). */
+:is(.resume-sheet, .pf-intro) .resume-h:first-of-type::after {
+    --gap-at: calc(50cqi - var(--line-left, 0px));
+    --gap-half: calc(9 * var(--u));
+    -webkit-mask: var(--mask-rule-dashed) no-repeat 0 0 / 100% 100%,
+        linear-gradient(to right, #000 calc(var(--gap-at) - var(--gap-half)), transparent 0 calc(var(--gap-at) + var(--gap-half)), #000 0);
+    -webkit-mask-composite: source-in;
+    mask: var(--mask-rule-dashed) no-repeat 0 0 / 100% 100%,
+        linear-gradient(to right, #000 calc(var(--gap-at) - var(--gap-half)), transparent 0 calc(var(--gap-at) + var(--gap-half)), #000 0);
+    mask-composite: intersect;
+}
+
+.alt-view > .trail-resume-end {
+    top: calc(var(--resume-top) + var(--resume-h) / 2 - 1 * var(--u));
+}
+
+/* The PDF link and the coordinates, at the leader's far end. */
+.resume-sheet .resume-h .resume-download {
+    position: static;
+    order: 1;
+    display: inline;
+    height: auto;
+    margin-left: calc(10 * var(--u));
+    padding: 0;
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-size: max(15px, calc(14 * var(--u)));
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.resume-h .resume-lat {
+    position: static;
+    order: 1;
+    margin-left: calc(10 * var(--u));
+}
+
+/* Madison's coordinates, at the far end of the dotted rule over the Lab
+   job, which stops short of them. */
+.resume-entry + .resume-entry:has(> .resume-lat)::before {
+    right: calc(87 * var(--u));
+}
+
+.resume-entry + .resume-entry .resume-lat {
+    top: calc(0.78 * var(--u) - 3.08 * var(--u));
+    bottom: auto;
+}
+
+/* A project's title: the year ends its leader. */
+.pf-project-heading {
+    display: flex;
+    align-items: center;
+}
+
+.pf-project-heading .resume-h {
+    flex: 1 1 auto;
+    padding-right: 0;
+}
+
+.horizon-continue .pf-project-year {
+    position: static;
+    margin-left: calc(10 * var(--u));
+    translate: 0 calc(-1 * var(--u));
+}
+
+.horizon-continue .pf-project .pf-project-heading .resume-h {
+    padding: calc(4 * var(--u)) 0 calc(3 * var(--u)) calc(24 * var(--u));
+}
+
+/* ---------- Dotted lines, at their drawn size ----------
+   The dotted rules repeat along their length at the size they were drawn
+   (assets/resume/dot1, 3, 4.svg; index.html reads each in as --mask-dot*,
+   cropped to a whole number of dots so the repeats join), never
+   stretched, so every dot is the same
+   size at any width; a line simply ends where its space does. dot1 for
+   the first heading (Education, Projects, Get in touch; the gap for the
+   trails' x is cut from it), dot3 for the other headings, dot4 between
+   jobs and in the project sheet. */
+.resume-h::after {
+    -webkit-mask: var(--mask-dot3) repeat-x 0 50% / auto 100%;
+    mask: var(--mask-dot3) repeat-x 0 50% / auto 100%;
+}
+
+:is(.resume-sheet, .pf-intro) .resume-h:first-of-type::after {
+    -webkit-mask: var(--mask-dot1) repeat-x 0 50% / auto 100%,
+        linear-gradient(to right, #000 calc(var(--gap-at) - var(--gap-half)), transparent 0 calc(var(--gap-at) + var(--gap-half)), #000 0);
+    -webkit-mask-composite: source-in;
+    mask: var(--mask-dot1) repeat-x 0 50% / auto 100%,
+        linear-gradient(to right, #000 calc(var(--gap-at) - var(--gap-half)), transparent 0 calc(var(--gap-at) + var(--gap-half)), #000 0);
+    mask-composite: intersect;
+}
+
+.resume-entry + .resume-entry::before,
+.pf-project-nav::before {
+    -webkit-mask: var(--mask-dot4) repeat-x 0 50% / auto 100%;
+    mask: var(--mask-dot4) repeat-x 0 50% / auto 100%;
+}
+
+/* Until the drawings are read in, the dotted rules (whose masks they are)
+   stay hidden rather than show as solid bars. */
+:root:not(.trail-masks) .resume-h::after,
+:root:not(.trail-masks) .resume-entry + .resume-entry::before,
+:root:not(.trail-masks) .pf-project-nav::before {
+    visibility: hidden;
+}
+
+/* The headings' leaders a step darker than the dotted rules between jobs,
+   so sections read above the breaks within them. */
+.resume-h::after {
+    background: var(--accent-dark);
+}
+
+/* The headings' names in their leaders' darker green-grey (#46534f). */
+:is(.resume-sheet, .pf-intro, .pf-project) .resume-h {
+    color: var(--accent-dark);
+}
+
+/* ---------- Projects: the filter bar ----------
+   Under the heading, the filters on two of a topo map's bridge symbols
+   (assets/portfolio/filter-frame-1, -2): "Filter by" and the categories on
+   the first, the open category's filters on the second, a dashed line
+   between them taking up the slack. Each frame is three masks (its two
+   ends at their drawn size, the line between stretched; index.html cuts
+   them). A chosen filter is underlined with the drawn line and pointed at
+   from under the bridge by the drawn arrow. The count ends the heading's
+   leader. Sizes in --u, as drawn in the mockup. */
+.pf-intro {
+    --filter-size: max(15px, calc(13.5 * var(--u)));
+    --frame-h: calc(23 * var(--u));       /* the frames' drawn height */
+    --frame-line: calc(11.3 * var(--u));  /* their line, up from the bottom */
+    --frame-end: calc(10 * var(--u));     /* each end (FRAME_END in index.html) */
+    --under-text: calc(5 * var(--u));     /* text's box to the line: as far as the
+                                             chosen word's line above looks */
+}
+
+.pf-filter-bar {
+    display: flex;
+    align-items: flex-end;
+    margin-top: calc(12 * var(--u));
+}
+
+.pf-intro .pf-frame {
+    position: relative;
+    display: flex;
+    flex: none;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 0 calc(17 * var(--u));
+    min-height: var(--frame-h);
+    padding: 0 calc(20 * var(--u)) calc(var(--frame-line) + var(--under-text));
+}
+
+.pf-frame::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--frame-h);
+    background: var(--accent);
+    -webkit-mask: var(--frame-l) no-repeat 0 0 / var(--frame-end) 100%,
+        var(--frame-m) no-repeat calc(var(--frame-end) - 0.5 * var(--u)) 0 / calc(100% - 2 * var(--frame-end) + 1 * var(--u)) 100%,
+        var(--frame-r) no-repeat 100% 0 / var(--frame-end) 100%;
+    mask: var(--frame-l) no-repeat 0 0 / var(--frame-end) 100%,
+        var(--frame-m) no-repeat calc(var(--frame-end) - 0.5 * var(--u)) 0 / calc(100% - 2 * var(--frame-end) + 1 * var(--u)) 100%,
+        var(--frame-r) no-repeat 100% 0 / var(--frame-end) 100%;
+}
+
+.pf-frame-1 {
+    --frame-l: var(--mask-filter-frame-1-l);
+    --frame-m: var(--mask-filter-frame-1-m);
+    --frame-r: var(--mask-filter-frame-1-r);
+}
+
+.pf-frame-2 {
+    --frame-l: var(--mask-filter-frame-2-l);
+    --frame-m: var(--mask-filter-frame-2-m);
+    --frame-r: var(--mask-filter-frame-2-r);
+}
+
+/* The dashed line, at the frames' line, nearly meeting their ends. */
+.pf-filter-dash {
+    flex: 1 1 0;
+    min-width: calc(30 * var(--u));
+    height: calc(1.68 * var(--u));
+    margin: 0 calc(2 * var(--u)) calc(var(--frame-line) - 0.84 * var(--u));
+    background: var(--accent);
+    -webkit-mask: var(--mask-filter-dash) repeat-x 0 50% / auto 100%;
+    mask: var(--mask-filter-dash) repeat-x 0 50% / auto 100%;
+}
+
+:root:not(.trail-masks) .pf-frame::before,
+:root:not(.trail-masks) .pf-filter-dash {
+    visibility: hidden;
+}
+
+/* The words: "Filter by" in italic ink; the choices a lighter green-grey
+   until hovered or chosen. */
+.pf-intro .pf-filter-label,
+.pf-intro .pf-tab,
+.horizon-continue .pf-intro .pf-chip {
+    font-family: var(--font-ui);
+    font-size: var(--filter-size);
+    line-height: 1;
+}
+
+.pf-intro .pf-filter-label {
+    color: var(--resume-ink);
+}
+
+.pf-intro .pf-tabs {
+    flex-wrap: nowrap;
+    gap: 0 calc(17 * var(--u));
+}
+
+.pf-intro .pf-tab,
+.horizon-continue .pf-intro .pf-chip {
+    position: relative;
+    padding: 0;
+    border: 0;
+    color: var(--accent);
+    opacity: 0.85;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.pf-intro .pf-tab:hover,
+.horizon-continue .pf-intro .pf-chip:hover {
+    color: var(--accent-dark);
+    opacity: 1;
+}
+
+.pf-intro .pf-tab[aria-pressed="true"],
+.horizon-continue .pf-intro .pf-chip[aria-pressed="true"],
+.horizon-continue .pf-intro .pf-chip[aria-pressed="true"]:hover {
+    color: var(--resume-ink);
+    opacity: 1;
+}
+
+.pf-intro .pf-filter-groups {
+    max-width: none;
+}
+
+.horizon-continue .pf-intro .pf-chips {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0 calc(26 * var(--u));
+    width: auto;
+    margin: 0;
+}
+
+/* Chosen: the drawn line just over the word (with the bridge's line under
+   it, the word sits on the bridge's deck), and the arrow under the
+   bridge, pointing up at it. */
+.pf-intro .pf-tab[aria-pressed="true"]::after,
+.horizon-continue .pf-intro .pf-chip[aria-pressed="true"]::after {
+    top: calc(-4 * var(--u));
+    left: 0;
+    right: 0;
+    bottom: auto;
+    height: max(1.2px, calc(1.19 * var(--u)));
+}
+
+.pf-intro .pf-tab[aria-pressed="true"]::before,
+.horizon-continue .pf-intro .pf-chip[aria-pressed="true"]::before {
+    content: "";
+    position: absolute;
+    left: calc(50% - 2.2 * var(--u));
+    top: calc(100% + var(--under-text) + 3 * var(--u));
+    width: calc(4.39 * var(--u));
+    height: calc(9.21 * var(--u));
+    background: var(--accent);
+    filter: none;
+    border-radius: 0;
+    -webkit-mask: var(--mask-filter-arrow) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-filter-arrow) no-repeat 0 0 / 100% 100%;
+}
+
+/* The count, at the end of the heading's leader (which stops short of it:
+   --status-w, measured in index.html), in small italics. */
+.pf-intro .resume-h {
+    padding-right: calc(var(--status-w, 0px) + 12 * var(--u));
+}
+
+.pf-intro .pf-status-row {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    height: var(--resume-h);
+    min-height: 0;
+    margin: 0;
+    gap: 0 calc(12 * var(--u));
+    translate: 0 calc(var(--snap, 0px) - 1 * var(--u));
+    font-family: var(--font-ui);
+    font-size: max(14px, calc(13 * var(--u)));
+    font-style: italic;
+    color: var(--accent-dark);
+}
+
+.pf-intro .pf-status {
+    line-height: 1;
+}
+
+.pf-intro .pf-clear {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+/* Narrower columns (too narrow for Purpose's filters on one line): the
+   frames stack, each fitting its words (wrapping if need be), and the dash
+   goes. On phones the count drops under them, right-aligned. */
+@container (max-width: 860px) {
+    .pf-filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calc(10 * var(--u));
+    }
+
+    .pf-filter-dash {
+        display: none;
+    }
+
+    .pf-intro .pf-frame,
+    .pf-intro .pf-tabs,
+    .horizon-continue .pf-intro .pf-chips {
+        flex-wrap: wrap;
+    }
+
+    /* Wrapped rows far enough apart that a chosen word's line above it
+       reads as its own, not as an underline on the row above. */
+    .pf-intro .pf-frame,
+    .pf-intro .pf-tabs,
+    .horizon-continue .pf-intro .pf-chips {
+        row-gap: calc(22 * var(--u));
+    }
+
+    /* Stacked, an arrow would land on the next frame (or row): the
+       underline marks the choice alone. */
+    .pf-intro .pf-tab[aria-pressed="true"]::before,
+    .horizon-continue .pf-intro .pf-chip[aria-pressed="true"]::before {
+        content: none;
+    }
+}
+
+/* Phones: no room for the count on the heading's leader. */
+@container (max-width: 560px) {
+    .pf-intro .resume-h {
+        padding-right: 0;
+    }
+
+    .pf-intro .pf-status-row {
+        position: static;
+        justify-content: flex-end;
+        height: auto;
+        margin-top: calc(10 * var(--u));
+        translate: none;
+    }
+}
+
+/* ---------- Cards: titles always shown ----------
+   Each title sits under its map like a caption under a figure, instead
+   of fading in over it on hover: visitors (phones included) can scan the
+   names, and the maps stay whole. The shadow moves from the card to the
+   map, so the caption sits on the page; hovering lifts the map a little
+   and greens the title. The project list's captions are kept quiet below. */
+.horizon-continue .pf-card,
+.horizon-continue .pf-card:hover,
+.horizon-continue .pf-card:focus {
+    box-shadow: none;
+}
+
+.horizon-continue .pf-card .pf-card-image {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14), 0 0 1px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.25s ease;
+}
+
+.horizon-continue .pf-card:hover .pf-card-image,
+.horizon-continue .pf-card:focus-visible .pf-card-image {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16), 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.horizon-continue .pf-card .pf-card-body,
+.horizon-continue .pf-card:hover .pf-card-body,
+.horizon-continue .pf-card:focus-visible .pf-card-body {
+    position: static;
+    gap: 0.1rem;
+    padding: 0.65rem 0.1rem 0;
+    background: none;
+    opacity: 1;
+    transform: none;
+}
+
+.horizon-continue .pf-card .pf-card-title {
+    transition: color 0.2s ease;
+}
+
+.horizon-continue .pf-card:hover .pf-card-title,
+.horizon-continue .pf-card:focus-visible .pf-card-title {
+    color: var(--accent-dark);
+}
+
+/* At least a screen tall, so a filter with only a few matches doesn't
+   shorten the page under the viewport and pull it up: the filters sit
+   above the grid, so whoever clicks one is scrolled no further than the
+   grid's top, and a screen-tall grid always leaves room to stay there. */
+.horizon-continue .pf-grid {
+    min-height: 100vh;
+}
+
+/* ---------- Project sheet: plain text ----------
+   The caption as a paragraph, then the credit as a sentence of its own
+   ("Created at SE Group for ...") with the project links after it. Kept
+   to a readable measure. */
+.horizon-continue .pf-project-sheet {
+    max-width: 44em;
+}
+
+.horizon-continue .pf-project .pf-project-credit {
+    margin: calc(10 * var(--u)) 0 0;
+    color: var(--accent-dark);
+    font-family: var(--font-ui);
+    font-size: max(15px, calc(14.5 * var(--u)));
+    font-style: italic;
+    line-height: 1.45;
+}
+
+.horizon-continue .pf-project .pf-project-credit .pf-link {
+    margin: 0 0 0 0.4em;
+    font-size: inherit;
+    font-style: normal;
+}
+
+/* ---------- Project sheet: a size down ----------
+   Nearer the résumé's scale: the title a little over its headings, the
+   caption a step over its running text, the credit at it. */
+.horizon-continue .pf-project .resume-h {
+    font-size: calc(21 * var(--u));
+}
+
+.horizon-continue .pf-project .pf-project-caption {
+    font-size: max(16px, calc(15 * var(--u)));
+}
+
+.horizon-continue .pf-project .pf-project-credit {
+    font-size: max(15px, calc(13.3 * var(--u)));
+}
+
+/* A map's caption wraps to the map's width instead of widening its card
+   (which would leave a grey strip beside the map and push its row past
+   the column): it adds no width of its own. */
+.pf-map-card .pf-card-body {
+    width: 0;
+    min-width: 100%;
+}
+
+/* ---------- Project sheet: a plain header ----------
+   No mark or dotted leader (those are the résumé's): the title as plain
+   spaced capitals from the column's left edge, the year on the same line
+   at the right, level with the title's last line. The text under it lines
+   up with the title. */
+.horizon-continue .pf-project .resume-h::before,
+.horizon-continue .pf-project .resume-h::after {
+    content: none;
+}
+
+.horizon-continue .pf-project .pf-project-heading {
+    align-items: last baseline;
+    gap: calc(24 * var(--u));
+}
+
+.horizon-continue .pf-project .pf-project-heading .resume-h {
+    min-height: 0;
+    padding: 0;
+}
+
+.horizon-continue .pf-project .pf-project-year {
+    flex: none;
+    margin-left: 0;
+    translate: none;
+}
+
+.horizon-continue .pf-project .pf-project-sheet {
+    margin-top: calc(14 * var(--u));
+    padding-left: 0;
+}
+
+/* The project's title and year in Reforma (the landing's display cut and
+   the text's), not the résumé headings' Fraunces. */
+.horizon-continue .pf-project .pf-project-heading .resume-h {
+    font-family: var(--font-display);
+}
+
+.horizon-continue .pf-project .pf-project-year {
+    font-family: var(--font-ui);
+    font-size: max(13px, calc(12.5 * var(--u)));
+}
+
+/* A size down, and a single drawn line under the title and year (the
+   résumé's solid rule), across the column. */
+.horizon-continue .pf-project .pf-project-heading .resume-h {
+    font-size: calc(18 * var(--u));
+}
+
+.horizon-continue .pf-project .pf-project-heading {
+    position: relative;
+    padding-bottom: calc(9 * var(--u));
+}
+
+.horizon-continue .pf-project .pf-project-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--accent);
+    -webkit-mask: var(--mask-rule-solid) no-repeat 0 0 / 100% 100%;
+    mask: var(--mask-rule-solid) no-repeat 0 0 / 100% 100%;
+}
+
+.horizon-continue .pf-project .pf-project-sheet {
+    margin-top: calc(16 * var(--u));
+}
+
+/* The caption and credit run the column's full width. */
+.horizon-continue .pf-project .pf-project-sheet {
+    max-width: none;
+}
+
+/* The caption a step under the résumé's running text; the credit a step
+   under it. */
+.horizon-continue .pf-project .pf-project-caption {
+    font-size: max(14px, calc(12.5 * var(--u)));
+}
+
+.horizon-continue .pf-project .pf-project-credit {
+    font-size: max(13px, calc(11.5 * var(--u)));
+}
+
+/* Barely spaced: the title's capitals just off tight, the year not at all. */
+.horizon-continue .pf-project .pf-project-heading .resume-h {
+    letter-spacing: 0.05em;
+}
+
+.horizon-continue .pf-project .pf-project-year {
+    letter-spacing: 0;
+}
+
+/* The title as written (not in capitals), a touch larger to make up for
+   it, and unspaced: a project's name, not a section label. */
+.horizon-continue .pf-project .pf-project-heading .resume-h {
+    font-size: calc(17 * var(--u));
+    letter-spacing: 0;
+    line-height: 1.2;
+    text-transform: none;
+}
+
+/* Awards, just under the title's rule: each after the résumé's diamond,
+   in the green-grey, linked to the award's page where there is one. */
+.horizon-continue .pf-project .pf-project-awards {
+    display: flex;
+    flex-direction: column;
+    gap: calc(3 * var(--u));
+    margin: 0 0 calc(12 * var(--u));
+    padding: 0;
+    list-style: none;
+    color: var(--accent-dark);
+    font-family: var(--font-ui);
+    font-size: max(13px, calc(12 * var(--u)));
+    line-height: 1.4;
+}
+
+.horizon-continue .pf-project .pf-project-awards[hidden] {
+    display: none;
+}
+
+.horizon-continue .pf-award {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+}
+
+.horizon-continue .pf-award::before {
+    content: "";
+    flex: none;
+    width: 0.55em;
+    height: 0.55em;
+    background: var(--accent);
+    -webkit-mask: url("../assets/resume/bullet-diamond.svg") no-repeat 50% 50% / contain;
+    mask: url("../assets/resume/bullet-diamond.svg") no-repeat 50% 50% / contain;
+}
+
+.horizon-continue .pf-award a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.horizon-continue .pf-award a:hover,
+.horizon-continue .pf-award a:focus {
+    color: var(--horizon-ink);
+    text-decoration: underline;
+}
+
+/* No arrows under the bridges: the line over the chosen word and its
+   darker ink mark it on their own. */
+.pf-intro .pf-tab[aria-pressed="true"]::before,
+.horizon-continue .pf-intro .pf-chip[aria-pressed="true"]::before {
+    content: none;
+}
+
+/* Under each map in a project, only its title: the one-line description
+   shows in the full-size viewer instead. */
+.horizon-continue .pf-map-card .pf-card-caption {
+    display: none;
+}
+
+/* ---------- Lightbox, in the page's colors ----------
+   The full-size viewer as a sheet of the page's paper laid over it: no
+   rounded corners, the ink and slate green of the text, the map with the
+   cards' soft shadow, and plain marks for close and prev/next. */
+.pf-lightbox {
+    border-radius: 0;
+    background: #efefec;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    color: var(--horizon-ink);
+}
+
+.pf-lightbox::backdrop {
+    background: rgba(61, 68, 67, 0.4);
+}
+
+.pf-lightbox-project {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: normal;
+    letter-spacing: 0;
+}
+
+.pf-lightbox-view img {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14), 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.pf-lightbox-view.is-zoomed img {
+    box-shadow: none;
+}
+
+.pf-lightbox-text {
+    color: var(--accent-dark);
+}
+
+.pf-lightbox-text::before {
+    content: none;
+}
+
+.pf-lightbox-map-title {
+    color: var(--horizon-ink);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+}
+
+.pf-lightbox-map-caption {
+    font-family: var(--font-text);
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.pf-lightbox-close,
+.pf-lightbox-close:hover {
+    border: 0;
+    background: none;
+}
+
+.pf-lightbox-close {
+    color: var(--accent);
+    font-size: 2rem;
+}
+
+.pf-lightbox-close:hover {
+    color: var(--horizon-ink);
+}
+
+.pf-lightbox-prev,
+.pf-lightbox-next {
+    color: rgba(92, 107, 103, 0.45);
+}
+
+.pf-lightbox-prev:hover,
+.pf-lightbox-next:hover,
+.pf-lightbox[data-hover="prev"] .pf-lightbox-prev,
+.pf-lightbox[data-hover="next"] .pf-lightbox-next {
+    color: var(--horizon-ink);
+}
+
+@media (hover: none) {
+    .pf-lightbox-prev,
+    .pf-lightbox-next {
+        color: var(--accent);
+    }
+}
+
+.pf-lightbox button:focus-visible {
+    outline-color: var(--accent);
+}
+
+/* ---------- Project view arrows ----------
+   The drawn arrow (assets/portfolio/nav-arrow.svg) before "All projects"
+   and "Previous", and turned around after "Next". It's a mask filled with
+   the link's color, so it darkens with the text on hover. */
+.pf-nav-arrow {
+    display: inline-block;
+    width: 1.75em;
+    height: 0.45em;
+    margin-right: 0.5em;
+    vertical-align: 0.18em;
+    background: currentColor;
+    -webkit-mask: url("../assets/portfolio/nav-arrow.svg") no-repeat 50% 50% / contain;
+    mask: url("../assets/portfolio/nav-arrow.svg") no-repeat 50% 50% / contain;
+}
+
+.pf-nav-arrow-next {
+    margin-right: 0;
+    margin-left: 0.5em;
+    transform: scaleX(-1);
+}
+
+/* The foot on one line, at one size: the previous project's name at the
+   left edge, "All projects" centered, the next project's name ending at
+   the right edge. A long name is cut short with an ellipsis rather than
+   wrapping, so the three never stagger. */
+.pf-project-nav {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: calc(24 * var(--u));
+}
+
+.pf-project-nav a,
+.horizon-continue .pf-project .pf-project-nav .pf-close {
+    font-family: var(--font-ui);
+    font-size: max(14px, calc(13 * var(--u)));
+    line-height: 1.4;
+}
+
+.pf-step {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    color: var(--accent);
+}
+
+.pf-next {
+    justify-content: flex-end;
+}
+
+.pf-step .pf-step-title {
+    min-width: 0;
+    overflow: hidden;
+    font-size: inherit;
+    line-height: inherit;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pf-step .pf-nav-arrow {
+    flex: none;
+}
+
+/* Too narrow for the names: just "Previous" and "Next". */
+@container (max-width: 560px) {
+    .pf-step .pf-step-title {
+        display: none;
+    }
+
+    .pf-prev::after {
+        content: "Previous";
+        content: "Previous" / "";
+    }
+
+    .pf-next::before {
+        content: "Next";
+        content: "Next" / "";
+    }
+}
+
+.pf-step:hover,
+.pf-step:focus {
+    color: var(--accent-dark);
+}
+
+/* ---------- Live maps ----------
+   A project with a live interactive map or story map ("map:" in
+   projects.txt): its link leads the credit line in the darker ink, and
+   each of its maps opens it, marked by a small tag on the image. */
+.horizon-continue .pf-project .pf-map-link {
+    color: var(--horizon-ink);
+}
+
+.horizon-continue .pf-project .pf-map-link:hover {
+    color: var(--accent-dark);
+}
+
+.pf-card-live {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    padding: 0.2em 0.6em;
+    background: rgba(239, 239, 236, 0.94);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    color: var(--horizon-ink);
+    font-family: var(--font-ui);
+    font-size: max(13px, calc(12 * var(--u)));
+    line-height: 1.4;
+    transition: background 0.2s ease;
+}
+
+a.pf-map-card,
+a.pf-map-card:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+a.pf-map-card:hover .pf-card-live,
+a.pf-map-card:focus-visible .pf-card-live {
+    background: #fff;
+}
+
+/* The project foot's divider: just the dotted line, full width, no x. */
+.pf-project-nav::before {
+    left: 0;
+}
+
+.pf-project-nav::after {
+    content: none;
+}
+
+/* The project list's captions, quiet: the name alone, small and in the
+   slate green, so the maps lead and the names read as labels. */
+.horizon-continue .pf-card:not(.pf-map-card) .pf-card-body {
+    padding-top: 0.45rem;
+}
+
+.horizon-continue .pf-card:not(.pf-map-card) .pf-card-title {
+    color: var(--accent-dark);
+    font-size: max(13px, calc(12.5 * var(--u)));
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+.horizon-continue .pf-card:not(.pf-map-card):hover .pf-card-title,
+.horizon-continue .pf-card:not(.pf-map-card):focus-visible .pf-card-title {
+    color: var(--horizon-ink);
+}
+
+.horizon-continue .pf-card:not(.pf-map-card) .pf-card-year {
+    display: none;
+}
+
+/* A headline award under the name, after the résumé's diamond, as on the
+   project page. */
+.horizon-continue .pf-card-award {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45em;
+    margin-top: 0.15rem;
+    color: var(--accent);
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+.horizon-continue .pf-card-award::before {
+    content: "";
+    flex: none;
+    width: 0.55em;
+    height: 0.55em;
+    background: currentColor;
+    -webkit-mask: url("../assets/resume/bullet-diamond.svg") no-repeat 50% 50% / contain;
+    mask: url("../assets/resume/bullet-diamond.svg") no-repeat 50% 50% / contain;
+}

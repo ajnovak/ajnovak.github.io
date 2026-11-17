@@ -1,0 +1,15 @@
+project: The Impacts of Hydropower Dams in the Mekong River Basin
+year: 2021
+caption: Maps of hydropower and irrigation dams along the Mekong River and its tributaries for Ian G. Baird and colleagues' review of their social and environmental impacts.
+link: https://www.researchgate.net/publication/348687378_The_Impacts_of_Hydropower_Dams_in_the_Mekong_River_Basin_A_Review
+format: print
+product: article
+symbolization: areas, lines, points
+subject: environment
+purpose: research
+employer: UW Cartography Lab
+client: Ian G. Baird
+client_type: academic
+image: sesan-and-don-sahong.png | Sesan River and Don Sahong Dams | Lower Sesan 2 and Yali Falls dams near the Cambodia–Vietnam border, and the reservoir extent and seasonally inundated areas around the Don Sahong dam. | symbolization=areas, lines, points
+image: mekong-dams.png | Mekong Mainstream Dams | Operational dams along the Mekong River from China to Cambodia. | symbolization=points, lines
+image: mun-river-dams.png | Mun River Dams | Pak Mun, Surinthon, and Hua Na dams on Thailand's Mun River. | symbolization=lines, areas

@@ -1,0 +1,18 @@
+project: Velomont Trail Vision Plan
+year: 2024
+caption: Thirteen section-by-section corridor maps for the Velomont Trail, a planned hut-to-hut mountain bike trail running the length of Vermont.
+link: https://vermonthuts.org/wp-content/uploads/2025/04/240628_FINAL_Velomont-Vision-Plan.pdf
+format: print
+product: report
+symbolization: lines, areas, points, graphic
+subject: recreation
+purpose: planning, outreach
+employer: SE Group
+client: Vermont Huts Association
+client_type: non-profit
+image: corridor-map-and-index.jpg | Corridor Map and Index | A section map of the Velomont corridor alongside the statewide index of all 13 maps. | subject=recreation; purpose=planning; symbolization=lines, areas, points
+image: map-07-velomont-2024.jpg | Map 7: Velomont 2024 | Existing and conceptual trail between the Telephone Gap area, Rochester, and Pittsfield. | purpose=planning; symbolization=lines, areas, points
+image: map-11-lvrt-west.jpg | Map 11: LVRT West | The Velomont along the Lamoille Valley Rail Trail from Johnson to Hardwick. | purpose=planning; symbolization=lines, areas, points
+image: velomont-phases.jpg | Velomont Phases | The trail corridor divided into three planning phases. | symbolization=areas; subject=recreation; purpose=planning
+image: trail-partners.jpg | Trail Partners | Local and statewide partners along the Velomont corridor. | symbolization=points, lines; subject=recreation; purpose=outreach
+image: how-to-read-maps.jpg | How to Read the Maps | Legend and symbology guide for the corridor maps. | symbolization=graphic; purpose=planning

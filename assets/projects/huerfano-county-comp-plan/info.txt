@@ -1,0 +1,26 @@
+project: Huerfano County 2024 Comprehensive Plan Update
+year: 2024
+caption: A map series for Huerfano County, Colorado’s 2024 Comprehensive Plan. The maps document existing land use, transportation, recreation, hazards, and economic activity across the county, and set out a future land use vision to guide growth.
+link: https://huerfano.us/notice-of-public-comment-draft-county-comprehensive-plan/
+format: print
+product: report
+symbolization: shaded relief, choropleth, raster, areas, lines, points, chart
+subject: land use, general reference, transportation, recreation, economic development, environment, history & culture
+purpose: planning, policy
+employer: SE Group
+client: Huerfano County, Colorado
+client_type: county
+image: future-land-use.jpg | Future Land Use | Land use areas, corridors, recreation connectivity, and energy zones, with a Wellness Hub detail map. | symbolization=areas, lines, points; subject=land use
+image: reference-map.jpg | County Reference Map | Towns, peaks, wilderness areas, and highways across Huerfano County. | symbolization=shaded relief, points, lines; subject=general reference
+image: historic-landmarks.jpg | Historic Landmarks | Landmarks, former plazas, and the Taos and Old Spanish Trails. | symbolization=shaded relief, points, lines; subject=history & culture
+image: land-use-county.jpg | Land Use: Full County | Assessor land use classes for every parcel in the county. | symbolization=areas; subject=land use
+image: land-use-incorporated.jpg | Land Use: Incorporated Areas | Parcel-level land use in La Veta and Walsenburg. | symbolization=areas; subject=land use
+image: land-use-unincorporated.jpg | Land Use: Unincorporated Areas | Parcel-level land use in Cuchara Valley, Gardner, and the area around Lathrop State Park. | symbolization=areas; subject=land use
+image: three-mile-walsenburg.jpg | Three-Mile Area: Walsenburg | Land use and sub-areas within three miles of Walsenburg. | symbolization=areas; subject=land use
+image: three-mile-la-veta.jpg | Three-Mile Area: La Veta | Land use and planning quadrants within three miles of La Veta. | symbolization=areas; subject=land use
+image: land-use-charts.jpg | Land Use Breakdown | Acreage, percent land use, and lot counts for urbanizing residential and commercial areas. | symbolization=chart; subject=land use
+image: land-management.jpg | Land Management | Federal, state, county, and conserved lands. | symbolization=areas; subject=land use
+image: transportation.jpg | Transportation | Roads by functional class, railroads, airfields, and the Bustang route. | symbolization=lines, points; subject=transportation
+image: trails-and-recreation.jpg | Trails and Recreation | Trails, campgrounds, and recreation areas, with insets for La Veta and Walsenburg. | symbolization=lines, areas, points; subject=recreation
+image: economic-centers.jpg | Economic Centers | Business density per one-mile hexagon. | symbolization=choropleth; subject=economic development
+image: hazards.jpg | Hazards | Floodplains, wildfire risk, steep slopes, and burn risk. | symbolization=raster; subject=environment

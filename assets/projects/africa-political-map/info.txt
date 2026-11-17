@@ -1,0 +1,13 @@
+project: Political Map of Africa
+year: 2022
+caption: A political reference map of Africa, showing countries, capitals, major cities, and disputed territories over subtle shaded relief.
+link:
+format: print
+product: poster
+symbolization: areas, points, shaded relief
+subject: geography
+purpose: design
+employer: student
+client: Geography 370: Introduction to Cartography
+client_type: student
+image: africa-political.jpg | Political Map of Africa | Countries, capitals, and disputed regions on the Africa Sinusoidal projection.

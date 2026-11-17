@@ -1,0 +1,15 @@
+project: Blackfeet Nation Tourism Corridor Plan
+year: 2024
+caption: A tourism corridor map and site concepts for visitor services, events, and recreation along the Blackfeet Nation's highway corridor east of Glacier National Park.
+link:
+format: print
+product: report
+symbolization: points, lines, areas, shaded relief
+subject: tourism, recreation, economic development
+purpose: planning, wayfinding
+employer: SE Group
+client: The Blackfeet Tribe
+client_type: tribal
+image: tourism-corridor-map.jpg | Tourism Corridor Map | Visitor services, recreation, and proposed arrival signs along US 89 and US 2 from the Canadian border to East Glacier. | purpose=planning, wayfinding
+image: browning-event-hub.jpg | Browning Event and Visitor Hub | Proposed pedestrian connections, entrances, and parking around the rodeo grounds and Museum of the Plains Indian. | symbolization=points, lines, areas; subject=economic development; purpose=planning
+image: divide-mountain.jpg | Divide Mountain Proposed Area | Lift options, base area services, and views for a potential recreation area on Divide Mountain. | symbolization=areas, lines, shaded relief; subject=recreation; purpose=planning

@@ -1,0 +1,15 @@
+project: Fortress Dark and Stern: The Soviet Home Front during World War II
+year: 2021
+caption: Maps of the shifting Eastern Front for Wendy Z. Goldman and Donald Filtzer's history of the Soviet home front, published by Oxford University Press.
+link: https://global.oup.com/academic/product/fortress-dark-and-stern-9780190618414
+format: print
+product: book
+symbolization: areas, lines
+subject: history & culture
+purpose: research
+employer: UW Cartography Lab
+client: Wendy Z. Goldman and Donald Filtzer
+client_type: academic
+image: eastern-front-1941.jpg | German Advance, 1941 | 22 June 1941 to 5 December 1941.
+image: eastern-front-1941-1942.jpg | Soviet Counteroffensive, 1941–1942 | December 5, 1941 to May 5, 1942.
+image: eastern-front-1942-1944.jpg | Soviet Advance, 1942–1944 | 18 November 1942 to December 1944.

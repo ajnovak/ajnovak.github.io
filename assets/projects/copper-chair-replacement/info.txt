@@ -1,0 +1,13 @@
+project: Copper Chair Replacement
+year: 2023
+caption: The approved route for replacing the Copper Chair lift at Red River Ski Area, made for the U.S. Forest Service's NEPA review.
+link: https://www.fs.usda.gov/r03/carson/projects/65296
+format: print
+product: report
+symbolization: lines, areas
+subject: recreation
+purpose: permitting
+employer: SE Group
+client: Red River Ski Area, U.S. Forest Service
+client_type: commercial, federal
+image: copper-chair.jpg | Approved Action

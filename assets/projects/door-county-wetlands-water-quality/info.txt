@@ -1,0 +1,15 @@
+project: Water-Quality Indicators of Human Impacts to the Wetlands of Door County
+year: 2020
+caption: 14 figures for a Wisconsin Geological and Natural History Survey report on how land use affects water quality in Door County's wetlands.
+link: https://data.wgnhs.wisc.edu/pubshare/TR006.pdf
+format: print
+product: report
+symbolization: points, areas, shaded relief
+subject: environment
+purpose: research
+employer: UW Cartography Lab
+client: Wisconsin Geological and Natural History Survey
+client_type: academic
+image: fig01-wetlands.jpg | Door County Wetlands | Figure 1: Wetlands, rivers, and streams in Door County.
+image: fig02b-three-springs.jpg | Three Springs Wetland | Figure 2b: Three Springs wetland and sampling points.
+image: fig11b-mink-river-estuary.jpg | Mink River Estuary | Figure 11b: Mink River Estuary, showing zones of contribution, land use, and residences.

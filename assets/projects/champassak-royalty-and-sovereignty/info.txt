@@ -1,0 +1,13 @@
+project: Champassak Royalty and Sovereignty
+year: 2024
+caption: Maps for Ian G. Baird's history of the House of Champassak and its sovereignty across Laos, Thailand, and Cambodia, published by the University of Wisconsin Press.
+link: https://uwpress.wisc.edu/Books/C/Champassak-Royalty-and-Sovereignty
+format: print
+product: book
+symbolization: shaded relief, points, lines
+subject: history & culture
+purpose: research
+employer: UW Cartography Lab
+client: Ian G. Baird
+client_type: academic
+image: champassak-present.png | Present-Day Champassak Region | Towns and present-day borders of southern Laos, northeastern Thailand, and Cambodia.

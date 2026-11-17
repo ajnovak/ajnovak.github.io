@@ -1,0 +1,13 @@
+project: Political violence, migration, lack of citizenship, and agrobiodiversity loss in the borderlands of Thailand and Laos
+year: 2021
+caption: A map of the Emerald Triangle, where Thailand, Laos, and Cambodia meet, for Ian G. Baird's article on the borderlands of Thailand and Laos.
+link: https://www.sciencedirect.com/science/article/abs/pii/S0016718521000622
+format: print
+product: article
+symbolization: areas, lines, points
+subject: history & culture
+purpose: research
+employer: UW Cartography Lab
+client: Ian G. Baird
+client_type: academic
+image: emerald-triangle.png | Emerald Triangle

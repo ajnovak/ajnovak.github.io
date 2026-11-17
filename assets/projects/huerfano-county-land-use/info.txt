@@ -1,0 +1,19 @@
+project: Huerfano County Comprehensive Plan: Land Use
+year: 2024
+caption: Current and future land use maps for Huerfano County, Colorado's 2024 Comprehensive Plan, from parcel-level land use in each town to a county-wide vision to guide growth.
+link: https://huerfano.us/notice-of-public-comment-draft-county-comprehensive-plan/
+format: print
+product: report
+symbolization: areas, lines, points, chart
+subject: land use
+purpose: planning, policy
+employer: SE Group
+client: Huerfano County, Colorado
+client_type: county
+image: future-land-use.jpg | Future Land Use | Land use areas, corridors, recreation connectivity, and energy zones, with a Wellness Hub detail map. | symbolization=areas, lines, points; subject=land use
+image: land-use-county.jpg | Land Use: Full County | Assessor land use classes for every parcel in the county. | symbolization=areas; subject=land use
+image: land-use-incorporated.jpg | Land Use: Incorporated Areas | Parcel-level land use in La Veta and Walsenburg. | symbolization=areas; subject=land use
+image: land-use-unincorporated.jpg | Land Use: Unincorporated Areas | Parcel-level land use in Cuchara Valley, Gardner, and the area around Lathrop State Park. | symbolization=areas; subject=land use
+image: three-mile-walsenburg.jpg | Three-Mile Area: Walsenburg | Land use and sub-areas within three miles of Walsenburg. | symbolization=areas; subject=land use
+image: three-mile-la-veta.jpg | Three-Mile Area: La Veta | Land use and planning quadrants within three miles of La Veta. | symbolization=areas; subject=land use
+image: land-use-charts.jpg | Land Use Breakdown | Acreage, percent land use, and lot counts for urbanizing residential and commercial areas. | symbolization=chart; subject=land use

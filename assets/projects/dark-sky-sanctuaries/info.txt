@@ -1,0 +1,13 @@
+project: Dark Sky Sanctuaries
+year: 2022
+caption: A longform interactive infographic exploring the causes and consequences of light pollution. Group winner of the 2022 NACIS Student Dynamic Map Competition.
+link: https://nacis.org/awards/2022-sdmc-group-winner/
+format: interactive
+product: web
+symbolization: raster
+subject: environment
+purpose: narrative
+employer: student
+client: Geography 575: Interactive Cartography and Geovisualization, University of Wisconsin–Madison
+client_type: student
+image: darkskies-web.gif | Interactive Map Frames | Frames from the interactive map of light pollution across North America.

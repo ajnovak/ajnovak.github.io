@@ -1,32 +1,190 @@
+/* Reforma, by Alejandro Lo Celso (PampaType) for the Universidad Nacional
+   de Córdoba, CC BY-ND 4.0 (assets/fonts/reforma/LICENSE.txt). Three
+   members of one family, each with a job:
+     --font-display  Reforma 1918, a serif: the name, labels, navbar, titles.
+     --font-text     Reforma 1969, a hybrid: running text, captions, filters.
+     --font-ui       Reforma 2018, a sans: credits and buttons.
+   Only the regular (Gris, 500), its italic, and the bold (Negra, 700) are
+   loaded; a requested 400 uses the 500. */
+@font-face {
+    font-family: "Reforma 1918";
+    src: url("../assets/fonts/reforma/Reforma1918-Gris.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 1918";
+    src: url("../assets/fonts/reforma/Reforma1918-GrisItalica.woff2") format("woff2");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 1918";
+    src: url("../assets/fonts/reforma/Reforma1918-Negra.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 1969";
+    src: url("../assets/fonts/reforma/Reforma1969-Gris.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 1969";
+    src: url("../assets/fonts/reforma/Reforma1969-GrisItalica.woff2") format("woff2");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 1969";
+    src: url("../assets/fonts/reforma/Reforma1969-Negra.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 2018";
+    src: url("../assets/fonts/reforma/Reforma2018-Gris.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 2018";
+    src: url("../assets/fonts/reforma/Reforma2018-GrisItalica.woff2") format("woff2");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 2018";
+    src: url("../assets/fonts/reforma/Reforma2018-Negra.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Blanca, the light weight, for the landing's trail stops. */
+@font-face {
+    font-family: "Reforma 2018";
+    src: url("../assets/fonts/reforma/Reforma2018-Blanca.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Reforma 1969";
+    src: url("../assets/fonts/reforma/Reforma1969-Blanca.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Fraunces (Undercase Type, SIL OFL; assets/fonts/Fraunces/OFL.txt), its
+   72pt cut, for the navbar and the résumé headings (--font-nav). */
+@font-face {
+    font-family: "Fraunces";
+    src: url("../assets/fonts/Fraunces/Fraunces72pt-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --font-nav: "Fraunces", "Reforma 1918", Georgia, serif;
+    --font-display: "Reforma 1918", Georgia, serif;
+    --font-text: "Reforma 1969", Georgia, serif;
+    --font-ui: "Reforma 2018", "Helvetica Neue", Arial, sans-serif;
+}
+
 /***** NAVBAR *****/
 
 
+/* One navbar for the whole site: a thin strip in the grey-green #7f8d8a,
+   frosted so anything scrolling under it blurs, with a hairline along the
+   bottom. Names and links are spaced-out small capitals, like the lettering
+   on a relief map. */
 .navbar {
-    background-color: #a8b2af;
+    background-color: rgba(127, 141, 138, 0.94);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 0;
-    font-family: Garamond, Georgia;
-    padding-top: 18px;
-    padding-bottom: 18px;
+    -webkit-backdrop-filter: blur(10px) saturate(110%);
+    backdrop-filter: blur(10px) saturate(110%);
+    font-family: var(--font-display);
+    padding-top: 14px;
+    padding-bottom: 14px;
     padding-left: 12%;
     padding-right: 12%;
 }
 
 /* Navbar title */
 .navbar-brand {
-    color: white;
-    font-size: 26px;
-    font-weight: bold;
-    font-family: Georgia;
+    color: #fff;
+    font-family: var(--font-nav);
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     padding: 8px;
 }
 
 .nav-item {
-    color: white;
-    font-size: 24px;
+    position: relative;
     margin-left: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    transition: color 0.2s ease;
 }
-/* Navbar collapsed styles */
+
+/* A hairline draws in under the link on hover. */
+.nav-item::after {
+    content: "";
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.25rem;
+    left: 0.5rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus,
+.navbar .nav-item:hover,
+.navbar .nav-item:focus {
+    color: #f5e2ab;
+    text-decoration: none;
+}
+
+.nav-item:hover::after,
+.nav-item:focus::after {
+    transform: scaleX(1);
+}
+
+/* Navbar collapsed styles: a hairline box, outlined only for keyboard focus. */
 .navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
     color: #fff;
     fill: #fff;
     font-size: 16px;
@@ -38,9 +196,34 @@
     fill: #f5e2ab;
 }
 
-.navbar-nav {
-    font-family: Garamond, Georgia;
+.navbar-toggler:focus:not(:focus-visible) {
+    outline: none;
+}
 
+.navbar-nav {
+    font-family: var(--font-nav);
+}
+
+/* On small screens the open menu spans the full width under a hairline. */
+@media (max-width: 991.98px) {
+    .navbar .navbar-collapse {
+        flex-basis: 100%;
+        max-width: 100%;
+        margin-top: 12px;
+        padding: 8px 4%;
+        border-top: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .navbar .nav-item {
+        margin-left: 0;
+        padding: 10px 0;
+    }
+
+    .navbar .nav-item::after {
+        right: auto;
+        width: 2.5rem;
+        left: 0;
+    }
 }
 
 
@@ -411,7 +594,7 @@ color: gray;
 
 
 h6 {
-    font-family: Garamond, Georgia;
+    font-family: var(--font-display);
     color: #818181;
     font-size: 16px;
     font-weight: 500;
@@ -445,7 +628,9 @@ footer {
 
 body {
 
-    font-family: Garamond, Georgia;
+    font-family: var(--font-text);
+    /* Reforma defaults to old-style figures; lining ones sit at cap height. */
+    font-variant-numeric: lining-nums;
     background-color: #f7f1fa;
     color: #242424;
 }

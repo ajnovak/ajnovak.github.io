@@ -1,0 +1,19 @@
+project: Steamboat Springs Community Plan
+year:
+caption: A series of simple existing conditions maps for the Steamboat Springs Community Plan.
+link:
+format: print
+product: report
+symbolization: areas, choropleth, lines, points
+subject: land use, infrastructure, recreation
+purpose: planning
+employer: SE Group
+client: City of Steamboat Springs
+client_type: municipal
+image: steamboat-collage.jpg | Existing Conditions Map Series | all=no
+image: land-use.jpg | Land Use | symbolization=areas; subject=land use
+image: lot-coverage.jpg | Lot Coverage | symbolization=choropleth; subject=land use
+image: facilities.jpg | Public Facilities | symbolization=points; subject=infrastructure
+image: recreation.jpg | Recreation | symbolization=lines, areas, points; subject=recreation
+image: transportation.jpg | Transportation | symbolization=lines, points; subject=infrastructure
+image: utilities.jpg | Utilities | symbolization=lines, areas, points; subject=infrastructure
