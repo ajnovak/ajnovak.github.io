@@ -601,22 +601,6 @@ image: transportation.jpg | Transportation
 
 ---
 
-project: Burlington Great Streets
-folder: burlington-great-streets
-year:
-caption: An ArcGIS Experience Builder survey site and interactive map that gathered public input on street design priorities in Burlington.
-role: Built the survey and Experience Builder site, configuring the interactive map that residents used to submit feedback.
-link:
-product: interactive
-category: planning, interactive, outreach
-purpose: outreach, planning
-employer: SE Group
-client:
-tools: ArcGIS Experience Builder, ArcGIS Survey123, ArcGIS Online
-image: interactive-survey-map.jpg | Interactive Survey Map
-image: comment-sample.jpg | Comment Sample
----
-
 project: Lewis and Clark County Growth Policy
 folder: lewis-and-clark-growth-policy
 year:
@@ -818,6 +802,22 @@ employer: student
 client:
 tools: ArcGIS StoryMaps, ArcGIS Pro
 image: storymap-excerpt.png | StoryMap Excerpt
+---
+
+project: Burlington Great Streets
+folder: burlington-great-streets
+year:
+caption: An ArcGIS Experience Builder survey site and interactive map that gathered public input on street design priorities in Burlington.
+role: Built the survey and Experience Builder site, configuring the interactive map that residents used to submit feedback.
+link:
+product: interactive
+category: planning, interactive, outreach
+purpose: outreach, planning
+employer: SE Group
+client:
+tools: ArcGIS Experience Builder, ArcGIS Survey123, ArcGIS Online
+image: interactive-survey-map.jpg | Interactive Survey Map
+image: comment-sample.jpg | Comment Sample
 ---
 
 project: The Strewn Berry
