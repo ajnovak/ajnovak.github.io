@@ -7,6 +7,9 @@
     // least two different values across all projects. Chips follow "order";
     // a value not listed there goes after, alphabetically. "hints" become
     // the chip's hover text.
+    // Filters under which projects in that category alone come first.
+    var PURE_FIRST = ["design"];
+
     // One group, "category" in projects.txt: the old product and purpose
     // tags merged into a single row (with only one group, no tabs show).
     var FILTER_GROUPS = [
@@ -20,7 +23,7 @@
                 publication: "Books, articles, and survey publications",
                 outreach: "Public engagement and promotional maps",
                 wayfinding: "Signs, kiosks, and trail maps",
-                design: "Posters and art maps where the design leads"
+                design: "Design-led maps: illustrated, poster, and art maps, and branding"
             }
         }
     ];
@@ -353,6 +356,20 @@
 
         var total = projects.length;
         var matches = projects.filter(projectMatches);
+        // Under some filters (PURE_FIRST), projects in that category alone
+        // come before those that share it with others; each group keeps its
+        // projects.txt order.
+        PURE_FIRST.forEach(function (value) {
+            if (!selected.category || !selected.category.has(value)) {
+                return;
+            }
+            function pure(project) {
+                return project.category.length === 1 && project.category[0].toLowerCase() === value;
+            }
+            matches = matches.filter(pure).concat(matches.filter(function (project) {
+                return !pure(project);
+            }));
+        });
         matches.forEach(function (project) {
             grid.appendChild(buildCard(project));
         });
