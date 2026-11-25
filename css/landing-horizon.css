@@ -3066,6 +3066,65 @@ a.pf-map-card:focus-visible .pf-card-live {
         padding-right: var(--edge);
     }
 
+    /* The landing's links spread margin to margin, sized to the screen
+       so they fill it in one row. The last letter's spacing hangs past the
+       right margin, so Contact's C... T ends on it. */
+    .horizon-nav {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding: 0 var(--edge);
+    }
+
+    .horizon-link {
+        font-size: clamp(14px, 4.3vw, 19px);
+        letter-spacing: 0.12em;
+    }
+
+    .horizon-link:last-child {
+        margin-right: -0.12em;
+    }
+
+    /* The bar: no name and no menu button, just the three links, laid out
+       as on the landing, so each glides straight up into its place. The
+       name scrolls away with the landing. */
+    .navbar.horizon-navbar {
+        flex-wrap: nowrap;
+        padding-left: var(--edge);
+        padding-right: var(--edge);
+    }
+
+    .horizon-navbar .navbar-nav:has(> .navbar-brand),
+    .horizon-navbar .navbar-toggler {
+        display: none;
+    }
+
+    .horizon-navbar .navbar-collapse.collapse {
+        display: flex !important;
+        flex: 1 1 auto;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border-top: 0;
+    }
+
+    .horizon-navbar .navbar-collapse .navbar-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+    }
+
+    .horizon-navbar .nav-link {
+        padding-left: 0;
+        padding-right: 0;
+        font-size: clamp(14px, 4.3vw, 19px);
+        letter-spacing: 0.12em;
+    }
+
+    .horizon-navbar .nav-link:last-child {
+        margin-right: -0.12em;
+    }
+
     /* Headings start at the margin: no tick before the name. */
     :is(.resume-sheet, .pf-intro) .resume-h {
         padding-left: 0;
