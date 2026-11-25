@@ -540,6 +540,12 @@
                 if (last.landed !== (along >= 1)) {
                     last.landed = along >= 1;
                     navbar.classList.toggle("is-landed", last.landed);
+                    // Back up into the landing view, an open menu closes, so
+                    // its links don't hang over the landing's labels.
+                    var menu = document.getElementById("navbarNavDropdown");
+                    if (!last.landed && menu.classList.contains("show") && window.jQuery) {
+                        window.jQuery(menu).collapse("hide");
+                    }
                 }
                 // The leaders fade as their labels rise off them, gone by the
                 // bar, all but the active route's (see the CSS), which stays

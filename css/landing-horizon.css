@@ -3047,3 +3047,91 @@ a.pf-map-card:focus-visible .pf-card-live {
 .horizon-continue .pf-map-clip {
     cursor: default;
 }
+
+/* ---------- Phones: reading first ----------
+   On a phone the text gets the room: narrow side margins (the navbar's
+   too, since both sit on --edge), no tick marks leading into the headings,
+   the résumé's bullets on a shallow indent, and the filters plain and
+   centered, without their bridge symbols. */
+@media (max-width: 575.98px) {
+    :root {
+        --edge: 16px;
+    }
+
+    /* Lower than tall screens' -98px, so the first heading (Projects,
+       Education, Get in touch) sits on the light fog under the terrain. */
+    .horizon-continue .pf-page {
+        margin-top: -40px;
+        padding-left: var(--edge);
+        padding-right: var(--edge);
+    }
+
+    /* Headings start at the margin: no tick before the name. */
+    :is(.resume-sheet, .pf-intro) .resume-h {
+        padding-left: 0;
+    }
+
+    .resume-h::before {
+        content: none;
+    }
+
+    /* Bullets 22 units further left, text with them. */
+    .resume-items li {
+        padding-left: calc(24 * var(--u));
+    }
+
+    .resume-items li::before {
+        left: calc(6 * var(--u));
+    }
+
+    .resume-items .resume-major::before {
+        left: calc(2.7 * var(--u));
+    }
+
+    /* The first heading's dotted line runs unbroken: no trail x in it. */
+    .alt-view > .trail-resume-end {
+        display: none;
+    }
+
+    :is(.resume-sheet, .pf-intro) .resume-h:first-of-type::after {
+        -webkit-mask: var(--mask-dot1) repeat-x 0 50% / auto 100%;
+        mask: var(--mask-dot1) repeat-x 0 50% / auto 100%;
+    }
+
+    /* No coordinates; the rule over the Lab job runs to the edge. */
+    .resume-lat {
+        display: none;
+    }
+
+    .resume-entry + .resume-entry:has(> .resume-lat)::before {
+        right: 0;
+    }
+
+    /* About me, on the bullets' text. */
+    .resume-about {
+        padding-left: calc(24 * var(--u));
+    }
+
+    /* The filters: no bridges, each row centered. */
+    .pf-frame::before {
+        content: none;
+    }
+
+    .pf-filter-bar {
+        align-items: center;
+    }
+
+    .pf-intro .pf-frame,
+    .pf-intro .pf-tabs,
+    .horizon-continue .pf-intro .pf-chips {
+        justify-content: center;
+    }
+
+    .pf-intro .pf-frame {
+        padding: 0 0 calc(4 * var(--u));
+    }
+
+    .pf-intro .pf-status-row {
+        justify-content: center;
+    }
+}

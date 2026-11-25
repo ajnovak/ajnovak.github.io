@@ -199,6 +199,13 @@
 
     function layoutGrid(grid) {
         grid = grid || el("pf-grid");
+        // Clear the last layout's places first: a card placed in column 3
+        // keeps a narrowed grid three columns wide (implicit tracks), so the
+        // count below would never drop to the phone's one.
+        Array.prototype.forEach.call(grid.children, function (card) {
+            card.style.gridColumn = "";
+            card.style.gridRow = "";
+        });
         var styles = window.getComputedStyle(grid);
         var rowHeight = parseFloat(styles.gridAutoRows);
         var gap = parseFloat(styles.columnGap);
